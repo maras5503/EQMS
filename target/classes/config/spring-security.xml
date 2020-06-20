@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   		http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+			http://www.springframework.org/schema/security 
+			http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+	
+	<security:http pattern="/bootstrap/**" security="none" />
+	<security:http pattern="/datatables/**" security="none" />
+	<security:http pattern="/jqueryvalidation/**" security="none" />
+	<security:http pattern="/form/**" security="none" />
+	<security:http pattern="/icons/**" security="none" />
+	
+	<!-- This is where we configure Spring-Security  -->
+	<security:http auto-config="true" use-expressions="true" >
+	<security:access-denied-handler error-page="/auth/denied"/>
+
+		<security:intercept-url pattern="/main/admin" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/main/common" access="hasRole('ROLE_USER')"/>
+		
+		<security:intercept-url pattern="/auth/login" access="permitAll"/>
+		<security:intercept-url pattern="/auth/newUser" access="permitAll"/>
+		<security:intercept-url pattern="/auth/register" access="permitAll"/>
+		<security:intercept-url pattern="/auth/registerCheck" access="permitAll"/>
+		<security:intercept-url pattern="/auth/registrationConfirm" access="permitAll"/>
+		
+		<security:intercept-url pattern="/subjects/index" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/subjects/checkSubjectName" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/subjects/doAddSubjectAjax" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/subjects/doEditSubjectAjax" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/subjects/doDeleteSubjectAjax" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/subjects/askForAccessAjax" access="hasRole('ROLE_USER')"/>
+
+		<security:intercept-url pattern="/tests/index" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/tests/checkTestName" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/tests/checkGroupName" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/tests/checkContentOfQuestion" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/tests/checkContentOfAnswer" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/tests/doAddGroupAjax" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/tests/doAddQuestionAjax" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/tests/doAddAnswerAjax" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/tests/doEditTestAjax" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/tests/doEditGroupAjax" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/tests/doEditQuestionAjax" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/tests/doEditAnswerAjax" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/tests/doDeleteGroupAjax" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/tests/doDeleteQuestionAjax" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/tests/doDeleteAnswerAjax" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/tests/doDeleteTestAjax" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/tests/addTest" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/tests/editTest" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/tests/doAddTest" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/tests/getTestsBySubject" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/tests/getGroupsByTest" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/tests/getQuestionsByGroup" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/tests/getAnswersByQuestion" access="hasRole('ROLE_USER')"/>
+		
+		<security:intercept-url pattern="/import_export/index" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/import_export/getTestsBySubjectSelect" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/import_export/getExportFormByTestSelect" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/import_export/doExportAjax" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/import_export/doPreviewAjax" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/import_export/doImportAjax" access="hasRole('ROLE_USER')"/>
+		
+		<!-- NOTE: username-parameter by default is username, password-parameter by default is password !!! -->
+		<security:form-login
+				username-parameter="j_username"
+				password-parameter="j_password"
+				login-page="/auth/login" 
+				login-processing-url="/j_spring_security_check"
+				authentication-failure-url="/auth/login?error=true" 
+				default-target-url="/main/common"/> <!-- was /main/common -->
+			
+		<security:logout 
+				invalidate-session="true"
+				logout-success-url="/auth/login" 
+				logout-url="/auth/logout" /> 
+				
+		<!-- enable csrf protection -->
+        <security:csrf />
+        
+        <!-- enable remember me -->
+	    <security:remember-me
+	        token-validity-seconds="1209600"
+			remember-me-parameter="remember-me" 
+			data-source-ref="dataSource" />
+	
+	</security:http>
+	
+	<!-- Declare an authentication-manager to use a custom userDetailsService -->
+	<security:authentication-manager>
+	        <security:authentication-provider user-service-ref="customUserDetailsService">
+	        		<security:password-encoder ref="passwordEncoder"/>
+	        		<!-- Look at -> org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl -->
+	        		<!-- <security:jdbc-user-service id="userDetailsService" data-source-ref="dataSource"
+	        			users-by-username-query="SELECT e_mail, password, true as enabled FROM USERS WHERE e_mail=?"
+      				  	authorities-by-username-query="SELECT users.e_mail, user_roles.name FROM USER_ROLES user_roles, USERS users WHERE users.role_id=user_roles.role_id and users.e_mail=?" /> -->		
+	        </security:authentication-provider>
+	</security:authentication-manager>
+	
+	<!-- Use a SHA encoder since the user's passwords are stored as SHA in the database -->
+	<bean class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" id="passwordEncoder"/>
+	
+</beans>

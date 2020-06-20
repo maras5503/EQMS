@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>EQMS</display-name>
+
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<page-encoding>UTF-8</page-encoding>
+		</jsp-property-group>
+	</jsp-config>
+
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>MultipartFilter</filter-name>
+		<filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>MultipartFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- 
+		classpath:config/spring-database.xml
+		classpath:config/spring-security.xml
+		classpath:config/applicationContext.xml
+
+		/WEB-INF/spring-database.xml
+		/WEB-INF/spring-security.xml
+		/WEB-INF/applicationContext.xml
+	-->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+		classpath:config/spring-database.xml
+		classpath:config/spring-security.xml
+		classpath:config/applicationContext.xml
+		</param-value>
+	</context-param>
+
+	<servlet>
+		<servlet-name>spring</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+		<multipart-config>
+			<!-- maxFileSize: The maximum size allowed for uploaded files, in bytes. 
+				If the size of any uploaded file is greater than this size, the web container 
+				will throw an exception (IllegalStateException). The default size is unlimited. -->
+			<max-file-size>2097152</max-file-size>			<!-- 2097152 bytes = 2 MB -->
+			<!-- maxRequestSize: The maximum size allowed for a multipart/form-data 
+				request, in bytes. The web container will throw an exception if the overall 
+				size of all uploaded files exceeds this threshold. The default size is unlimited. -->
+			<max-request-size>10485760</max-request-size>	<!-- 10485760 bytes = 10 MB -->
+			<!-- fileSizeThreshold: The file size in bytes after which the file will 
+				be temporarily stored on disk. The default size is 0 bytes. -->
+			<file-size-threshold>5242880</file-size-threshold>	<!-- 5242880 bytes = 5 MB -->
+		</multipart-config>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+</web-app>
