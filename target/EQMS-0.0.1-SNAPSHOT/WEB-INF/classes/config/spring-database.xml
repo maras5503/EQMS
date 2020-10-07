@@ -13,7 +13,7 @@
 		destroy-method="close">
 
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/exam_questions_5" />
+		<property name="url" value="jdbc:mysql://localhost:3306/exam_questions_5? useUnicode=true&amp;characterEncoding=UTF-8" />
 		<property name="username" value="root" />
 		<property name="password" value="root" />
 	</bean>
