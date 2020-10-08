@@ -40,13 +40,14 @@ public class Test implements java.io.Serializable {
 	private String createdBy;
 	private Date modificationDate;
 	private String modifiedBy;
+	private Boolean enabled;
 	private Set<GroupOfQuestions> groupsOfQuestionses = new HashSet<GroupOfQuestions>(0);
 
 	public Test() {
 	}
 
 	public Test(SetOfRating setsOfRating, Subject subjects, String testName, int timeForTest, int numberOfGroups,
-			int numberOfQuestions, Date creationDate, String createdBy) {
+			int numberOfQuestions, Date creationDate, String createdBy, boolean enabled) {
 		this.setsOfRating = setsOfRating;
 		this.subjects = subjects;
 		this.testName = testName;
@@ -55,11 +56,12 @@ public class Test implements java.io.Serializable {
 		this.numberOfQuestions = numberOfQuestions;
 		this.creationDate = creationDate;
 		this.createdBy = createdBy;
+		this.enabled = enabled;
 	}
 
 	public Test(SetOfRating setsOfRating, Subject subjects, String testName, int timeForTest, int numberOfGroups,
 			int numberOfQuestions, Date creationDate, String createdBy, Date modificationDate, String modifiedBy,
-			Set<GroupOfQuestions> groupsOfQuestionses) {
+				boolean enabled, Set<GroupOfQuestions> groupsOfQuestionses) {
 		this.setsOfRating = setsOfRating;
 		this.subjects = subjects;
 		this.testName = testName;
@@ -70,6 +72,7 @@ public class Test implements java.io.Serializable {
 		this.createdBy = createdBy;
 		this.modificationDate = modificationDate;
 		this.modifiedBy = modifiedBy;
+		this.enabled = enabled;
 		this.groupsOfQuestionses = groupsOfQuestionses;
 	}
 
@@ -177,6 +180,16 @@ public class Test implements java.io.Serializable {
 	public void setModifiedBy(String modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
+
+	@Column(name = "ENABLED", nullable = false)
+	public boolean isEnabled() {
+		return this.enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tests")
 	public Set<GroupOfQuestions> getGroupsOfQuestionses() {

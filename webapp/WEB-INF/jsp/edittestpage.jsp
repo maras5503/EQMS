@@ -13,7 +13,14 @@
         		<label for="testName" class="col-sm-3 control-label" style="padding-top: 7px; margin-bottom: 0px; text-align: right;">Test name:</label>
 				<label class="col-sm-5 control-label" id="testName" style="padding-top: 7px; margin-bottom: 0px; text-align: left;">${test.testName}</label>
 				<div class="col-sm-4" style="text-align: right;">
-					<button type="button" class="btn btn-primary btn-sm" id="enableBtn" name="enableBtn" data-toggle="modal"  style="margin-right: 5px;"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Enable test</button>
+                    <c:choose>
+                        <c:when test="${test.enabled ==false}">
+                            <button type="button" class="btn btn-primary btn-sm" id="enableBtn" name="enableBtn" data-toggle="modal"  style="margin-right: 5px;"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Enable test</button>
+                        </c:when>
+                        <c:otherwise>
+                            <button type="button" class="btn btn-danger btn-sm" id="disableBtn" name="disableBtn" data-toggle="modal"  style="margin-right: 5px;"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Disable test</button>
+                        </c:otherwise>
+                    </c:choose>
 					<button type="button" class="btn btn-success btn-sm" id="addGroupBtn" name="addGroupBtn" data-toggle="modal" data-target="#addGroupModal" data-test-reference="${test.testId}" style="margin-right: 5px;"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add new group</button>
 					<button type="button" class="btn btn-info btn-sm" id="editTestBtn" name="editTestBtn" data-toggle="modal" data-target="#editTestModal" data-test-name="${test.testName}" data-time-for-test="${test.timeForTest}" data-mark2="${set.mark2}" data-mark3="${set.mark3}" data-mark3_5="${set.mark3_5}" data-mark4="${set.mark4}" data-mark4_5="${set.mark4_5}" data-mark5="${set.mark5}" data-subject-reference="${subject.subjectId}" data-test-reference="${test.testId}" data-set-reference="${set.setId}" style="margin-right: 5px;"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</button>
 				</div>
