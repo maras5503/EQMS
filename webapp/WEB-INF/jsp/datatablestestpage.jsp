@@ -90,7 +90,10 @@ Current Locale : ${pageContext.response.locale}
 							'<td>${group.groupName}</td>'+
 							'<td>${group.numberOfQuestions}</td>'+
 							'<td>'+
-								'<a href="#" class="btn btn-info btn-block btn-sm" role="button"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>'+
+							'<a href="#" class="btn btn-info btn-block btn-sm" role="button"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</a>'+
+							'</td>'+
+							'<td>'+
+								'<a href="#" class="btn btn-info btn-block btn-sm" role="button"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Enable</a>'+
 							'</td>'+
 							'<td>'+
 								'<a href="#" class="btn btn-danger btn-block btn-sm" role="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</a>'+
