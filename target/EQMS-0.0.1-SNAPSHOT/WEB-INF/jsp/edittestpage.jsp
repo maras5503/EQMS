@@ -14,8 +14,8 @@
 				<label class="col-sm-5 control-label" id="testName" style="padding-top: 7px; margin-bottom: 0px; text-align: left;">${test.testName}</label>
 				<div class="col-sm-4" style="text-align: right;">
                     <c:choose>
-                        <c:when test="${test.enabled ==true}">
-                            <button type="button" class="btn btn-primary btn-sm" id="enableBtn" name="enableBtn" data-toggle="modal"  style="margin-right: 5px;"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Enable test</button>
+                        <c:when test="${test.enabled ==false}">
+                            <button type="button" class="btn btn-primary btn-sm" id="enableTestBtn" name="enableTestBtn" data-toggle="modal" data-target="#confirmEnableTest" data-title="Enable Test" data-message="Are you sure you want to enable test '${test.testName}'?" data-test-reference="${test.testId}" style="margin-right: 5px;"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Enable test</button>
                         </c:when>
                         <c:otherwise>
                             <button type="button" class="btn btn-danger btn-sm" id="disableBtn" name="disableBtn" data-toggle="modal"  style="margin-right: 5px;"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Disable test</button>
@@ -238,6 +238,29 @@
 			</div>
 		</div>
 	</div>
+</div>
+
+<div class="modal fade" id="confirmEnableTest" tabindex="-1" role="dialog" aria-labelledby="confirmEnableTestLabelModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="confirmEnableTestTitleModal">Enable test</h4>
+            </div>
+            <div class="modal-body">
+                <form action="<c:url value="/tests/doEnableTestAjax"/>" method="POST" id="enableTestFormModal" >
+                    <div class="form-group" id="confirmEnableTestLabel">
+                    </div>
+                    <input type="hidden" name="testReference" id="testReference" />
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="confirmEnableTestBtnModal">Enable</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="addQuestionModal" tabindex="-1" role="dialog" aria-labelledby="addQuestionLabelModal">
@@ -1247,7 +1270,61 @@
    
 		$('#deleteGroupFormModal').submit();
  	});
-	
+
+
+    /***************************************************************************************/
+    /************ Adding validation and handling events for "confirmEnableTest" ***********/
+    /***************************************************************************************/
+
+    var validatorEnableTest = $('#enableTestFormModal').validate({
+        submitHandler: function(form) {
+            console.log("***** submitHandler *****");
+
+            $.ajax({
+                url: URLWithContextPath + "/tests/doEnableTestAjax",
+                data: $(form).serialize(),
+                type: "POST",
+                success: function(data) {
+                    console.log("***** AJAX CALL *****");
+                    console.log("Status: " + data.status);
+                    console.log("Result: " + data.result);
+
+                    $("#confirmEnableTest").modal('hide');
+                    location.reload(true);
+
+                    console.log("data.result.testDiv = " + data.result.testDiv);
+                    $("#testDiv").find(data.result.testDiv).update();
+
+                }
+            });
+        }
+    });
+
+    $('#testDiv').on('click', '#enableTestBtn', function(e) {
+        console.log("$('#testDiv').on('click', '#enableTestBtn')");
+    });
+
+    $('#confirmEnableTest').on('show.bs.modal', function (event) {
+        console.log("$('#confirmEnableTest').on('show.bs.modal')");
+
+        var button = $(event.relatedTarget);
+        var testId = button.data('test-reference');
+        var message = button.data('message');
+
+        $(this).find('.modal-body #testReference').val(testId);
+        $(this).find('.modal-body #confirmEnableTestLabel').text(message);
+    });
+
+    $('#confirmEnableTest .modal-footer #confirmEnableTestBtnModal').on('click', function(){
+        console.log("$('#confirmEnableTest .modal-footer #confirmEnableTestBtnModal').on('click')");
+
+        $("#confirmEnableTest").modal('hide');
+
+        $('#enableTestFormModal').submit();
+
+    });
+
+
 	/***************************************************************************************/
 	/************** Adding validation and handling events for "addAnswerModal" *************/
 	/***************************************************************************************/

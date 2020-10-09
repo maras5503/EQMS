@@ -951,6 +951,42 @@ public class TestController {
 		
 		return response;
 	}
+
+	/**
+	 * Enable test and creates HTML code which updates JSP after removing group.
+	 *
+	 * @param testId the test identifier
+	 * @return JSON response which contains HTML code which updates JSP after removing group
+	 */
+	@RequestMapping(value = "/doEnableTestAjax", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse doEnableTestGroup(@RequestParam(value="testReference") Integer testId) {
+
+		logger.debug("Start enabling test ...");
+		logger.debug("Received request with:");
+		logger.debug("\ttestId = " + testId);
+
+		// Update test
+		Test test = getTestService().getTestByTestId(testId);
+		test.setEnabled(true);
+
+		// Delete group from database (cascade deleting)
+		logger.debug("Start enabling the test");
+		getTestService().updateTest(test);
+
+		// Create JSON response
+		JsonResponse response = new JsonResponse();
+		Map<String, Object> enableTestParameters = new HashMap<String, Object>();
+
+		enableTestParameters.put("testDiv", testId);
+		enableTestParameters.put("testIsEnabled", test.isEnabled());
+
+
+
+		response.setStatus("SUCCESS");
+		response.setResult(enableTestParameters);
+
+		return response;
+	}
 	
 	/**
 	 * Removes question from database and creates HTML code which updates JSP after removing question.
