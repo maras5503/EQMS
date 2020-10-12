@@ -148,6 +148,8 @@
 				  <li><a href="<c:url value="/subjects/index"/>">Subjects</a></li>
 				  <li><a href="<c:url value="/tests/index"/>">Tests</a></li>
 				  <!-- <li><a href="<c:url value="/subjects/datatables_test"/>">Datatables</a></li> -->   <!-- language test here -->
+                  <li><a href="<c:url value="/groups/index"/>">Groups</a><li>
+                  <li><a href="<c:url value="/students/index"/>">Students</a><li>
 				  <li><a href="<c:url value="/import_export/index"/>">Import / Export</a><li>
 		  	    </sec:authorize>	
 			  

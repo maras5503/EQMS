@@ -2,7 +2,8 @@
 		<br>
 		
 		<footer>
-        	<p align="center">&copy; 2015-2016 Adrian Wojtasik - Praca dyplomowa</p>
+        	<!--<p align="center">&copy; 2015-2016 Adrian Wojtasik - Praca dyplomowa</p>-->
+			<p align="center">&copy; 2020-2021 Marek Tomczak - Praca dyplomowa</p>
       	</footer>
 	
 	</div>
