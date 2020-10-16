@@ -6,9 +6,7 @@
     <session-factory>
         <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.password">root</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/exam_questions_5</property>
-        <property name="hibernate.connection.username">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.search.autoregister_listeners">false</property>
         <property name="hibernate.validator.apply_to_ddl">false</property>
@@ -23,5 +21,6 @@
         <mapping class="Subjects" />
         <mapping class="SetsOfRating" />
         <mapping class="Tests" />
+        <mapping class="GroupsOfStudents"/>
     </session-factory>
 </hibernate-configuration>

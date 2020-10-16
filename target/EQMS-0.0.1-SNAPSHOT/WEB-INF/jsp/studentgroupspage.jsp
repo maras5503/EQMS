@@ -25,17 +25,13 @@
                         <tr class="success">
                             <th style="width: 50%;">GROUP NAME</th>
                             <th style="border-right-width: 0px;"></th>
-                            <th style="border-right-width: 0px;"></th>
                             <th style="border-right-width: 0px;"></th> <!-- style="empty-cells: hide" -->
                         </tr>
                         </thead>
                         <tbody>
-                        <!-- Auxiliary value that determines whether the current object belongs to a given user -->
-
-                        <c:forEach var="studentgroup" items="${allStudentGroupsModel}">
-
-                            <tr class="success" id="${studentgroup.studentGroupId}">
-                                <td><c:out value="${studentgroup.studentGroupName}" /></td>
+                        <c:forEach items="${allStudentGroupsModel}" var="studentgroup">
+                            <tr class="success" id="${studentgroup.studentgroupId}">
+                                    <td><c:out value="${studentgroup.studentgroupName}"/></td>
 
                                     <td>
                                         <button type="button" class="btn btn-info btn-block btn-sm" id="editStudentGroupBtn" name="editStudentGroupBtn" data-toggle="modal" data-target="#editStudentGroupModal" data-studentgroup-name="${studentgroup.studentGroupName}" data-studentgroup-reference="${studentgroup.studentGroupId}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit name</button>
@@ -45,8 +41,9 @@
                                     </td>
 
                             </tr>
-
                         </c:forEach>
+
+
                         </tbody>
                     </table>
                 </div>
@@ -136,3 +133,277 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    /*************************************************************/
+    /*************** Configuring DataTable options ***************/
+    /*************************************************************/
+    /*
+        paging    	-> Enable or disable table pagination
+        searching	-> Feature control search (filtering) abilities
+        ordering  	-> Feature control ordering (sorting) abilities in DataTables
+        lengthMenu 	-> Change the options in the page length select list
+        pageLength 	-> Change the initial page length (number of rows per page)
+        columns.orderable	-> Enable or disable ordering on this column
+    */
+
+    $('#studentgroups_table').DataTable( {
+        "paging": true,
+        "searching": true,
+        "ordering":  true,
+        "lengthMenu": [ [5, 10, 25, 50, -1], [5, 10, 25, 50, "All"] ],
+        "pageLength": 10,
+        "columns": [
+            null,
+            { "orderable": false },
+            { "orderable": false }
+
+        ],
+        "language": {
+            "info": "Showing _START_ to _END_ of _TOTAL_ groups",		// default is: Showing _START_ to _END_ of _TOTAL_ entries
+            "infoEmpty": "Showing 0 to 0 of 0 groups", 				// default is: Showing 0 to 0 of 0 entries
+            "infoFiltered": "(filtered from _MAX_ total groups)",		// default is: (filtered from _MAX_ total entries)
+            "lengthMenu": "Show _MENU_ groups"						// default is: Show _MENU_ entries
+        }
+    } );
+
+    /**************************************************************/
+    /*** Adding validation and handling events for "addStudentGroup" ***/
+    /**************************************************************/
+
+    jQuery.validator.addMethod("checkStudentGroupName", function(value, element) {
+        var isSuccess = false;
+        console.log("isSuccess value before ajax call = " + isSuccess.toString());
+
+        var data = {};
+        data[csrfParameter] = csrfToken;
+        data["studentgroupName"] = value;
+
+        console.log("studentgroupName value = " + value);
+
+        $.ajax({
+            url: URLWithContextPath + "/groups_of_students/checkStudentGroupsName",
+            type: "POST",
+            async: false,
+            data: data,
+            success: function(data) {
+                console.log("Data in response: " + data);
+                isSuccess = data === "SUCCESS" ? true : false;
+                console.log("isSuccess value after retrieving response = " + isSuccess.toString());
+            }
+        });
+
+        console.log("isSuccess value before return statement = " + isSuccess.toString());
+        return isSuccess;
+    }, "This group already exists! Please enter another group name.");
+
+    var validatorAddStudentGroup = $("#addStudentGroupFormModal").validate({
+        rules: {
+            studentGroupNameModal: {
+                required: true,
+                maxlength: 200,
+                checkStudentGroupName: true
+            }
+        },
+        messages: {
+            studentGroupNameModal: {
+                required: "Group name text field is required.",
+                maxlength: "Given group name is too long, please change it."
+            }
+        },
+        highlight: function(event) {
+            $(event).closest('.form-group').find('.form-control-feedback').addClass('glyphicon glyphicon-remove');
+            $(event).closest('.form-group').addClass('has-error has-feedback');
+        },
+        unhighlight: function(event) {
+            $(event).closest('.form-group').find('.form-control-feedback').removeClass('glyphicon glyphicon-remove');
+            $(event).closest('.form-group').removeClass('has-error has-feedback');
+        },
+        submitHandler: function(form) {
+            console.log("********* submitHandler *********");
+
+            $.ajax({
+                url: URLWithContextPath + "/groups_of_students/doAddStudentGroupAjax",
+                data: $(form).serialize(),
+                type: "POST",
+                success: function(data) {
+                    console.log("********* AJAX CALL *********");
+                    console.log("Status: " + data.status);
+                    console.log("Result: " + data.result);
+
+                    var groupsofstudentsTableDT = $('#groupsofstudents_table').DataTable();
+                    var rowNode = groupsofstudentsTableDT.row.add( [
+                        data.result.studentgroupName,
+                        data.result.editStudentGroup,
+                        data.result.deleteStudentGroup
+                    ] ).draw( false ).node();
+
+                    $(rowNode).addClass("success");
+                    $(rowNode).attr("id", data.result.studentgroupId);
+
+                    $("#addStudentGroupModal").modal('hide');
+                }
+            });
+        }
+    });
+
+    $('#addStudentGroupBtn').on('click', function() {
+        console.log("$('#addStudentGroupBtn').on('click')");
+    });
+
+    $('#addStudentGroupModal').on('show.bs.modal', function(event) {
+        console.log("$('#addStudentGroupModal').on('show.bs.modal')");
+    });
+
+    $('#addStudentGroupModal').on('hide.bs.modal', function(event) {
+        console.log("$('#addStudentGroupModal').on('hide.bs.modal')");
+
+        validatorAddStudentGroup.resetForm();
+    });
+
+    $('#addStudentGroupModal .modal-footer #addStudentGroupBtnModal').on('click', function(event) {
+        console.log("$('#addStudentGroupModal .modal-footer #addStudentGroupBtnModal').on('click')");
+
+        $('#addStudentGroupFormModal').submit();
+    });
+
+    /***************************************************************/
+    /*** Adding validation and handling events for "editStudentGroup" ***/
+    /***************************************************************/
+
+    var validatorEditStudentGroup = $("#editStudentGroupFormModal").validate({
+        rules: {
+            studentGroupNameModal: {
+                required: true,
+                maxlength: 200,
+                checkStudentGroupName: true
+            }
+        },
+        messages: {
+            studentGroupNameModal: {
+                required: "Group name text field is required.",
+                maxlength: "Given group name is too long, please change it."
+            }
+        },
+        highlight: function(event) {
+            $(event).closest('.form-group').find('.form-control-feedback').addClass('glyphicon glyphicon-remove');
+            $(event).closest('.form-group').addClass('has-error has-feedback');
+        },
+        unhighlight: function(event) {
+            $(event).closest('.form-group').find('.form-control-feedback').removeClass('glyphicon glyphicon-remove');
+            $(event).closest('.form-group').removeClass('has-error has-feedback');
+        },
+        submitHandler: function(form) {
+            console.log("********* submitHandler *********");
+
+            $.ajax({
+                url: URLWithContextPath + "/groups_of_students/doEditStudentGroupAjax",
+                data: $(form).serialize(),
+                type: "POST",
+                success: function(data) {
+                    console.log("********* AJAX CALL *********");
+                    console.log("Status: " + data.status);
+                    console.log("Result: " + data.result);
+
+                    var studentgroupId = $("#editStudentGroupModal").find('.modal-body #studentGroupReference').val();
+                    var studentGroupsTable = $('#studentgroups_table');
+                    var studentGroupsRow = studentGroupssTable.find('#' + studentgroupId);
+
+                    // returns DataTables API instance with selected row in the result set
+                    var studentGroupRowDT = studentGroupsTable.DataTable().row(studentGroupRow);
+
+                    var cellsData = studentGroupRowDT.data();
+                    cellsData[0] = data.result.studentgroupName;
+                    cellsData[1] = data.result.editStudentGroup;
+                    cellsData[2] = data.result.deleteStudentGroup;
+                    studentGroupRowDT.data(cellsData);
+
+                    $("#editStudentGroupModal").modal('hide');
+                }
+            });
+        }
+    });
+
+    $('#studentgroups_table #editStudentGroupBtn').on('click', function() {
+        console.log("$('#studentgroups_table #editStudentGroupBtn').on('click')");
+    });
+
+    $('#editStudentGroupModal').on('show.bs.modal', function(event) {
+        console.log("$('#editStudentGroupModal').on('show.bs.modal')");
+
+        var button = $(event.relatedTarget);
+        var studentgroupId = button.data('studentgroup-reference');
+        var studentgroupName = button.data('studentgroup-name');
+
+        $(this).find('.modal-body #studentGroupReference').val(studentgroupId);
+        $(this).find('.modal-body #studentGroupNameModal').val(studentgroupName);
+    });
+
+    $('#editStudentGroupModal').on('hide.bs.modal', function(event) {
+        console.log("$('#editStudentGroupModal').on('hide.bs.modal')");
+
+        $(this).find('.modal-body #studentGroupReference').val("");
+
+        validatorEditStudentGroup.resetForm();
+    });
+
+    $('#editStudentGroupModal .modal-footer #editStudentGroupBtnModal').on('click', function(event) {
+        console.log("$('#editStudentGroupModal .modal-footer #editStudentGroupBtnModal').on('click')");
+
+        $('#editStudentGroupFormModal').submit();
+    });
+
+    /*****************************************************************/
+    /*** Adding validation and handling events for "deleteStudentGroup" ***/
+    /*****************************************************************/
+
+    var validatorDeleteGroup = $('#deleteStudentGroupFormModal').validate({
+        submitHandler: function(form) {
+            console.log("********* submitHandler *********");
+
+            $.ajax({
+                url: URLWithContextPath + "/groups_of_students/doDeleteStudentsGroupAjax",
+                data: $(form).serialize(),
+                type: "POST",
+                success: function(data) {
+                    console.log("********* AJAX CALL *********");
+                    console.log("Status: " + data.status);
+                    console.log("Result: " + data.result);
+
+                    var studentgroupId = $("#confirmDeleteStudentGroup").find('.modal-body #studentGroupReference').val();
+                    var studentGroupsTable = $('#studentgroups_table');
+                    var studentGroupRow = studenGroupsTable.find('#' + studentgroupId);
+
+                    // returns DataTables API instance with selected row in the result set
+                    var studentGroupRowDT = studentGroupsTable.DataTable().row(studentGroupRow);
+                    studentGroupRowDT.remove().draw();
+
+                    $("#confirmDeleteStudentGroup").modal('hide');
+                }
+            });
+        }
+    });
+
+    $('#studentgroups_table #deleteStudentGroupBtn').on('click', function() {
+        console.log("$('#studentgroups_table #deleteStudentGroupBtn').on('click')");
+    });
+
+    $('#confirmDeleteStudentGroup').on('show.bs.modal', function (event) {
+        console.log("$('#confirmDeleteStudentGroup').on('show.bs.modal')");
+
+        var button = $(event.relatedTarget);
+        var studentgroupId = button.data('studentgroup-reference');
+        var message = button.data('message');
+
+        $(this).find('.modal-body #studentGroupReference').val(studentgroupId);
+        $(this).find('.modal-body #confirmDeleteStudentGroupLabel').text(message);
+    });
+
+    $('#confirmDeleteStudentGroup .modal-footer #confirmDeleteStudentGroupBtnModal').on('click', function(){
+        console.log("$('#confirmDeleteStudentGroup .modal-footer #confirmDeleteStudentGroupBtnModal').on('click')");
+
+        $('#deleteStudentGroupFormModal').submit();
+    });
+
+</script>
+
+<%@ include file="partials/footer.jsp" %>

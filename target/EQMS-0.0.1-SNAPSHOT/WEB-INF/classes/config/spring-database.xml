@@ -26,6 +26,7 @@
 			<list>
 				<value>com.eqms.model.Answer</value>
 				<value>com.eqms.model.GroupOfQuestions</value>
+				<value>com.eqms.model.GroupsOfStudents</value>
 				<value>com.eqms.model.Picture</value>
 				<value>com.eqms.model.Question</value>
 				<value>com.eqms.model.SetOfRating</value>
