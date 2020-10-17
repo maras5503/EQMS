@@ -3,8 +3,9 @@ package com.eqms.model;
 import javax.persistence.*;
 import java.util.Objects;
 
+
 @Entity
-@Table(name = "groups_of_students", schema = "exam_questions_5", catalog = "")
+@Table(name = "groups_of_students", catalog = "exam_questions_5")
 public class GroupsOfStudents implements java.io.Serializable {
     private Integer studentgroupId;
     private String studentgroupName;

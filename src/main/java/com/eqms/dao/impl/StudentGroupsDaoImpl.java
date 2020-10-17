@@ -23,6 +23,7 @@ public class StudentGroupsDaoImpl implements StudentGroupsDao {
     @Override
     public void addStudentGroup(GroupsOfStudents groupsOfStudents) {
         // Adding new group to database
+        groupsOfStudents.setStudentgroupId(0);
         getSessionFactory().getCurrentSession().save(groupsOfStudents);
 
         // Finding added group

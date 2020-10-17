@@ -11,5 +11,21 @@
       <user-name>root</user-name>
       <introspection-schemas>*:exam_questions_5</introspection-schemas>
     </data-source>
+    <data-source name="dataSource" uuid="78a41429-60ab-4d76-b182-ae5f1d8de5d1">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+      <user-name>root</user-name>
+    </data-source>
+    <data-source name="hibernate:hibernate_generation_code.cfg.xml/Hibernate" uuid="aa241df9-afdf-44cf-a351-512cf60c706a">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+      <user-name>root</user-name>
+    </data-source>
+    <data-source name="hibernate:hibernate.cfg.xml/Hibernate" uuid="357b0087-e44d-46bc-9324-0204ecd10364">
+      <database-info product="MySQL" version="5.5.5-10.4.8-MariaDB" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.47 ( Revision: fe1903b1ecb4a96a917f7ed3190d80c049b1de29 )" dbms="MARIADB" exact-version="10.4.8" exact-driver-version="5.1">
+        <extra-name-characters>#@</extra-name-characters>
+        <identifier-quote-string>`</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
+      <introspection-schemas>*:@</introspection-schemas>
+    </data-source>
   </component>
 </project>

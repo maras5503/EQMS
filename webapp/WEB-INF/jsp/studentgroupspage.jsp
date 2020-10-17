@@ -1,4 +1,5 @@
 <%@ include file="partials/header.jsp" %>
+
 <div class="row">
 
     <div class="col-sm-12">
@@ -12,7 +13,7 @@
                     </div>
 
                     <div id="addStudentGroup" class="pull-right" >
-                        <button type="button" class="btn btn-success" id="addStudentGroupBtn" name="addStudentGroupBtn" style="margin-top: 20px; margin-bottom: 10px;" data-toggle="modal" data-target="#addStudenGroupModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add new group</button>
+                        <button type="button" class="btn btn-success" id="addStudentGroupBtn" name="addStudentGroupBtn" style="margin-top: 20px; margin-bottom: 10px;" data-toggle="modal" data-target="#addStudentGroupModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add new group</button>
                     </div>
 
                     <div class="clearfix"></div>
@@ -23,27 +24,27 @@
                     <table class="table table-bordered" id="studentgroups_table">
                         <thead>
                         <tr class="success">
-                            <th style="width: 50%;">GROUP NAME</th>
+                            <th style="width: 35%;">GROUP NAME</th>
                             <th style="border-right-width: 0px;"></th>
                             <th style="border-right-width: 0px;"></th> <!-- style="empty-cells: hide" -->
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${allStudentGroupsModel}" var="studentgroup">
+                        <c:forEach var="studentgroup" items="${allStudentGroupsModel}">
+                            
                             <tr class="success" id="${studentgroup.studentgroupId}">
-                                    <td><c:out value="${studentgroup.studentgroupName}"/></td>
-
+                                <td><c:out value="${studentgroup.studentgroupName}" /></td>
+                            
                                     <td>
-                                        <button type="button" class="btn btn-info btn-block btn-sm" id="editStudentGroupBtn" name="editStudentGroupBtn" data-toggle="modal" data-target="#editStudentGroupModal" data-studentgroup-name="${studentgroup.studentGroupName}" data-studentgroup-reference="${studentgroup.studentGroupId}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit name</button>
+                                        <button type="button" class="btn btn-info btn-block btn-sm" id="editStudentGroupBtn" name="editStudentGroupBtn" data-toggle="modal" data-target="#editStudentGroupModal" data-studentgroup-name="${studentgroup.studentgroupName}" data-studentgroup-reference="${studentgroup.studentgroupId}"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</button>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-danger btn-block btn-sm" id="deleteStudentGroupBtn" name="deleteStudentGroupBtn" data-toggle="modal" data-target="#confirmDeleteStudentGroup" data-title="Delete Group" data-message="Are you sure you want to delete group '${studentgroup.studentGroupName}'?" data-studentgroup-reference="${studentgroup.studentGroupId}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete</button>
+                                        <button type="button" class="btn btn-danger btn-block btn-sm" id="deleteStudentGroupBtn" name="deleteStudentGroupBtn" data-toggle="modal" data-target="#confirmDeleteStudentGroup" data-title="Delete Group" data-message="Are you sure you want to delete group '${studentgroup.studentgroupName}'?" data-studentgroup-reference="${studentgroup.studentgroupId}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete</button>
                                     </td>
-
                             </tr>
+
+                            
                         </c:forEach>
-
-
                         </tbody>
                     </table>
                 </div>
@@ -65,9 +66,9 @@
                 <h4 class="modal-title" id="addStudentGroupTitleModal">Add new group</h4>
             </div>
             <div class="modal-body">
-                <form action="<c:url value="/studentgroups/doAddStudentGroup"/>" method="POST" id="addStudentGroupFormModal">
+                <form action="<c:url value="/groups_of_students/doAddStudentGroupAjax"/>" method="POST" id="addStudentGroupFormModal">
                     <div class="form-group">
-                        <label for="studentGroupNameModal" class="control-label">Name:</label>
+                        <label for="studentGroupNameModal" class="control-label">Group:</label>
                         <input type="text" class="form-control" id="studentGroupNameModal" name="studentGroupNameModal" placeholder="Group name" maxlength="100" aria-describedby="inputAddStudentGroupError">
                         <span id="glyphiconErrorAddStudentGroup" class="form-control-feedback" aria-hidden="true"></span>
                         <span id="inputAddStudentGroupError" class="sr-only">(error)</span>
@@ -91,7 +92,7 @@
                 <h4 class="modal-title" id="editStudentGroupTitleModal">Edit group</h4>
             </div>
             <div class="modal-body">
-                <form action="<c:url value="/studentgroups/doEditStudentGroup"/>" method="POST" id="editStudentGroupFormModal">
+                <form action="<c:url value="/groups_of_students/doEditStudentGroupAjax"/>" method="POST" id="editStudentGroupFormModal">
                     <div class="form-group">
                         <label for="studentGroupNameModal" class="control-label">Group:</label>
                         <input type="text" class="form-control" id="studentGroupNameModal" name="studentGroupNameModal" placeholder="Group name" maxlength="100" aria-describedby="inputEditStudentGroupError">
@@ -110,30 +111,9 @@
     </div>
 </div>
 
-<div class="modal fade" id="confirmDeleteStudentGroup" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteStudentGroupLabelModal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="confirmDeleteStudentGroupTitleModal">Delete group</h4>
-            </div>
-            <div class="modal-body">
-                <form action="<c:url value="/studentgroups/doDeleteStudentGroup"/>" method="POST" id="deleteStudentGroupFormModal" >
-                    <div class="form-group" id="confirmDeleteStudentGroupLabel">
-                    </div>
-                    <input type="hidden" name="studentGroupReference" id="studentGroupReference" />
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" id="confirmDeleteStudentGroupBtnModal">Delete</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script type="text/javascript">
+
     /*************************************************************/
     /*************** Configuring DataTable options ***************/
     /*************************************************************/
@@ -156,18 +136,17 @@
             null,
             { "orderable": false },
             { "orderable": false }
-
         ],
         "language": {
-            "info": "Showing _START_ to _END_ of _TOTAL_ groups",		// default is: Showing _START_ to _END_ of _TOTAL_ entries
-            "infoEmpty": "Showing 0 to 0 of 0 groups", 				// default is: Showing 0 to 0 of 0 entries
-            "infoFiltered": "(filtered from _MAX_ total groups)",		// default is: (filtered from _MAX_ total entries)
-            "lengthMenu": "Show _MENU_ groups"						// default is: Show _MENU_ entries
+            "info": "Showing _START_ to _END_ of _TOTAL_ subjects",		// default is: Showing _START_ to _END_ of _TOTAL_ entries
+            "infoEmpty": "Showing 0 to 0 of 0 subjects", 				// default is: Showing 0 to 0 of 0 entries
+            "infoFiltered": "(filtered from _MAX_ total subjects)",		// default is: (filtered from _MAX_ total entries)
+            "lengthMenu": "Show _MENU_ subjects"						// default is: Show _MENU_ entries
         }
     } );
 
     /**************************************************************/
-    /*** Adding validation and handling events for "addStudentGroup" ***/
+    /*** Adding validation and handling events for "addSubject" ***/
     /**************************************************************/
 
     jQuery.validator.addMethod("checkStudentGroupName", function(value, element) {
@@ -181,7 +160,7 @@
         console.log("studentgroupName value = " + value);
 
         $.ajax({
-            url: URLWithContextPath + "/groups_of_students/checkStudentGroupsName",
+            url: URLWithContextPath + "/groups_of_students/checkStudentGroupName",
             type: "POST",
             async: false,
             data: data,
@@ -206,8 +185,8 @@
         },
         messages: {
             studentGroupNameModal: {
-                required: "Group name text field is required.",
-                maxlength: "Given group name is too long, please change it."
+                required: "Subject name text field is required.",
+                maxlength: "Given subject name is too long, please change it."
             }
         },
         highlight: function(event) {
@@ -230,8 +209,8 @@
                     console.log("Status: " + data.status);
                     console.log("Result: " + data.result);
 
-                    var groupsofstudentsTableDT = $('#groupsofstudents_table').DataTable();
-                    var rowNode = groupsofstudentsTableDT.row.add( [
+                    var studentgroupsTableDT = $('#studentgroups_table').DataTable();
+                    var rowNode = studentgroupsTableDT.row.add( [
                         data.result.studentgroupName,
                         data.result.editStudentGroup,
                         data.result.deleteStudentGroup
@@ -267,7 +246,7 @@
     });
 
     /***************************************************************/
-    /*** Adding validation and handling events for "editStudentGroup" ***/
+    /*** Adding validation and handling events for "editSubject" ***/
     /***************************************************************/
 
     var validatorEditStudentGroup = $("#editStudentGroupFormModal").validate({
@@ -280,8 +259,8 @@
         },
         messages: {
             studentGroupNameModal: {
-                required: "Group name text field is required.",
-                maxlength: "Given group name is too long, please change it."
+                required: "Subject name text field is required.",
+                maxlength: "Given subject name is too long, please change it."
             }
         },
         highlight: function(event) {
@@ -305,17 +284,17 @@
                     console.log("Result: " + data.result);
 
                     var studentgroupId = $("#editStudentGroupModal").find('.modal-body #studentGroupReference').val();
-                    var studentGroupsTable = $('#studentgroups_table');
-                    var studentGroupsRow = studentGroupssTable.find('#' + studentgroupId);
+                    var studentgroupsTable = $('#studentgroups_table');
+                    var studentgroupRow = studentgroupsTable.find('#' + studentgroupId);
 
                     // returns DataTables API instance with selected row in the result set
-                    var studentGroupRowDT = studentGroupsTable.DataTable().row(studentGroupRow);
+                    var studentgroupRowDT = studentgroupsTable.DataTable().row(studentgroupRow);
 
-                    var cellsData = studentGroupRowDT.data();
+                    var cellsData = studentgroupRowDT.data();
                     cellsData[0] = data.result.studentgroupName;
                     cellsData[1] = data.result.editStudentGroup;
                     cellsData[2] = data.result.deleteStudentGroup;
-                    studentGroupRowDT.data(cellsData);
+                    studentgroupRowDT.data(cellsData);
 
                     $("#editStudentGroupModal").modal('hide');
                 }
@@ -347,63 +326,10 @@
     });
 
     $('#editStudentGroupModal .modal-footer #editStudentGroupBtnModal').on('click', function(event) {
-        console.log("$('#editStudentGroupModal .modal-footer #editStudentGroupBtnModal').on('click')");
+        console.log("$('#editStudentModal .modal-footer #editStudentGroupBtnModal').on('click')");
 
         $('#editStudentGroupFormModal').submit();
     });
 
-    /*****************************************************************/
-    /*** Adding validation and handling events for "deleteStudentGroup" ***/
-    /*****************************************************************/
-
-    var validatorDeleteGroup = $('#deleteStudentGroupFormModal').validate({
-        submitHandler: function(form) {
-            console.log("********* submitHandler *********");
-
-            $.ajax({
-                url: URLWithContextPath + "/groups_of_students/doDeleteStudentsGroupAjax",
-                data: $(form).serialize(),
-                type: "POST",
-                success: function(data) {
-                    console.log("********* AJAX CALL *********");
-                    console.log("Status: " + data.status);
-                    console.log("Result: " + data.result);
-
-                    var studentgroupId = $("#confirmDeleteStudentGroup").find('.modal-body #studentGroupReference').val();
-                    var studentGroupsTable = $('#studentgroups_table');
-                    var studentGroupRow = studenGroupsTable.find('#' + studentgroupId);
-
-                    // returns DataTables API instance with selected row in the result set
-                    var studentGroupRowDT = studentGroupsTable.DataTable().row(studentGroupRow);
-                    studentGroupRowDT.remove().draw();
-
-                    $("#confirmDeleteStudentGroup").modal('hide');
-                }
-            });
-        }
-    });
-
-    $('#studentgroups_table #deleteStudentGroupBtn').on('click', function() {
-        console.log("$('#studentgroups_table #deleteStudentGroupBtn').on('click')");
-    });
-
-    $('#confirmDeleteStudentGroup').on('show.bs.modal', function (event) {
-        console.log("$('#confirmDeleteStudentGroup').on('show.bs.modal')");
-
-        var button = $(event.relatedTarget);
-        var studentgroupId = button.data('studentgroup-reference');
-        var message = button.data('message');
-
-        $(this).find('.modal-body #studentGroupReference').val(studentgroupId);
-        $(this).find('.modal-body #confirmDeleteStudentGroupLabel').text(message);
-    });
-
-    $('#confirmDeleteStudentGroup .modal-footer #confirmDeleteStudentGroupBtnModal').on('click', function(){
-        console.log("$('#confirmDeleteStudentGroup .modal-footer #confirmDeleteStudentGroupBtnModal').on('click')");
-
-        $('#deleteStudentGroupFormModal').submit();
-    });
-
 </script>
-
-<%@ include file="partials/footer.jsp" %>
+<%@include file="partials/footer.jsp"%>

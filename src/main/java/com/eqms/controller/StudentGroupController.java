@@ -102,17 +102,17 @@ public class StudentGroupController {
     public @ResponseBody JsonResponse doEditStudentGroup(@RequestParam(value="studentGroupNameModal") String studentgroupName,
                                                     @RequestParam(value="studentGroupReference") Integer studentgroupId) {
 
-        logger.debug("Start editing group from database ...");
+        logger.debug("Start editing subject from database ...");
         logger.debug("Received request with:");
         logger.debug("\tstudentgroupName = " + studentgroupName);
         logger.debug("\tstudentgroupId = " + studentgroupId);
 
-        // Get edited group with default information from database
+        // Get edited subject with default information from database
         GroupsOfStudents groupsOfStudents = getStudentGroupsService().getStudentGroupByStudentGroupId(studentgroupId);
-        // Change group name
+        // Change subject name
         groupsOfStudents.setStudentgroupName(studentgroupName);
 
-        // Update group to database
+        // Update subject to database
         getStudentGroupsService().updateStudentGroup(groupsOfStudents);
 
         // Create JSON response
