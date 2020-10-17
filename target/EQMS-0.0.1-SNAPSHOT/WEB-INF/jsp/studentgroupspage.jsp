@@ -24,7 +24,7 @@
                     <table class="table table-bordered" id="studentgroups_table">
                         <thead>
                         <tr class="success">
-                            <th style="width: 35%;">GROUP NAME</th>
+                            <th style="width: 50%;">GROUP NAME</th>
                             <th style="border-right-width: 0px;"></th>
                             <th style="border-right-width: 0px;"></th> <!-- style="empty-cells: hide" -->
                         </tr>
@@ -111,6 +111,28 @@
     </div>
 </div>
 
+<div class="modal fade" id="confirmDeleteStudentGroup" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteStudentGroupLabelModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="confirmDeleteStudentGroupTitleModal">Delete group</h4>
+            </div>
+            <div class="modal-body">
+                <form action="<c:url value="/groups_of_students/doDeleteStudentGroupAjax"/>" method="POST" id="deleteStudentGroupFormModal" >
+                    <div class="form-group" id="confirmDeleteStudentGroupLabel">
+                    </div>
+                    <input type="hidden" name="studentGroupReference" id="studentGroupReference" />
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteStudentGroupBtnModal">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript">
 
@@ -138,15 +160,15 @@
             { "orderable": false }
         ],
         "language": {
-            "info": "Showing _START_ to _END_ of _TOTAL_ subjects",		// default is: Showing _START_ to _END_ of _TOTAL_ entries
-            "infoEmpty": "Showing 0 to 0 of 0 subjects", 				// default is: Showing 0 to 0 of 0 entries
-            "infoFiltered": "(filtered from _MAX_ total subjects)",		// default is: (filtered from _MAX_ total entries)
-            "lengthMenu": "Show _MENU_ subjects"						// default is: Show _MENU_ entries
+            "info": "Showing _START_ to _END_ of _TOTAL_ groups",		// default is: Showing _START_ to _END_ of _TOTAL_ entries
+            "infoEmpty": "Showing 0 to 0 of 0 groups", 				// default is: Showing 0 to 0 of 0 entries
+            "infoFiltered": "(filtered from _MAX_ total groups)",		// default is: (filtered from _MAX_ total entries)
+            "lengthMenu": "Show _MENU_ groups"						// default is: Show _MENU_ entries
         }
     } );
 
     /**************************************************************/
-    /*** Adding validation and handling events for "addSubject" ***/
+    /*** Adding validation and handling events for "addStudentGroup" ***/
     /**************************************************************/
 
     jQuery.validator.addMethod("checkStudentGroupName", function(value, element) {
@@ -185,8 +207,8 @@
         },
         messages: {
             studentGroupNameModal: {
-                required: "Subject name text field is required.",
-                maxlength: "Given subject name is too long, please change it."
+                required: "Group name text field is required.",
+                maxlength: "Given group name is too long, please change it."
             }
         },
         highlight: function(event) {
@@ -246,7 +268,7 @@
     });
 
     /***************************************************************/
-    /*** Adding validation and handling events for "editSubject" ***/
+    /*** Adding validation and handling events for "editStudentGroup" ***/
     /***************************************************************/
 
     var validatorEditStudentGroup = $("#editStudentGroupFormModal").validate({
@@ -259,8 +281,8 @@
         },
         messages: {
             studentGroupNameModal: {
-                required: "Subject name text field is required.",
-                maxlength: "Given subject name is too long, please change it."
+                required: "Group name text field is required.",
+                maxlength: "Given group name is too long, please change it."
             }
         },
         highlight: function(event) {
@@ -329,6 +351,58 @@
         console.log("$('#editStudentModal .modal-footer #editStudentGroupBtnModal').on('click')");
 
         $('#editStudentGroupFormModal').submit();
+    });
+
+    /*****************************************************************/
+    /*** Adding validation and handling events for "deleteStudentGroup" ***/
+    /*****************************************************************/
+
+    var validatorDeleteGroup = $('#deleteStudentGroupFormModal').validate({
+        submitHandler: function(form) {
+            console.log("********* submitHandler *********");
+
+            $.ajax({
+                url: URLWithContextPath + "/groups_of_students/doDeleteStudentGroupAjax",
+                data: $(form).serialize(),
+                type: "POST",
+                success: function(data) {
+                    console.log("********* AJAX CALL *********");
+                    console.log("Status: " + data.status);
+                    console.log("Result: " + data.result);
+
+                    var studentgroupId = $("#confirmDeleteStudentGroup").find('.modal-body #studentGroupReference').val();
+                    var studentgroupsTable = $('#studentgroups_table');
+                    var studentgroupRow = studentgroupsTable.find('#' + studentgroupId);
+
+                    // returns DataTables API instance with selected row in the result set
+                    var studentgroupRowDT = studentgroupsTable.DataTable().row(studentgroupRow);
+                    studentgroupRowDT.remove().draw();
+
+                    $("#confirmDeleteStudentGroup").modal('hide');
+                }
+            });
+        }
+    });
+
+    $('#studentgroups_table #deleteStudentGroupBtn').on('click', function() {
+        console.log("$('#studentgroups_table #deleteStudentGroupBtn').on('click')");
+    });
+
+    $('#confirmDeleteStudentGroup').on('show.bs.modal', function (event) {
+        console.log("$('#confirmDeleteStudentGroup').on('show.bs.modal')");
+
+        var button = $(event.relatedTarget);
+        var studentgroupId = button.data('studentgroup-reference');
+        var message = button.data('message');
+
+        $(this).find('.modal-body #studentGroupReference').val(studentgroupId);
+        $(this).find('.modal-body #confirmDeleteStudentGroupLabel').text(message);
+    });
+
+    $('#confirmDeleteStudentGroup .modal-footer #confirmDeleteStudentGroupBtnModal').on('click', function(){
+        console.log("$('#confirmDeleteStudentGroup .modal-footer #confirmDeleteStudentGroupBtnModal').on('click')");
+
+        $('#deleteStudentGroupFormModal').submit();
     });
 
 </script>

@@ -7,15 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b92d75f-7c53-43fa-9908-b3a500b58590" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eqms/controller/StudentGroupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eqms/controller/StudentGroupController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/eqms/dao/impl/StudentGroupsDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eqms/dao/impl/StudentGroupsDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eqms/model/GroupsOfStudents.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eqms/model/GroupsOfStudents.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EQMS-0.0.1-SNAPSHOT.war" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EQMS-0.0.1-SNAPSHOT/WEB-INF/classes/com/eqms/model/GroupsOfStudents.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/EQMS-0.0.1-SNAPSHOT/WEB-INF/classes/com/eqms/model/GroupsOfStudents.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EQMS-0.0.1-SNAPSHOT/WEB-INF/jsp/studentgroupspage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/EQMS-0.0.1-SNAPSHOT/WEB-INF/jsp/studentgroupspage.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/eqms/model/GroupsOfStudents.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/eqms/model/GroupsOfStudents.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webapp/WEB-INF/jsp/studentgroupspage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/WEB-INF/jsp/studentgroupspage.jsp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -63,8 +55,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/controller/StudentGroupController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="507">
-              <caret line="128" selection-start-line="128" selection-end-line="128" />
+            <state relative-caret-position="272">
+              <caret line="145" column="45" selection-start-line="145" selection-start-column="45" selection-end-line="145" selection-end-column="45" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#9134#9135#0" expanded="true" />
@@ -77,8 +69,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/dao/impl/StudentGroupsDaoImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="109">
-              <caret line="72" column="51" selection-start-line="72" selection-start-column="51" selection-end-line="72" selection-end-column="51" />
+            <state relative-caret-position="92">
+              <caret line="43" selection-start-line="43" selection-end-line="43" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/dao/impl/TestDaoImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="304">
+              <caret line="85" column="5" lean-forward="true" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -89,8 +93,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/studentgroupspage.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="257">
-              <caret line="287" column="60" selection-start-line="287" selection-start-column="60" selection-end-line="287" selection-end-column="60" />
+            <state relative-caret-position="160">
+              <caret line="28" column="39" lean-forward="true" selection-start-line="28" selection-start-column="39" selection-end-line="28" selection-end-column="39" />
+              <folding>
+                <element signature="n#style#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#th#2;n#tr#0;n#thead#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -99,7 +108,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/controller/SubjectController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="243">
-              <caret line="151" column="5" lean-forward="true" selection-start-line="122" selection-start-column="4" selection-end-line="151" selection-end-column="5" />
+              <caret line="151" column="5" lean-forward="true" selection-start-line="151" selection-start-column="5" selection-end-line="151" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -110,8 +119,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/subjectspage.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="424" column="7" lean-forward="true" selection-start-line="340" selection-start-column="4" selection-end-line="424" selection-end-column="7" />
+            <state relative-caret-position="331">
+              <caret line="476" column="7" lean-forward="true" selection-start-line="426" selection-start-column="4" selection-end-line="476" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -130,7 +139,6 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>addGroupBtn</find>
-      <find>delete</find>
       <find>confirm</find>
       <find>confirmEn</find>
       <find>testDiv</find>
@@ -157,8 +165,9 @@
       <find>studentgroup</find>
       <find>studentgroup</find>
       <find>subjectS</find>
-      <find>doedit</find>
       <find>subject</find>
+      <find>delete</find>
+      <find>doedit</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -185,8 +194,8 @@
         <option value="$PROJECT_DIR$/webapp/WEB-INF/jsp/partials/header.jsp" />
         <option value="$PROJECT_DIR$/webapp/WEB-INF/jsp/subjectspage.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/eqms/model/GroupsOfStudents.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/eqms/dao/impl/StudentGroupsDaoImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/eqms/controller/StudentGroupController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/eqms/dao/impl/StudentGroupsDaoImpl.java" />
         <option value="$PROJECT_DIR$/webapp/WEB-INF/jsp/studentgroupspage.jsp" />
       </list>
     </option>
@@ -369,7 +378,7 @@
     <property name="JPA.DatabaseSchemaImportDialog" value="8ed153c7-524e-4e1e-9f67-a11803339ac3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1602950304988" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1602953340672" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../spring-mvc-showcase" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -645,12 +654,12 @@
       <workItem from="1602769181738" duration="11929000" />
       <workItem from="1602782848632" duration="4443000" />
       <workItem from="1602842310609" duration="18559000" />
-      <workItem from="1602928717998" duration="16205000" />
+      <workItem from="1602928717998" duration="19229000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="182549000" />
+    <option name="totallyTimeSpent" value="185573000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -662,7 +671,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.63992536" visible="true" weight="0.20499243" />
@@ -676,13 +685,13 @@
       <window_info id="Persistence" order="8" sideWeight="0.36007464" side_tool="true" weight="0.19894099" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.09328969" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.28805238" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.23731588" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.28805238" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.5008183" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3289689" />
       <window_info anchor="bottom" id="Spring" order="7" weight="0.3289689" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.3289689" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.07855974" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" weight="0.3289689" />
@@ -853,20 +862,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/testspage.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="64" selection-start-line="25" selection-start-column="64" selection-end-line="25" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/edittestpage.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4250">
-          <caret line="250" column="67" selection-start-line="250" selection-start-column="67" selection-end-line="250" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/controller/TestController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15674">
@@ -1017,16 +1012,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/dao/impl/TestDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12624">
-          <caret line="791" column="1" selection-start-line="791" selection-start-column="1" selection-end-line="791" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/model/Subject.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-731">
@@ -1053,23 +1038,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/controller/SubjectController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="151" column="5" lean-forward="true" selection-start-line="122" selection-start-column="4" selection-end-line="151" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/subjectspage.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="424" column="7" lean-forward="true" selection-start-line="340" selection-start-column="4" selection-end-line="424" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.1.7.RELEASE/spring-web-4.1.7.RELEASE-sources.jar!/org/springframework/web/method/support/InvocableHandlerMethod.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
@@ -1081,28 +1049,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
           <caret line="110" selection-start-line="110" selection-end-line="110" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/dao/impl/StudentGroupsDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="72" column="51" selection-start-line="72" selection-start-column="51" selection-end-line="72" selection-end-column="51" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/controller/StudentGroupController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="507">
-          <caret line="128" selection-start-line="128" selection-end-line="128" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#9134#9135#0" expanded="true" />
-            <element signature="e#9177#9178#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1137,10 +1083,78 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/testspage.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="64" selection-start-line="25" selection-start-column="64" selection-end-line="25" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/edittestpage.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="641">
+          <caret line="254" column="84" selection-start-line="254" selection-start-column="84" selection-end-line="254" selection-end-column="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/subjectspage.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="331">
+          <caret line="476" column="7" lean-forward="true" selection-start-line="426" selection-start-column="4" selection-end-line="476" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/controller/StudentGroupController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="145" column="45" selection-start-line="145" selection-start-column="45" selection-end-line="145" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#9134#9135#0" expanded="true" />
+            <element signature="e#9177#9178#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/controller/SubjectController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="151" column="5" lean-forward="true" selection-start-line="151" selection-start-column="5" selection-end-line="151" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/dao/impl/TestDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="85" column="5" lean-forward="true" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/dao/impl/StudentGroupsDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/studentgroupspage.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="287" column="60" selection-start-line="287" selection-start-column="60" selection-end-line="287" selection-end-column="60" />
+        <state relative-caret-position="160">
+          <caret line="28" column="39" lean-forward="true" selection-start-line="28" selection-start-column="39" selection-end-line="28" selection-end-column="39" />
+          <folding>
+            <element signature="n#style#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#2;n#tr#0;n#thead#0;n#table#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
