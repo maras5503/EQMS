@@ -1,7 +1,9 @@
 package com.eqms.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Entity
@@ -9,6 +11,7 @@ import java.util.Objects;
 public class GroupsOfStudents implements java.io.Serializable {
     private Integer studentgroupId;
     private String studentgroupName;
+    private Set<Students> studentses=new HashSet<Students>(0);
 
     public  GroupsOfStudents(){
 
@@ -17,6 +20,12 @@ public class GroupsOfStudents implements java.io.Serializable {
     public GroupsOfStudents(String studentgroupName){
         this.studentgroupName=studentgroupName;
     }
+
+    public GroupsOfStudents(String studentgroupName, Set<Students> studentses){
+        this.studentgroupName=studentgroupName;
+        this.studentses=studentses;
+    }
+
 
     @Id
     @Column(name = "STUDENTGROUP_ID")
@@ -36,6 +45,14 @@ public class GroupsOfStudents implements java.io.Serializable {
 
     public void setStudentgroupName(String studentgroupName) {
         this.studentgroupName = studentgroupName;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "groupsOfStudents")
+
+    public Set<Students> getStudentses(){return studentses;}
+
+    public void setStudentses(Set<Students> studentses) {
+        this.studentses = studentses;
     }
 
     @Override

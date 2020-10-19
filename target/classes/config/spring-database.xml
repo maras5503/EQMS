@@ -35,7 +35,8 @@
 				<value>com.eqms.model.User</value>
 				<value>com.eqms.model.UserRole</value>
 				<value>com.eqms.model.VerificationToken</value>
-			</list>
+                <value>com.eqms.model.Students</value>
+            </list>
 		</property>
 		
 		<property name="hibernateProperties">
@@ -46,7 +47,9 @@
 				<prop key="hibernate.connection.useUnicode">true</prop>
                 <prop key="hibernate.connection.characterEncoding">UTF-8</prop>
                 <prop key="hibernate.connection.charSet">UTF-8</prop>
-			</props>
+                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/exam_questions_5</prop>
+                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
+            </props>
 		</property>
 	</bean>
 

@@ -89,7 +89,7 @@ public class GroupOfQuestions implements java.io.Serializable {
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "groups_questions", catalog = "exam_questions_4", joinColumns = {
+	@JoinTable(name = "groups_questions", catalog = "exam_questions_5", joinColumns = {
 			@JoinColumn(name = "GROUP_ID", nullable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "QUESTION_ID", nullable = false, updatable = false) })
 	public Set<Question> getQuestionses() {
