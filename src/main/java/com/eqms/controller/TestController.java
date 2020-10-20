@@ -1539,6 +1539,7 @@ public class TestController {
 		test.setSetsOfRating(lastAddedSet);
 		test.setNumberOfGroups(0);
 		test.setNumberOfQuestions(0);
+		test.setEnabled(false);
 		getTestService().addTest(test);
 		
 		Test lastAddedTest = getTestService().getAllTests(Order.desc("testId"), 1).get(0);

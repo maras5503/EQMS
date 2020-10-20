@@ -32,33 +32,32 @@ public class Students {
         this.studentId = studentId;
     }
 
-    @Basic
     @Column(name = "FIRSTNAME")
-    public String getFirstname() {
+    public String getStudentFirstname() {
         return studentFirstname;
     }
 
-    public void setFirstname(String firstname) {
+    public void setStudentFirstname(String studentFirstname) {
         this.studentFirstname = studentFirstname;
     }
 
-    @Basic
+
     @Column(name = "LASTNAME")
-    public String getLastname() {
+    public String getStudentLastname() {
         return studentLastname;
     }
 
-    public void setLastname(String studentLastname) {
+    public void setStudentLastname(String studentLastname) {
         this.studentLastname = studentLastname;
     }
 
-    @Basic
+
     @Column(name = "E_MAIL")
-    public String geteMail() {
+    public String getStudentEmail() {
         return studentEmail;
     }
 
-    public void seteMail(String studentEmail) {
+    public void setStudentEmail(String studentEmail) {
         this.studentEmail = studentEmail;
     }
 

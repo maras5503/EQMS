@@ -47,7 +47,7 @@ public class Test implements java.io.Serializable {
 	}
 
 	public Test(SetOfRating setsOfRating, Subject subjects, String testName, int timeForTest, int numberOfGroups,
-			int numberOfQuestions, Date creationDate, String createdBy, boolean enabled) {
+			int numberOfQuestions, Date creationDate, String createdBy) {
 		this.setsOfRating = setsOfRating;
 		this.subjects = subjects;
 		this.testName = testName;
@@ -56,12 +56,11 @@ public class Test implements java.io.Serializable {
 		this.numberOfQuestions = numberOfQuestions;
 		this.creationDate = creationDate;
 		this.createdBy = createdBy;
-		this.enabled = enabled;
 	}
 
 	public Test(SetOfRating setsOfRating, Subject subjects, String testName, int timeForTest, int numberOfGroups,
 			int numberOfQuestions, Date creationDate, String createdBy, Date modificationDate, String modifiedBy,
-				boolean enabled, Set<GroupOfQuestions> groupsOfQuestionses) {
+				Set<GroupOfQuestions> groupsOfQuestionses) {
 		this.setsOfRating = setsOfRating;
 		this.subjects = subjects;
 		this.testName = testName;
@@ -72,7 +71,6 @@ public class Test implements java.io.Serializable {
 		this.createdBy = createdBy;
 		this.modificationDate = modificationDate;
 		this.modifiedBy = modifiedBy;
-		this.enabled = enabled;
 		this.groupsOfQuestionses = groupsOfQuestionses;
 	}
 

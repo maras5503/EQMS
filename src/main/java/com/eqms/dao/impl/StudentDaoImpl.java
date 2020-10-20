@@ -25,12 +25,12 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
-    public void updateStudentGroup(Students students) {
+    public void updateStudent(Students students) {
         getSessionFactory().getCurrentSession().update(students);
     }
 
     @Override
-    public void deleteStudentGroup(Integer studentId) {
+    public void deleteStudent(Integer studentId) {
         String queryStringDeleteSubject = "DELETE FROM STUDENTS WHERE STUDENT_ID = ?";
         SQLQuery queryDeleteStudent = getSessionFactory().getCurrentSession().createSQLQuery(queryStringDeleteSubject);
         queryDeleteStudent.setParameter(0, studentId);
@@ -77,6 +77,17 @@ public class StudentDaoImpl implements StudentDao {
             students = getSessionFactory().getCurrentSession().createCriteria(Students.class).addOrder(order).list();
         }
 
+        return students;
+    }
+
+    @Override
+    public List<Students> getStudentsByStudentGroupId(Integer studentgroupId) {
+        List<Students> students = new ArrayList<Students>();
+
+        String queryString = "SELECT * FROM STUDENTS WHERE STUDENTGROUP_ID = ?";
+        SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString).addEntity(Students.class);
+        query.setParameter(0, studentgroupId);
+        students = query.list();
         return students;
     }
 

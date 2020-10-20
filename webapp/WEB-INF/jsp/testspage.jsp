@@ -2,35 +2,35 @@
 
 <div class="row">
 
-    <div class="col-sm-12" style="padding-left: 0px; padding-right: 0px;">
-    
-		<div class="page-header" align="center" style="margin-top: 10px;">	            
-            <h1>Tests</h1>
-        </div>
-        
-      	<div class="col-sm-offset-3 col-sm-6" id="subjectSelect" align="center" style="padding-bottom: 20px">
-	    	<select class="form-control" id="subjectDropDown" name="subjectDropDown">	
-				<option value="" selected="selected">Select subject</option>	
-				
+	<div class="col-sm-12" style="padding-left: 0px; padding-right: 0px;">
+
+		<div class="page-header" align="center" style="margin-top: 10px;">
+			<h1>Tests</h1>
+		</div>
+
+		<div class="col-sm-offset-3 col-sm-6" id="subjectSelect" align="center" style="padding-bottom: 20px">
+			<select class="form-control" id="subjectDropDown" name="subjectDropDown">
+				<option value="" selected="selected">Select subject</option>
+
 				<c:forEach var="subject" items="${userSubjects}">
-		    		<option value="${subject.subjectId}">${subject.subjectName}</option>
-		    	</c:forEach>	
+					<option value="${subject.subjectId}">${subject.subjectName}</option>
+				</c:forEach>
 			</select>
-    	</div>
-    
-    	<div id="addTestDiv" class="span3" align="right" hidden="hidden">
-    		<form action="<c:url value="/tests/addTest"/>" method="POST" id="addTestForm" >
+		</div>
+
+		<div id="addTestDiv" class="span3" align="right" hidden="hidden">
+			<form action="<c:url value="/tests/addTest"/>" method="POST" id="addTestForm" >
 				<input type="hidden" name="subjectReference" id="subjectReference" />
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			</form>
-    		<button type="button" class="btn btn-success" id="addTestBtn">Add new test</button>
-    	</div>
-    
-    	<div class="col-sm-12" id="testsDiv" style="padding-right: 0px; padding-left: 0px;">
-    	</div>
-    
-    </div>
-    
+			<button type="button" class="btn btn-success" id="addTestBtn">Add new test</button>
+		</div>
+
+		<div class="col-sm-12" id="testsDiv" style="padding-right: 0px; padding-left: 0px;">
+		</div>
+
+	</div>
+
 </div>
 
 <div class="modal fade" id="confirmDeleteTest" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteTestLabelModal">
