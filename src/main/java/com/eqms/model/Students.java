@@ -64,7 +64,7 @@ public class Students {
     @ManyToOne
     @JoinColumn(name = "STUDENTGROUP_ID")
     public GroupsOfStudents getGroupsOfStudents() {
-        return groupsOfStudents;
+        return this.groupsOfStudents;
     }
 
     public void setGroupsOfStudents(GroupsOfStudents groupsOfStudents) {

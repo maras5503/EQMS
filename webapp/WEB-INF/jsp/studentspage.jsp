@@ -37,32 +37,30 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="addStudentGroupTitleModal">Add new student</h4>
+                <h4 class="modal-title" id="addStudentTitleModal">Add new student</h4>
             </div>
             <div class="modal-body">
                 <form action="<c:url value="/students/doAddStudentAjax"/>" method="POST" id="addStudentFormModal">
                     <div class="form-group">
                         <label for="studentFirstnameModal" class="control-label">Firstname:</label>
-                        <input type="text" class="form-control" id="studentFirstnameModal" name="studentFirstnameModal" placeholder="Firstname" maxlength="100" aria-describedby="inputAddStudentError">
+                        <input type="text" class="form-control" id="studentFirstnameModal" name="studentFirstnameModal" placeholder="Student firstname" maxlength="100" aria-describedby="inputAddStudentFirstnameError">
                         <span id="glyphiconErrorAddStudentFirstname" class="form-control-feedback" aria-hidden="true"></span>
                         <span id="inputAddStudentFirstnameError" class="sr-only">(error)</span>
                     </div>
                     <div class="form-group">
                         <label for="studentLastnameModal" class="control-label">Lastname:</label>
-                        <input type="text" class="form-control" id="studentLastnameModal" name="studentLastnameModal" placeholder="Lastname" maxlength="100" aria-describedby="inputAddStudentError">
+                        <input type="text" class="form-control" id="studentLastnameModal" name="studentLastnameModal" placeholder="Student lastname" maxlength="100" aria-describedby="inputAddStudentLastnameError">
                         <span id="glyphiconErrorAddStudentLastname" class="form-control-feedback" aria-hidden="true"></span>
                         <span id="inputAddStudentLastnameError" class="sr-only">(error)</span>
                     </div>
                     <div class="form-group">
-                        <label for="studentFirstnameModal" class="control-label">E-mail:</label>
-                        <input type="email" class="form-control" id="studentEmailModal" name="studentEmailModal" placeholder="Email address" maxlength="35" required="required"  data-toggle="popover_email" data-placement="right" data-html="true">
+                        <label for="studentEmailModal" class="control-label">E-mail:</label>
+                        <input type="text" class="form-control" id="studentEmailModal" name="studentEmailModal" placeholder="Student email" maxlength="100" aria-describedby="inputAddStudentEmailError">
                         <span id="glyphiconErrorAddStudentEmail" class="form-control-feedback" aria-hidden="true"></span>
                         <span id="inputAddStudentEmailError" class="sr-only">(error)</span>
                     </div>
-                    <div>
-                        <input type="hidden" name="studentGroupReferenceModal" id="studentGroupReferenceModal" />
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                    </div>
+                    <input type="hidden" name="studentGroupReferenceModal" id="studentGroupReferenceModal" />
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 </form>
             </div>
             <div class="modal-footer">
@@ -72,6 +70,7 @@
         </div>
     </div>
 </div>
+
 
 
 <script type="text/javascript">
@@ -134,6 +133,132 @@
             $('#addStudentForm').find('#studentGroupReference').val("");
         }
     });
+
+    /**************************************************************/
+    /*** Adding validation and handling events for "addStudent" ***/
+    /**************************************************************/
+
+    jQuery.validator.addMethod("checkStudentEmail", function(value, element) {
+        var isSuccess = false;
+        console.log("isSuccess value before ajax call = " + isSuccess.toString());
+
+        var data = {};
+        data[csrfParameter] = csrfToken;
+        data["studentEmail"] = value;
+
+        console.log("studentEmail value = " + value);
+
+        $.ajax({
+            url: URLWithContextPath + "/students/checkStudentEmail",
+            type: "POST",
+            async: false,
+            data: data,
+            success: function(data) {
+                console.log("Data in response: " + data);
+                isSuccess = data === "SUCCESS" ? true : false;
+                console.log("isSuccess value after retrieving response = " + isSuccess.toString());
+            }
+        });
+
+        console.log("isSuccess value before return statement = " + isSuccess.toString());
+        return isSuccess;
+    }, "This email already exists! Please enter another email name.");
+
+
+    var validatorAddStudent = $("#addStudentFormModal").validate({
+        rules: {
+            studentFirstnameModal: {
+                required: true,
+                maxlength: 200
+            },
+            studentLastnameModal: {
+                required: true,
+                maxlength: 200
+            },
+            studentEmailModal: {
+                required: true,
+                maxlength: 30,
+                checkStudentEmail: true
+
+            }
+        },
+        messages: {
+            studentFirstnameModal: {
+                required: "Firstname text field is required.",
+                maxlength: "Given firstname is too long, please change it."
+            },
+            studentLastnameModal: {
+                required: "Lastname text field is required.",
+                maxlength: "Given lastname is too long, please change it."
+            },
+            studentEmailModal: {
+                required: "Email text field is required.",
+                maxlength: "Given Email is too long, please change it."
+            }
+        },
+        highlight: function(event) {
+            $(event).closest('.form-group').find('.form-control-feedback').addClass('glyphicon glyphicon-remove');
+            $(event).closest('.form-group').addClass('has-error has-feedback');
+        },
+        unhighlight: function(event) {
+            $(event).closest('.form-group').find('.form-control-feedback').removeClass('glyphicon glyphicon-remove');
+            $(event).closest('.form-group').removeClass('has-error has-feedback');
+        },
+        submitHandler: function(form) {
+            console.log("********* submitHandler *********");
+
+            $.ajax({
+                url: URLWithContextPath + "/students/doAddStudentAjax",
+                data: $(form).serialize(),
+                type: "POST",
+                success: function(data) {
+                    console.log("********* AJAX CALL *********");
+                    console.log("Status: " + data.status);
+                    console.log("Result: " + data.result);
+
+                    var studentsTableDT = $('#students_table').DataTable();
+                    var rowNode = studentsTableDT.row.add( [
+                        data.result.studentFirstname,
+                        data.result.studentLastname,
+                        data.result.studentEmail,
+                        data.result.editStudent,
+                        data.result.deleteStudent
+                    ] ).draw( false ).node();
+
+                    $(rowNode).addClass("success");
+                    $(rowNode).attr("id", data.result.studentId);
+
+                    $("#addStudentModal").modal('hide');
+                }
+            });
+        }
+    });
+
+    $('#addStudentBtnModal').on('click', function() {
+        console.log("$('#addStudentBtnModal').on('click')");
+    });
+
+    $('#addStudentBtn').on('click', function() {
+        console.log("$('#addStudentBtn').on('click')");
+        $('#addStudentFormModal').find('#studentGroupReferenceModal').val($("#studentGroupsDropDown").val());
+    });
+
+    $('#addStudentModal').on('show.bs.modal', function(event) {
+        console.log("$('#addStudentModal').on('show.bs.modal')");
+    });
+
+    $('#addStudentModal').on('hide.bs.modal', function(event) {
+        console.log("$('#addStudentModal').on('hide.bs.modal')");
+
+        validatorAddStudent.resetForm();
+    });
+
+    $('#addStudentModal .modal-footer #addStudentBtnModal').on('click', function(event) {
+        console.log("$('#addStudentModal .modal-footer #addStudentBtnModal').on('click')");
+
+        $('#addStudentFormModal').submit();
+    });
+
 </script>
 
 <%@ include file="partials/footer.jsp" %>

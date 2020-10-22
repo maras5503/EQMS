@@ -53,7 +53,7 @@ public class StudentDaoImpl implements StudentDao {
 
     @Override
     public Boolean checkStudentEmail(String studentEmail) {
-        String queryString = "SELECT COUNT(*) FROM STUDENTS WHERE FIRSTNAME = ?";
+        String queryString = "SELECT COUNT(*) FROM STUDENTS WHERE E_MAIL = ?";
         SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
         query.setParameter(0, studentEmail);
 

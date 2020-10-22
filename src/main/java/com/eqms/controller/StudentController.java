@@ -58,27 +58,29 @@ public class StudentController {
      * @return JSON response which contains HTML code for last added group
      */
     @RequestMapping(value = "/doAddStudentAjax", method = RequestMethod.POST)
-    public @ResponseBody
-    JsonResponse doAddStudent(@RequestParam(value="studentFirstnameModal") String studentFirstname, @RequestParam(value = "studentLastnameModal")
-            String studentLastname, @RequestParam(value = "studentEmailModal") String studentEmail
-                                ,@RequestParam(value="studentgroupId") Integer studentgroupId) {
+    public @ResponseBody JsonResponse doAddStudent(@RequestParam(value="studentFirstnameModal") String studentFirstname,
+                                                   @RequestParam(value = "studentLastnameModal") String studentLastname,
+                                                   @RequestParam(value = "studentEmailModal") String studentEmail,
+                                                   @RequestParam(value = "studentGroupReferenceModal") Integer studentgroupId) {
 
         logger.debug("Start adding new group to database ...");
         logger.debug("Received request with:");
-        logger.debug("\tstudentGroupName = " + studentFirstname);
+        logger.debug("\tstudentFirstame = " + studentFirstname);
 
 
-        // Create new student
-        Students students = new Students();
+        // Create new group
+        Students students= new Students();
         students.setStudentFirstname(studentFirstname);
         students.setStudentLastname(studentLastname);
         students.setStudentEmail(studentEmail);
         GroupsOfStudents groupsOfStudents=getStudentGroupsService().getStudentGroupByStudentGroupId(studentgroupId);
         students.setGroupsOfStudents(groupsOfStudents);
-        // Add new student to database
+        System.out.println("ID:" +groupsOfStudents.getStudentgroupId());
+        System.out.println("NAME:"+groupsOfStudents.getStudentgroupName());
+        // Add new group to database
         getStudentService().addStudent(students);
 
-        // Get last student from database
+        // Get last group from database
         Students lastStudent = getStudentService().getAllStudents(Order.desc("studentId"), 1).get(0);
 
         // Create JSON response
@@ -88,9 +90,10 @@ public class StudentController {
         addedStudentRow.put("studentFirstname", lastStudent.getStudentFirstname());
         addedStudentRow.put("studentLastname", lastStudent.getStudentLastname());
         addedStudentRow.put("studentEmail", lastStudent.getStudentEmail());
-        addedStudentRow.put("editStudent", "<button type=\"button\" class=\"btn btn-info btn-block btn-sm\" id=\"editStudentBtn\" name=\"editStudentBtn\" data-toggle=\"modal\" data-target=\"#editStudentModal\" data-student-name=\"" + lastStudent.getStudentFirstname() + "\" data-student-reference=\"" + lastStudent.getStudentId() + "\"><span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span> Edit</button>");
-        addedStudentRow.put("deleteStudent", "<button type=\"button\" class=\"btn btn-danger btn-block btn-sm\" id=\"deleteStudentBtn\" name=\"deleteStudentBtn\" data-toggle=\"modal\" data-target=\"#confirmDeleteStudent\" data-title=\"Delete Student\" data-message=\"Are you sure you want to delete student '" + lastStudent.getStudentFirstname() + "'?\" data-student-reference=\"" + lastStudent.getStudentId() + "\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span> Delete</button>");
-        addedStudentRow.put("studentgroupId", lastStudent.getGroupsOfStudents().getStudentgroupId());
+        addedStudentRow.put("editStudent", "<button type=\"button\" id=\"editStudentBtn\" name=\"editStudentBtn\" class=\"btn btn-info btn-block btn-sm\" style=\"width:90%\" data-target=\"#editStudentModal\" data-student-firstname=\"" + lastStudent.getStudentFirstname() + "\" data-student-lastname=\"" + lastStudent.getStudentFirstname() + "\" data-student-email=\"" + lastStudent.getStudentEmail() + "\"  data-student-reference=\"" + lastStudent.getStudentId() + "\" ><span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span> Edit</button>");
+        addedStudentRow.put("deleteStudent", "<button type=\"button\" class=\"btn btn-danger btn-block btn-sm\" id=\"deleteStudentBtn\" name=\"deleteStudentBtn\" style=\"width:90%\" data-toggle=\"modal\" data-target=\"#confirmDeleteStudent\" data-title=\"Delete Student\" data-message=\"Are you sure you want to delete student '" + lastStudent.getStudentFirstname() + "'  '" + lastStudent.getStudentLastname() + "'?\" data-student-reference=\"" + lastStudent.getStudentId() + "\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span> Delete</button>");
+        //addedStudentRow.put("studentgroupId", lastStudent.getGroupsOfStudents().getStudentgroupId());
+        addedStudentRow.put("studentId", lastStudent.getStudentId());
 
         response.setStatus("SUCCESS");
         response.setResult(addedStudentRow);
@@ -148,13 +151,13 @@ public class StudentController {
                         + "<form action=\"" + getURLWithContextPath(request) + "/students/editStudent\" method=\"post\" id=\"editStudentForm\">"
                         + "<input type=\"hidden\" name=\"studentId\" value=\"" + student.getStudentId() + "\" />"
                         + "<input type=\"hidden\" name=\"studentgroupId\" value=\"" + studentgroupId + "\" />"
-                        + "<button type=\"submit\" id=\"editStudentBtn\" name=\"editStudentBtn\" class=\"btn btn-info btn-block btn-sm\"><span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span> Edit</button>"
+                        + "<button type=\"button\" id=\"editStudentBtn\" name=\"editStudentBtn\" style=\"width:90%\" class=\"btn btn-info btn-block btn-sm\"><span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span> Edit</button>"
                         + "<input type=\"hidden\" name=\"_csrf\" value=\"" + csrfToken + "\" />"
                         + "</form>"
                         + "</td>"
 
                         + "<td>"
-                        + "<button type=\"button\" class=\"btn btn-danger btn-sm\" id=\"deleteStudentBtn\" name=\"deleteStudentBtn\" data-toggle=\"modal\" data-target=\"#confirmDeleteStudent\" data-title=\"Delete Student\" data-message=\"Are you sure you want to delete student '" + student.getStudentFirstname() + " " + student.getStudentLastname() + "'?\" data-student-reference=\"" + student.getStudentId() + "\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span> Delete</button>"
+                        + "<button type=\"button\" class=\"btn btn-danger btn-sm\" id=\"deleteStudentBtn\" name=\"deleteStudentBtn\" style=\"width:90%\" data-toggle=\"modal\" data-target=\"#confirmDeleteStudent\" data-title=\"Delete Student\" data-message=\"Are you sure you want to delete student '" + student.getStudentFirstname() + " " + student.getStudentLastname() + "'?\" data-student-reference=\"" + student.getStudentId() + "\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span> Delete</button>"
                         + "</td>";
 
                 resultSuccess += "</tr>";
@@ -166,6 +169,27 @@ public class StudentController {
 
             response.setStatus("SUCCESS");
             response.setResult(resultSuccess);
+        }
+
+        return response;
+    }
+
+    /**
+     * Checks if name of group is unique.
+     *
+     * @param studentEmail the name of group
+     * @param model the model
+     * @return ResponseBody which contains success message when group doesn't exists, or fail message when exists
+     */
+    @RequestMapping(value = "/checkStudentEmail", method = RequestMethod.POST)
+    public @ResponseBody String checkStudentEmail(@RequestParam(value="studentEmail") String studentEmail, ModelMap model) {
+
+        String response = null;
+
+        if(getStudentService().checkStudentEmail(studentEmail) == false) { // group doesn't exist
+            response = "SUCCESS";
+        } else { // group exist
+            response = "FAIL";
         }
 
         return response;
