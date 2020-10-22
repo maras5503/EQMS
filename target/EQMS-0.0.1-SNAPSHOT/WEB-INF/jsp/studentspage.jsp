@@ -229,6 +229,10 @@
                     $(rowNode).attr("id", data.result.studentId);
 
                     $("#addStudentModal").modal('hide');
+
+                    if (data.result.studentListIsEmpty){
+                        $("#studentGroupsDropDown").val(data.result.studentgroupId).trigger('change');
+                    }
                 }
             });
         }
@@ -257,6 +261,7 @@
         console.log("$('#addStudentModal .modal-footer #addStudentBtnModal').on('click')");
 
         $('#addStudentFormModal').submit();
+
     });
 
 </script>
