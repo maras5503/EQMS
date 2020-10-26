@@ -71,6 +71,45 @@
     </div>
 </div>
 
+<div class="modal fade" id="editStudentModal" tabindex="-1" role="dialog" aria-labelledby="editStudentLabelModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="EditStudentTitleModal">Edit student</h4>
+            </div>
+            <div class="modal-body">
+                <form action="<c:url value="/students/doEditStudentAjax"/>" method="POST" id="editStudentFormModal">
+                    <div class="form-group">
+                        <label for="studentFirstnameModal" class="control-label">Firstname:</label>
+                        <input type="text" class="form-control" id="studentFirstnameModal" name="studentFirstnameModal" placeholder="Student firstname" maxlength="100" aria-describedby="inputEditStudentFirstnameError">
+                        <span id="glyphiconErrorEditStudentFirstname" class="form-control-feedback" aria-hidden="true"></span>
+                        <span id="inputEditStudentFirstnameError" class="sr-only">(error)</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentLastnameModal" class="control-label">Lastname:</label>
+                        <input type="text" class="form-control" id="studentLastnameModal" name="studentLastnameModal" placeholder="Student lastname" maxlength="100" aria-describedby="inputEditStudentLastnameError">
+                        <span id="glyphiconErrorEditStudentLastname" class="form-control-feedback" aria-hidden="true"></span>
+                        <span id="inputEditStudentLastnameError" class="sr-only">(error)</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentEmailModal" class="control-label">E-mail:</label>
+                        <input type="text" class="form-control" id="studentEmailModal" name="studentEmailModal" placeholder="Student email" maxlength="100" aria-describedby="inputEditStudentEmailError">
+                        <span id="glyphiconErrorEditStudentEmail" class="form-control-feedback" aria-hidden="true"></span>
+                        <span id="inputEditStudentEmailError" class="sr-only">(error)</span>
+                    </div>
+                    <input type="hidden" name="studentReference" id="studentReference" />
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="editStudentBtnModal">Update student data</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <script type="text/javascript">
@@ -261,6 +300,123 @@
         console.log("$('#addStudentModal .modal-footer #addStudentBtnModal').on('click')");
 
         $('#addStudentFormModal').submit();
+
+    });
+
+    /**************************************************************/
+    /*** Adding validation and handling events for "editStudent" ***/
+    /**************************************************************/
+
+    var validatorEditStudent = $("#editStudentFormModal").validate({
+        rules: {
+            studentFirstnameModal: {
+                required: true,
+                maxlength: 200
+            },
+            studentLastnameModal: {
+                required: true,
+                maxlength: 200
+            },
+            studentEmailModal: {
+                required: true,
+                maxlength: 30,
+                checkStudentEmail: true
+
+            }
+        },
+        messages: {
+            studentFirstnameModal: {
+                required: "Firstname text field is required.",
+                maxlength: "Given firstname is too long, please change it."
+            },
+            studentLastnameModal: {
+                required: "Lastname text field is required.",
+                maxlength: "Given lastname is too long, please change it."
+            },
+            studentEmailModal: {
+                required: "Email text field is required.",
+                maxlength: "Given Email is too long, please change it."
+            }
+        },
+        highlight: function(event) {
+            $(event).closest('.form-group').find('.form-control-feedback').addClass('glyphicon glyphicon-remove');
+            $(event).closest('.form-group').addClass('has-error has-feedback');
+        },
+        unhighlight: function(event) {
+            $(event).closest('.form-group').find('.form-control-feedback').removeClass('glyphicon glyphicon-remove');
+            $(event).closest('.form-group').removeClass('has-error has-feedback');
+        },
+        submitHandler: function(form) {
+            console.log("********* submitHandler *********");
+
+            $.ajax({
+                url: URLWithContextPath + "/students/doEditStudentAjax",
+                data: $(form).serialize(),
+                type: "POST",
+                success: function(data) {
+                    console.log("********* AJAX CALL *********");
+                    console.log("Status: " + data.status);
+                    console.log("Result: " + data.result);
+
+
+                    var studentId = $("#editStudentModal").find('.modal-body #studentReference').val();
+                    var studentsTable = $('#students_table');
+                    var studentRow = studentsTable.find('#' + studentId);
+                    console.log(studentRow.toString());
+                    // returns DataTables API instance with selected row in the result set
+                    var studentRowDT = studentsTable.DataTable().row(studentRow);
+
+                    var cellsData = studentRowDT.data();
+
+                    cellsData[0] = data.result.studentFirstname;
+                    cellsData[1] = data.result.studentLastname;
+                    cellsData[2] = data.result.studentEmail;
+                    cellsData[3] = data.result.editeStudent;
+                    cellsData[4] = data.result.deleteStudent;
+                    studentRowDT.data(cellsData);
+
+                    $("#editStudentModal").modal('hide');
+                }
+            });
+        }
+    });
+
+    $('#editStudentBtnModal').on('click', function() {
+        console.log("$('#editStudentBtnModal').on('click')");
+    });
+
+    $('#editStudentBtn').on('click', function() {
+        console.log("$('#editStudentBtn').on('click')");
+    });
+
+    $('#editStudentModal').on('show.bs.modal', function(event) {
+        console.log("$('#editStudentModal').on('show.bs.modal')");
+
+        var button = $(event.relatedTarget);
+        var studentId = button.data('student-reference');
+        var studentFirstname = button.data('student-firstname');
+        var studentLastname = button.data('student-lastname');
+        var studentEmail = button.data('student-email');
+
+        $(this).find('.modal-body #studentReference').val(studentId);
+        $(this).find('.modal-body #studentFirstnameModal').val(studentFirstname);
+        $(this).find('.modal-body #studentLastnameModal').val(studentLastname);
+        $(this).find('.modal-body #studentEmailModal').val(studentEmail);
+
+
+    });
+
+    $('#editStudentModal').on('hide.bs.modal', function(event) {
+        console.log("$('#editStudentModal').on('hide.bs.modal')");
+
+        $(this).find('.modal-body #studentReference').val("");
+        validatorEditStudent.resetForm();
+    });
+
+    $('#editStudentModal .modal-footer #editStudentBtnModal').on('click', function(event) {
+        console.log("$('#editStudentModal .modal-footer #editStudentBtnModal').on('click')");
+
+        $('#editStudentFormModal').submit();
 
     });
 

@@ -57,10 +57,10 @@ public class StudentDaoImpl implements StudentDao {
         SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
         query.setParameter(0, studentEmail);
 
-        int studentNameExists = Integer.valueOf(query.list().get(0).toString());
-        logger.debug("studentNameExists value = " + studentNameExists);
+        int studentEmailExists = Integer.valueOf(query.list().get(0).toString());
+        logger.debug("studentNameExists value = " + studentEmailExists);
 
-        if(studentNameExists == 0) {
+        if(studentEmailExists == 0) {
             return false; 	// studentName doesn't exist
         } else {
             return true;	// studentName exists

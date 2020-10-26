@@ -307,10 +307,12 @@
 
                     var studentgroupId = $("#editStudentGroupModal").find('.modal-body #studentGroupReference').val();
                     var studentgroupsTable = $('#studentgroups_table');
+
                     var studentgroupRow = studentgroupsTable.find('#' + studentgroupId);
 
                     // returns DataTables API instance with selected row in the result set
                     var studentgroupRowDT = studentgroupsTable.DataTable().row(studentgroupRow);
+                    alert(studentgroupRowDT.toString());
 
                     var cellsData = studentgroupRowDT.data();
                     cellsData[0] = data.result.studentgroupName;

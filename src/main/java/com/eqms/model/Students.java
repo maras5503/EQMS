@@ -7,7 +7,7 @@ import java.util.Set;
 @Entity
 @Table(name = "students", catalog = "exam_questions_5", uniqueConstraints = @UniqueConstraint(columnNames = "E_MAIL"))
 public class Students {
-    private int studentId;
+    private Integer studentId;
     private String studentFirstname;
     private String studentLastname;
     private String studentEmail;
