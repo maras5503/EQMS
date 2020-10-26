@@ -307,14 +307,18 @@
 
                     var studentgroupId = $("#editStudentGroupModal").find('.modal-body #studentGroupReference').val();
                     var studentgroupsTable = $('#studentgroups_table');
+                    console.log("Students Table:" + studentgroupsTable.val());
+
 
                     var studentgroupRow = studentgroupsTable.find('#' + studentgroupId);
+                    console.log("Students row:" + studentgroupRow.val());
+
 
                     // returns DataTables API instance with selected row in the result set
                     var studentgroupRowDT = studentgroupsTable.DataTable().row(studentgroupRow);
-                    alert(studentgroupRowDT.toString());
 
                     var cellsData = studentgroupRowDT.data();
+                    console.log("cellsdata:" + cellsData);
                     cellsData[0] = data.result.studentgroupName;
                     cellsData[1] = data.result.editStudentGroup;
                     cellsData[2] = data.result.deleteStudentGroup;
@@ -374,6 +378,7 @@
 
                     var studentgroupId = $("#confirmDeleteStudentGroup").find('.modal-body #studentGroupReference').val();
                     var studentgroupsTable = $('#studentgroups_table');
+
                     var studentgroupRow = studentgroupsTable.find('#' + studentgroupId);
 
                     // returns DataTables API instance with selected row in the result set

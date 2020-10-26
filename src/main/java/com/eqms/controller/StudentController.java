@@ -144,7 +144,7 @@ public class StudentController {
         updateStudentParameters.put("studentFirstname", students.getStudentFirstname());
         updateStudentParameters.put("studentLastname", students.getStudentLastname());
         updateStudentParameters.put("studentEmail", students.getStudentEmail());
-        updateStudentParameters.put("editStudent", "<button type=\"button\" id=\"editStudentBtn\" name=\"editStudentBtn\" class=\"btn btn-info btn-block btn-sm\" style=\"width:90%\" data-target=\"#editStudentModal\" data-student-firstname=\"" + students.getStudentFirstname() + "\" data-student-lastname=\"" + students.getStudentLastname() + "\" data-student-email=\"" + students.getStudentEmail() + "\"  data-student-reference=\"" + students.getStudentId() + "\" ><span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span> Edit</button>");
+        updateStudentParameters.put("editStudent", "<button type=\"button\" id=\"editStudentBtn\" name=\"editStudentBtn\" class=\"btn btn-info btn-block btn-sm\" style=\"width:90%\"  data-toggle=\"modal\" data-target=\"#editStudentModal\" data-student-firstname=\"" + students.getStudentFirstname() + "\" data-student-lastname=\"" + students.getStudentLastname() + "\" data-student-email=\"" + students.getStudentEmail() + "\"  data-student-reference=\"" + students.getStudentId() + "\" ><span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span> Edit</button>");
         updateStudentParameters.put("deleteStudent", "<button type=\"button\" class=\"btn btn-danger btn-block btn-sm\" id=\"deleteStudentBtn\" name=\"deleteStudentBtn\" style=\"width:90%\" data-toggle=\"modal\" data-target=\"#confirmDeleteStudent\" data-title=\"Delete Student\" data-message=\"Are you sure you want to delete student '" + students.getStudentFirstname() + "'  '" + students.getStudentLastname() + "'?\" data-student-reference=\"" + students.getStudentId() + "\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span> Delete</button>");
 
         response.setStatus("SUCCESS");
@@ -195,20 +195,13 @@ public class StudentController {
 
             for(Students student : students) {
 
-                resultSuccess += "<tr class=\"success\" data-key=\"" + student.getStudentId() + "\">";
+                resultSuccess += "<tr class=\"success\" id=\"" + student.getStudentId() + "\">";
                 resultSuccess += "<td>" + student.getStudentFirstname() + "</td>"
                         + "<td>" + student.getStudentLastname() + "</td>"
                         + "<td>" + student.getStudentEmail() + "</td>"
-
                         + "<td>"
-                        + "<form action=\"" + getURLWithContextPath(request) + "/students/editStudent\" method=\"post\" id=\"editStudentForm\">"
-                        + "<input type=\"hidden\" name=\"studentId\" value=\"" + student.getStudentId() + "\" />"
-                        + "<input type=\"hidden\" name=\"studentgroupId\" value=\"" + studentgroupId + "\" />"
                         + "<button type=\"button\" id=\"editStudentBtn\" name=\"editStudentBtn\" class=\"btn btn-info btn-block btn-sm\" style=\"width:90%\" data-toggle=\"modal\" data-target=\"#editStudentModal\" data-student-firstname=\"" + student.getStudentFirstname() + "\" data-student-lastname=\"" + student.getStudentFirstname() + "\" data-student-email=\"" + student.getStudentEmail() + "\"  data-student-reference=\"" + student.getStudentId() + "\" ><span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span> Edit</button>"
-                        + "<input type=\"hidden\" name=\"_csrf\" value=\"" + csrfToken + "\" />"
-                        + "</form>"
                         + "</td>"
-
                         + "<td>"
                         + "<button type=\"button\" class=\"btn btn-danger btn-sm\" id=\"deleteStudentBtn\" name=\"deleteStudentBtn\" style=\"width:90%\" data-toggle=\"modal\" data-target=\"#confirmDeleteStudent\" data-title=\"Delete Student\" data-message=\"Are you sure you want to delete student '" + student.getStudentFirstname() + " " + student.getStudentLastname() + "'?\" data-student-reference=\"" + student.getStudentId() + "\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span> Delete</button>"
                         + "</td>";

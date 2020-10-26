@@ -314,28 +314,27 @@
                 maxlength: 200
             },
             studentLastnameModal: {
-                required: true,
-                maxlength: 200
+              required: true,
+              maxlength: 200
             },
             studentEmailModal: {
                 required: true,
                 maxlength: 30,
                 checkStudentEmail: true
-
             }
         },
         messages: {
             studentFirstnameModal: {
-                required: "Firstname text field is required.",
-                maxlength: "Given firstname is too long, please change it."
+                required: "Group name text field is required.",
+                maxlength: "Given group name is too long, please change it."
             },
             studentLastnameModal: {
-                required: "Lastname text field is required.",
-                maxlength: "Given lastname is too long, please change it."
+                required: "Group name text field is required.",
+                maxlength: "Given group name is too long, please change it."
             },
             studentEmailModal: {
-                required: "Email text field is required.",
-                maxlength: "Given Email is too long, please change it."
+                required: "Group name text field is required.",
+                maxlength: "Given group name is too long, please change it."
             }
         },
         highlight: function(event) {
@@ -358,21 +357,25 @@
                     console.log("Status: " + data.status);
                     console.log("Result: " + data.result);
 
-
                     var studentId = $("#editStudentModal").find('.modal-body #studentReference').val();
+                    console.log("Student ID:" + studentId);
+
                     var studentsTable = $('#students_table');
+                    console.log("Students Table:" + studentsTable.val());
+
                     var studentRow = studentsTable.find('#' + studentId);
-                    console.log(studentRow.toString());
+                    console.log("student row:" + studentRow.val());
+
                     // returns DataTables API instance with selected row in the result set
                     var studentRowDT = studentsTable.DataTable().row(studentRow);
-
                     var cellsData = studentRowDT.data();
-
+                    console.log("cellsdata:" + cellsData);
                     cellsData[0] = data.result.studentFirstname;
                     cellsData[1] = data.result.studentLastname;
                     cellsData[2] = data.result.studentEmail;
-                    cellsData[3] = data.result.editeStudent;
+                    cellsData[3] = data.result.editStudent;
                     cellsData[4] = data.result.deleteStudent;
+
                     studentRowDT.data(cellsData);
 
                     $("#editStudentModal").modal('hide');
@@ -381,35 +384,29 @@
         }
     });
 
-    $('#editStudentBtnModal').on('click', function() {
-        console.log("$('#editStudentBtnModal').on('click')");
-    });
-
-    $('#editStudentBtn').on('click', function() {
-        console.log("$('#editStudentBtn').on('click')");
+    $('#students_table #editStudentBtn').on('click', function() {
+        console.log("$('#students_table #editStudentBtn').on('click')");
     });
 
     $('#editStudentModal').on('show.bs.modal', function(event) {
-        console.log("$('#editStudentModal').on('show.bs.modal')");
+        console.log("$('#editStudentGroupModal').on('show.bs.modal')");
 
         var button = $(event.relatedTarget);
         var studentId = button.data('student-reference');
         var studentFirstname = button.data('student-firstname');
         var studentLastname = button.data('student-lastname');
         var studentEmail = button.data('student-email');
-
         $(this).find('.modal-body #studentReference').val(studentId);
         $(this).find('.modal-body #studentFirstnameModal').val(studentFirstname);
         $(this).find('.modal-body #studentLastnameModal').val(studentLastname);
         $(this).find('.modal-body #studentEmailModal').val(studentEmail);
-
-
     });
 
     $('#editStudentModal').on('hide.bs.modal', function(event) {
         console.log("$('#editStudentModal').on('hide.bs.modal')");
 
         $(this).find('.modal-body #studentReference').val("");
+
         validatorEditStudent.resetForm();
     });
 
@@ -417,9 +414,7 @@
         console.log("$('#editStudentModal .modal-footer #editStudentBtnModal').on('click')");
 
         $('#editStudentFormModal').submit();
-
     });
-
 </script>
 
 <%@ include file="partials/footer.jsp" %>
