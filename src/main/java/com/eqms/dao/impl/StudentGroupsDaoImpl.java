@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.eqms.dao.StudentGroupsDao;
+import com.eqms.model.Students;
+import com.eqms.service.StudentService;
 import org.apache.log4j.Logger;
 import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
@@ -19,6 +21,8 @@ public class StudentGroupsDaoImpl implements StudentGroupsDao {
     @Autowired
     private SessionFactory sessionFactory;
     protected static Logger logger = Logger.getLogger("dao");
+    @Autowired
+    private StudentService studentService;
 
     @Override
     public void addStudentGroup(GroupsOfStudents groupsOfStudents) {
@@ -42,6 +46,14 @@ public class StudentGroupsDaoImpl implements StudentGroupsDao {
     @Override
     public void deleteStudentGroup(Integer studentgroupId) {
 
+        // Deleting all students from the group
+        List<Students> students = getStudentService().getStudentsByStudentGroupId(studentgroupId);
+
+        logger.debug("Loop with tests to deleting");
+        for(Students student : students) {
+            getStudentService().deleteStudent(student.getStudentId());
+        }
+
         // Finally removing subject
         String queryStringDeleteSubject = "DELETE FROM GROUPS_OF_STUDENTS WHERE STUDENTGROUP_ID = ?";
         SQLQuery queryDeleteStudentGroup = getSessionFactory().getCurrentSession().createSQLQuery(queryStringDeleteSubject);
@@ -50,6 +62,7 @@ public class StudentGroupsDaoImpl implements StudentGroupsDao {
         int numberDeletedUpdatedEntities = queryDeleteStudentGroup.executeUpdate();
         logger.debug("The number of entities updated or deleted (subjects): " + String.valueOf(numberDeletedUpdatedEntities));
     }
+
 
     @Override
     public GroupsOfStudents getStudentGroupByStudentGroupId(Integer studentgroupId) {
@@ -101,6 +114,10 @@ public class StudentGroupsDaoImpl implements StudentGroupsDao {
 
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
+    }
+
+    public StudentService getStudentService() {
+        return studentService;
     }
 
 }

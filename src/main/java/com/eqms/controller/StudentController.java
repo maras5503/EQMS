@@ -221,6 +221,33 @@ public class StudentController {
     }
 
     /**
+     * Removes group from database and creates HTML code which updates JSP after removing group.
+     *
+     * @param studentId the group identifier
+     * @return JSON response which contains HTML code which updates JSP after removing group
+     */
+    @RequestMapping(value = "/doDeleteStudentAjax", method = RequestMethod.POST)
+    public @ResponseBody JsonResponse doDeleteStudent(@RequestParam(value="studentReference") Integer studentId) {
+
+        logger.debug("Start deleting student from database ...");
+        logger.debug("Received request with:");
+        logger.debug("\tstudentId = " + studentId);
+
+        // Delete student from database
+        getStudentService().deleteStudent(studentId);
+
+        // Create JSON response
+        JsonResponse response = new JsonResponse();
+
+        //Map<String, Object> deleteSubjectParameters = new HashMap<String, Object>();
+
+        response.setStatus("SUCCESS");
+
+        return response;
+    }
+
+
+    /**
      * Checks if name of group is unique.
      *
      * @param studentEmail the name of group
@@ -228,14 +255,20 @@ public class StudentController {
      * @return ResponseBody which contains success message when group doesn't exists, or fail message when exists
      */
     @RequestMapping(value = "/checkStudentEmail", method = RequestMethod.POST)
-    public @ResponseBody String checkStudentEmail(@RequestParam(value="studentEmail") String studentEmail, ModelMap model) {
+    public @ResponseBody String checkStudentEmail(@RequestParam(value="studentEmail") String studentEmail,
+                                                  @RequestParam(value = "studentReference") Integer studentId,
+                                                  ModelMap model) {
 
         String response = null;
-
-        if(getStudentService().checkStudentEmail(studentEmail) == false) { // group doesn't exist
+        if(getStudentService().getStudentByStudentId(studentId).getStudentEmail()==studentEmail){
             response = "SUCCESS";
-        } else { // group exist
-            response = "FAIL";
+        }
+        else {
+            if (getStudentService().checkStudentEmail(studentEmail) == false) { // group doesn't exist
+                response = "SUCCESS";
+            } else { // group exist
+                response = "FAIL";
+            }
         }
 
         return response;

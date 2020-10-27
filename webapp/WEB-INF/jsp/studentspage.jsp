@@ -110,7 +110,28 @@
     </div>
 </div>
 
-
+<div class="modal fade" id="confirmDeleteStudent" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteStudentLabelModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="confirmDeleteStudentTitleModal">Delete student</h4>
+            </div>
+            <div class="modal-body">
+                <form action="<c:url value="/students/doDeleteStudentAjax"/>" method="POST" id="deleteStudentFormModal" >
+                    <div class="form-group" id="confirmDeleteStudentLabel">
+                    </div>
+                    <input type="hidden" name="studentReference" id="studentReference" />
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteStudentBtnModal">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript">
 
@@ -185,7 +206,10 @@
         data[csrfParameter] = csrfToken;
         data["studentEmail"] = value;
 
+
         console.log("studentEmail value = " + value);
+
+
 
         $.ajax({
             url: URLWithContextPath + "/students/checkStudentEmail",
@@ -320,8 +344,8 @@
             studentEmailModal: {
                 required: true,
                 maxlength: 30,
-                checkStudentEmail: true
             }
+
         },
         messages: {
             studentFirstnameModal: {
@@ -414,6 +438,59 @@
         console.log("$('#editStudentModal .modal-footer #editStudentBtnModal').on('click')");
 
         $('#editStudentFormModal').submit();
+    });
+
+    /*****************************************************************/
+    /*** Adding validation and handling events for "deleteStudent" ***/
+    /*****************************************************************/
+
+    var validatorDeleteStudent = $('#deleteStudentFormModal').validate({
+        submitHandler: function(form) {
+            console.log("********* submitHandler *********");
+
+            $.ajax({
+                url: URLWithContextPath + "/students/doDeleteStudentAjax",
+                data: $(form).serialize(),
+                type: "POST",
+                success: function(data) {
+                    console.log("********* AJAX CALL *********");
+                    console.log("Status: " + data.status);
+                    console.log("Result: " + data.result);
+
+                    var studentId = $("#confirmDeleteStudent").find('.modal-body #studentReference').val();
+                    var studentsTable = $('#students_table');
+
+                    var studentRow = studentsTable.find('#' + studentId);
+
+                    // returns DataTables API instance with selected row in the result set
+                    var studentRowDT = studentsTable.DataTable().row(studentRow);
+                    studentRowDT.remove().draw();
+
+                    $("#confirmDeleteStudent").modal('hide');
+                }
+            });
+        }
+    });
+
+    $('#students_table #deleteStudentBtn').on('click', function() {
+        console.log("$('#students_table #deleteStudentBtn').on('click')");
+    });
+
+    $('#confirmDeleteStudent').on('show.bs.modal', function (event) {
+        console.log("$('#confirmDeleteStudent').on('show.bs.modal')");
+
+        var button = $(event.relatedTarget);
+        var studentId = button.data('student-reference');
+        var message = button.data('message');
+
+        $(this).find('.modal-body #studentReference').val(studentId);
+        $(this).find('.modal-body #confirmDeleteStudentLabel').text(message);
+    });
+
+    $('#confirmDeleteStudent .modal-footer #confirmDeleteStudentBtnModal').on('click', function(){
+        console.log("$('#confirmDeleteStudent .modal-footer #confirmDeleteStudentBtnModal').on('click')");
+
+        $('#deleteStudentFormModal').submit();
     });
 </script>
 
