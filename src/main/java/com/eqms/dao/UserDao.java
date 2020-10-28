@@ -12,6 +12,7 @@ public interface UserDao {
 	UserRole getUserRolebyNazwa(String nazwa);
 	
 	public void addVerificationToken(User user);
+	public String generatePassword();
 	public void updateVerificationToken(User user);
 	User getUserByVerificationToken(String token);
 	String getVerificationTokenbyUser(User user);

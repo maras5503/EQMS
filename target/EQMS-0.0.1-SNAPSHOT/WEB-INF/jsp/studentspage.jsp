@@ -206,6 +206,10 @@
         data[csrfParameter] = csrfToken;
         data["studentEmail"] = value;
 
+        if($('#editStudentModal').find('.modal-body #studentReference').val() != "") {
+            data["studentId"] = $('#editStudentModal').find('.modal-body #studentReference').val();
+        }
+
 
         console.log("studentEmail value = " + value);
 
@@ -344,6 +348,7 @@
             studentEmailModal: {
                 required: true,
                 maxlength: 30,
+                checkStudentEmail:true
             }
 
         },

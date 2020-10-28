@@ -256,20 +256,23 @@ public class StudentController {
      */
     @RequestMapping(value = "/checkStudentEmail", method = RequestMethod.POST)
     public @ResponseBody String checkStudentEmail(@RequestParam(value="studentEmail") String studentEmail,
-                                                  @RequestParam(value = "studentReference") Integer studentId,
+                                                  @RequestParam(value = "studentId",required = false) Integer studentId,
                                                   ModelMap model) {
 
         String response = null;
-        if(getStudentService().getStudentByStudentId(studentId).getStudentEmail()==studentEmail){
+
+        if(studentId != null && getStudentService().getStudentByStudentId(studentId).getStudentEmail().toString().toLowerCase().equals(studentEmail.toLowerCase())) {
             response = "SUCCESS";
         }
-        else {
+
+        if(response==null) {
             if (getStudentService().checkStudentEmail(studentEmail) == false) { // group doesn't exist
                 response = "SUCCESS";
             } else { // group exist
                 response = "FAIL";
             }
         }
+
 
         return response;
     }

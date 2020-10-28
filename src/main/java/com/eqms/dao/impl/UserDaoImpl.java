@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
@@ -104,6 +105,13 @@ public class UserDaoImpl implements UserDao {
 		VerificationToken verificationToken = new VerificationToken(user, token);
 		
 		getSessionFactory().getCurrentSession().save(verificationToken); 
+	}
+
+	@Override
+	public String generatePassword(){
+		String generatedPassword = RandomStringUtils.randomAlphanumeric(10);
+		logger.debug("Generated password is:" +generatedPassword);
+		return generatedPassword;
 	}
 
 	

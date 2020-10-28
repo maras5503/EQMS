@@ -78,6 +78,9 @@
 	        	<div class="col-sm-12">
 					<label for="numberOfQuestions" class="col-md-2 control-label" style="padding-top: 7px; margin-bottom: 0px; text-align: right;">Num. of questions:</label>
 					<label id="numberOfQuestions" class="col-md-1 control-label" style="padding-top: 7px; margin-bottom: 0px; text-align: left;">${group.numberOfQuestions}</label>
+					<div class="col-sm-12" style="text-align: right;">
+						<button type="button" class="btn btn-warning btn-sm" id="generatePasswordsBtn" name="generatePasswordsBtn" data-reference="${group.groupId}" data-toggle="modal" aria-expanded="false" style="margin-right: 5px"><span class="glyphicon glyphicon-random" aria-hidden="true"></span>  Generate Passwords</button>
+					</div>
 				</div>
 	      
 		        <div class="collapse" id="collapseGroup_${group.groupId}" data-reference="${group.groupId}">
