@@ -299,7 +299,7 @@
                 <h4 class="modal-title" id="generatePasswordsTitleModal">Generate passwords</h4>
             </div>
             <div class="modal-body">
-                <form action="<c:url value="/tests/doGeneratePasswords"/>" method="POST" id="generatePasswordsFormModal" >
+                <form action="<c:url value="/tests/generatedPasswords"/>" method="POST" id="generatePasswordsFormModal" >
                     <div class="col-sm-offset-3 col-sm-6" id="studentGroupSelect" align="center" style="padding-bottom: 10px">
                         <select class="form-control" id="studentGroupsDropDown" name="studentGroupsDropDown">
                             <option value="" selected="selected">Select group</option>

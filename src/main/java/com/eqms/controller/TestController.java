@@ -1023,8 +1023,8 @@ public class TestController {
 
 
 
-    @RequestMapping(value = "/doGeneratePasswords", method = {RequestMethod.POST, RequestMethod.GET})
-    public @ResponseBody String doGeneratePasswords(@RequestParam(value = "studentGroupReference") Integer studentgroupId,
+    @RequestMapping(value = "/generatedPasswords", method = {RequestMethod.GET, RequestMethod.POST})
+    public String getGeneratePasswordsPage(@RequestParam(value = "studentGroupReference") Integer studentgroupId,
                                                     ModelMap model){
 
         List<Students> students = getStudentService().getStudentsByStudentGroupId(studentgroupId);
@@ -1034,7 +1034,8 @@ public class TestController {
             for (Students student : students) {
 
 				String password=getTestService().generatePassword();
-				User registerUser=new User();
+
+				/*User registerUser=new User();
 
 				ShaPasswordEncoder shaPasswordEncoder = new ShaPasswordEncoder();	// hash SHA1
 				String hashedPassword = shaPasswordEncoder.encodePassword(password, null);
@@ -1047,17 +1048,18 @@ public class TestController {
 				registerUser.setEmail(student.getStudentEmail());
 				registerUser.setPassword(hashedPassword);
 
-
                 getUserService().add(registerUser);
-
+*/
                 passwords.add(password);
+
 
             }
             model.put("passwords",passwords);
+            model.put("allStudentsModel",students);
 
 
 
-        return passwords.get(0);
+        return "generatedpasswordspage";
     }
 
 
