@@ -2,21 +2,18 @@ package com.eqms.controller;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.eqms.model.*;
+import com.eqms.service.StudentGroupsService;
+import com.eqms.service.StudentService;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -29,14 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.eqms.model.Answer;
-import com.eqms.model.GroupOfQuestions;
-import com.eqms.model.Picture;
-import com.eqms.model.Question;
-import com.eqms.model.SetOfRating;
-import com.eqms.model.Subject;
-import com.eqms.model.Test;
-import com.eqms.model.User;
 import com.eqms.service.TestService;
 import com.eqms.service.UserService;
 import com.eqms.web.JsonResponse;
@@ -53,6 +42,13 @@ public class TestController {
 	
 	@Autowired
 	private TestService testService;
+
+	@Autowired
+	private StudentGroupsService studentGroupsService;
+
+
+    @Autowired
+    private StudentService studentService;
 
 	public static String getURLWithContextPath(HttpServletRequest request) {
 		return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
@@ -78,8 +74,9 @@ public class TestController {
 		 * Getting user from database by email
 		 */
 		User user = getUserService().findByEmail(currentUserEmail);
-		
+		List<GroupsOfStudents> g=getStudentGroupsService().getAllStudentGroups(Order.asc("studentgroupId"), null);
 		model.put("userSubjects", getTestService().getSubjectsByUser(user));
+
 		
 		return "testspage";
 	}
@@ -1026,6 +1023,44 @@ public class TestController {
 
 
 
+    @RequestMapping(value = "/doGeneratePasswords", method = {RequestMethod.POST, RequestMethod.GET})
+    public @ResponseBody String doGeneratePasswords(@RequestParam(value = "studentGroupReference") Integer studentgroupId,
+                                                    ModelMap model){
+
+        List<Students> students = getStudentService().getStudentsByStudentGroupId(studentgroupId);
+
+        List<String> passwords=new ArrayList<String>();
+
+            for (Students student : students) {
+
+				String password=getTestService().generatePassword();
+				User registerUser=new User();
+
+				ShaPasswordEncoder shaPasswordEncoder = new ShaPasswordEncoder();	// hash SHA1
+				String hashedPassword = shaPasswordEncoder.encodePassword(password, null);
+				logger.debug("HashedPassword = " + hashedPassword);
+
+				registerUser.setFirstname(student.getStudentFirstname());
+				registerUser.setLastname(student.getStudentLastname());
+				registerUser.setUserRoles(getUserService().getUserRolebyNazwa("ROLE_STUDENT"));
+				registerUser.setEnabled(true);
+				registerUser.setEmail(student.getStudentEmail());
+				registerUser.setPassword(hashedPassword);
+
+
+                getUserService().add(registerUser);
+
+                passwords.add(password);
+
+            }
+            model.put("passwords",passwords);
+
+
+
+        return passwords.get(0);
+    }
+
+
 
 
 
@@ -1284,6 +1319,7 @@ public class TestController {
 		model.put("test", test);
 		model.put("set", getTestService().getSetOfRatingBySetId(test.getSetsOfRating().getSetId()));
 		model.put("groups", getTestService().getAllGroupsByTestId(testId));
+        model.put("allStudentGroupsModel", getStudentGroupsService().getAllStudentGroups(Order.asc("studentgroupId"), null));
 		
 		return "edittestpage";
 	}
@@ -2011,7 +2047,8 @@ public class TestController {
 		
 		return response;
 	}
-	
+
+
 	/**
 	 * Gets UserService.
 	 * 
@@ -2047,4 +2084,39 @@ public class TestController {
 	public void setTestService(TestService testService) {
 		this.testService = testService;
 	}
+
+	/**
+	 * Gets StudentGroupsService.
+	 *
+	 * @return the StudentGroupsService
+	 */
+	public StudentGroupsService getStudentGroupsService() {
+		return studentGroupsService;
+	}
+
+	/**
+	 * Sets StudentGroupsService.
+	 *
+	 * @param studentGroupsService the TestService to set
+	 */
+	public void setStudentGroupsService(StudentGroupsService studentGroupsService) {
+		this.studentGroupsService = studentGroupsService;
+	}
+    /**
+     * Gets StudentService.
+     *
+     * @return the StudentService
+     */
+    public StudentService getStudentService() {
+        return studentService;
+    }
+
+    /**
+     * Sets StudentService.
+     *
+     * @param studentService the studentService to set
+     */
+    public void setStudentService(StudentService studentService) {
+        this.studentService = studentService;
+    }
 }

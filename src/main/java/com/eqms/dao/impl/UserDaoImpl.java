@@ -107,13 +107,6 @@ public class UserDaoImpl implements UserDao {
 		getSessionFactory().getCurrentSession().save(verificationToken); 
 	}
 
-	@Override
-	public String generatePassword(){
-		String generatedPassword = RandomStringUtils.randomAlphanumeric(10);
-		logger.debug("Generated password is:" +generatedPassword);
-		return generatedPassword;
-	}
-
 	
 	@Override
 	public void updateVerificationToken(User user) {

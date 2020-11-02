@@ -82,4 +82,5 @@ public interface TestDao {
 	
 	GroupOfQuestions getGroupByQuestionId(Integer questionId);
 	Question getQuestionByAnswerId(Integer answerId);
+	public String generatePassword();
 }

@@ -3,6 +3,7 @@ package com.eqms.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
@@ -779,6 +780,13 @@ public class TestDaoImpl implements TestDao {
 		question = query.list();
 		
 		return question.get(0);
+	}
+
+	@Override
+	public String generatePassword(){
+		String generatedPassword = RandomStringUtils.randomAlphanumeric(10);
+		logger.debug("Generated password is:" +generatedPassword);
+		return generatedPassword;
 	}
 	
 	public SessionFactory getSessionFactory() {

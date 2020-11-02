@@ -2,6 +2,7 @@ package com.eqms.service.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -275,5 +276,8 @@ public class TestServiceImpl implements TestService {
 	public Question getQuestionByAnswerId(Integer answerId) {
 		return testDao.getQuestionByAnswerId(answerId);
 	}
+
+	@Override
+	public String generatePassword(){return testDao.generatePassword();}
 
 }

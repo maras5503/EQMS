@@ -79,4 +79,6 @@ public interface TestService {
 	
 	GroupOfQuestions getGroupByQuestionId(Integer questionId);
 	Question getQuestionByAnswerId(Integer answerId);
+	String generatePassword();
+
 }

@@ -61,7 +61,8 @@ public class StudentController {
     public @ResponseBody JsonResponse doAddStudent(@RequestParam(value="studentFirstnameModal") String studentFirstname,
                                                    @RequestParam(value = "studentLastnameModal") String studentLastname,
                                                    @RequestParam(value = "studentEmailModal") String studentEmail,
-                                                   @RequestParam(value = "studentGroupReferenceModal") Integer studentgroupId) {
+                                                   @RequestParam(value = "studentGroupReferenceModal") Integer studentgroupId,
+                                                   @RequestParam(value="_csrf") String csrfToken, HttpServletRequest request) {
 
         logger.debug("Start adding new group to database ...");
         logger.debug("Received request with:");
@@ -81,11 +82,8 @@ public class StudentController {
         students.setStudentEmail(studentEmail);
         GroupsOfStudents groupsOfStudents=getStudentGroupsService().getStudentGroupByStudentGroupId(studentgroupId);
         students.setGroupsOfStudents(groupsOfStudents);
-        System.out.println("ID:" +groupsOfStudents.getStudentgroupId());
-        System.out.println("NAME:"+groupsOfStudents.getStudentgroupName());
         // Add new group to database
         getStudentService().addStudent(students);
-
 
         // Get last group from database
         Students lastStudent = getStudentService().getAllStudents(Order.desc("studentId"), 1).get(0);
@@ -97,7 +95,7 @@ public class StudentController {
         addedStudentRow.put("studentFirstname", lastStudent.getStudentFirstname());
         addedStudentRow.put("studentLastname", lastStudent.getStudentLastname());
         addedStudentRow.put("studentEmail", lastStudent.getStudentEmail());
-        addedStudentRow.put("editStudent", "<button type=\"button\" id=\"editStudentBtn\" name=\"editStudentBtn\" class=\"btn btn-info btn-block btn-sm\" style=\"width:90%\" data-target=\"#editStudentModal\" data-student-firstname=\"" + lastStudent.getStudentFirstname() + "\" data-student-lastname=\"" + lastStudent.getStudentLastname() + "\" data-student-email=\"" + lastStudent.getStudentEmail() + "\"  data-student-reference=\"" + lastStudent.getStudentId() + "\" ><span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span> Edit</button>");
+        addedStudentRow.put("editStudent", "<button type=\"button\" id=\"editStudentBtn\" name=\"editStudentBtn\" class=\"btn btn-info btn-block btn-sm\" style=\"width:90%\" data-target=\"#editStudentModal\" data-student-firstname=\"" + lastStudent.getStudentFirstname() + "\" data-student-lastname=\"" + lastStudent.getStudentFirstname() + "\" data-student-email=\"" + lastStudent.getStudentEmail() + "\"  data-student-reference=\"" + lastStudent.getStudentId() + "\" ><span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span> Edit</button>");
         addedStudentRow.put("deleteStudent", "<button type=\"button\" class=\"btn btn-danger btn-block btn-sm\" id=\"deleteStudentBtn\" name=\"deleteStudentBtn\" style=\"width:90%\" data-toggle=\"modal\" data-target=\"#confirmDeleteStudent\" data-title=\"Delete Student\" data-message=\"Are you sure you want to delete student '" + lastStudent.getStudentFirstname() + "'  '" + lastStudent.getStudentLastname() + "'?\" data-student-reference=\"" + lastStudent.getStudentId() + "\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span> Delete</button>");
         addedStudentRow.put("studentgroupId", lastStudent.getGroupsOfStudents().getStudentgroupId());
         addedStudentRow.put("studentId", lastStudent.getStudentId());
@@ -108,6 +106,7 @@ public class StudentController {
 
         return response;
     }
+
 
 
     /**

@@ -79,7 +79,7 @@
 					<label for="numberOfQuestions" class="col-md-2 control-label" style="padding-top: 7px; margin-bottom: 0px; text-align: right;">Num. of questions:</label>
 					<label id="numberOfQuestions" class="col-md-1 control-label" style="padding-top: 7px; margin-bottom: 0px; text-align: left;">${group.numberOfQuestions}</label>
 					<div class="col-sm-12" style="text-align: right;">
-						<button type="button" class="btn btn-warning btn-sm" id="generatePasswordsBtn" name="generatePasswordsBtn" data-reference="${group.groupId}" data-toggle="modal" aria-expanded="false" style="margin-right: 5px"><span class="glyphicon glyphicon-random" aria-hidden="true"></span>  Generate Passwords</button>
+						<button type="button" class="btn btn-warning btn-sm" id="generatePasswordsBtn" name="generatePasswordsBtn" data-reference="${group.groupId}" data-target="#generatePasswordsModal" data-toggle="modal" aria-expanded="false" style="margin-right: 5px"><span class="glyphicon glyphicon-random" aria-hidden="true"></span>  Generate Passwords</button>
 					</div>
 				</div>
 	      
@@ -87,7 +87,8 @@
 				</div>
 			</div>
         </c:forEach>
-        
+
+
     </div>
     
 </div>
@@ -285,6 +286,39 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-danger" id="confirmDisableTestBtnModal">Disable</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="generatePasswordsModal" tabindex="-1" role="dialog" aria-labelledby="generatePasswordsLabelModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="generatePasswordsTitleModal">Generate passwords</h4>
+            </div>
+            <div class="modal-body">
+                <form action="<c:url value="/tests/doGeneratePasswords"/>" method="POST" id="generatePasswordsFormModal" >
+                    <div class="col-sm-offset-3 col-sm-6" id="studentGroupSelect" align="center" style="padding-bottom: 10px">
+                        <select class="form-control" id="studentGroupsDropDown" name="studentGroupsDropDown">
+                            <option value="" selected="selected">Select group</option>
+
+                            <c:forEach var="studentgroup" items="${allStudentGroupsModel}">
+                                <option value="${studentgroup.studentgroupId}">${studentgroup.studentgroupName}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+
+					<input type="hidden" name="studentGroupReference" id="studentGroupReference"/>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+
+				</form>
+            </div>
+            <div class="modal-footer">
+				<button type="button" class="btn btn-danger" id="generatePasswordsBtnModal">Generate Passwords</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -495,6 +529,51 @@
 </div>
 
 <script type="text/javascript">
+
+	$("#studentGroupsDropDown").change(function(){
+
+		console.log("csrfParameter = " + csrfParameter);
+		console.log("csrfToken = " + csrfToken);
+
+		var data = {};
+		data[csrfParameter] = csrfToken;
+		data["studentgroupId"] = $(this).val();
+
+		if($(this).val() != "") {
+
+			$('#generatePasswordsBtnModal').show();
+			$('#generatePasswordsFormModal').find('#studentGroupReference').val($(this).val());
+
+
+		} else {
+			$('#generatePasswordsBtnModal').hide();
+			$('#generatePasswordsFormModal').find('#studentGroupReference').val("");
+		}
+	});
+    /*****************************************************************/
+    /*** Adding validation and handling events for "deleteStudent" ***/
+    /*****************************************************************/
+
+
+
+
+    $('#generatePasswordsModal').on('show.bs.modal', function (event) {
+        console.log("$('#generatePasswordsModal').on('show.bs.modal')");
+
+        var button = $(event.relatedTarget);
+        var studentgroupId = button.data('studentgroup-reference');
+        var message = button.data('message');
+
+        $(this).find('.modal-body #studentGroupReference').val(studentgroupId);
+        $(this).find('.modal-body #generatePasswordsLabel').text(message);
+    });
+
+    $('#generatePasswordsModal .modal-footer #generatePasswordsBtnModal').on('click', function(){
+        console.log("$('#generatePasswordsModal .modal-footer #generatePasswordsBtnModal').on('click')");
+
+        $('#generatePasswordsFormModal').submit();
+    });
+
 
 	/***************************************************************************************/
 	/************** Adding validation and handling events for "addGroupModal" **************/
