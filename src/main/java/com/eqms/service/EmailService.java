@@ -27,7 +27,13 @@ public class EmailService {
 	private String subject;
 	private String message;
 	private String verificationToken;
-	
+
+	public EmailService(String destinationEmailAddress, String subject, String message) {
+		super();
+		this.destinationEmailAddress = destinationEmailAddress;
+		this.subject = subject;
+		this.message = message;
+	}
 	public EmailService(String destinationEmailAddress, String subject, String message, String verificationToken) {
 		super();
 		this.destinationEmailAddress = destinationEmailAddress;
@@ -49,7 +55,7 @@ public class EmailService {
 		
 		Multipart multipart = new MimeMultipart("alternative");
 		BodyPart messageBodyPart = new MimeBodyPart();
-		
+
 		// To activate your account, please open the following link
 		String htmlMessage = "HTML message received <br> <br> "
 				+ getMessage() + ": <br /> <br /> "
@@ -86,6 +92,26 @@ public class EmailService {
 		
 		return multipart;
 		
+	}
+
+	public Multipart createSendPasswordsMessageBody() {
+
+		Multipart multipart = new MimeMultipart("alternative");
+		BodyPart messageBodyPart = new MimeBodyPart();
+
+		// To activate your account, please open the following link
+		String htmlMessage = "HTML message received <br> <br> "
+				+ getMessage() + ": <br /> <br /> "
+				+ "<a href= \"http://localhost:8080/EQMS/auth/login\" >Link to login page</a>";
+
+		try {
+			messageBodyPart.setContent(htmlMessage, "text/html");
+			multipart.addBodyPart(messageBodyPart);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+
+		return multipart;
 	}
 	
 	public void sendMessage() {
@@ -127,8 +153,14 @@ public class EmailService {
 			if(getInitialEmailAddress() != null) {
 				messageBodyPart.setContent(createAskForAccessMessageBody(), "text/html; charset=\"ISO-8859-1\"" );
 			} else {
-				messageBodyPart.setContent(createActivateAccountMessageBody(), "text/html; charset=\"ISO-8859-1\"" );
+				if(getVerificationToken()== null){
+					messageBodyPart.setContent(createSendPasswordsMessageBody(),"text/html; charset=\"ISO-8859-1\"" );
+				}
+				else {
+					messageBodyPart.setContent(createActivateAccountMessageBody(), "text/html; charset=\"ISO-8859-1\"");
+				}
 			}
+
 
 			// Use a MimeMultipart as we need to handle the file attachments 
 			Multipart multipart = new MimeMultipart(); 

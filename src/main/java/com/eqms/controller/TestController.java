@@ -1,5 +1,6 @@
 package com.eqms.controller;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -7,8 +8,10 @@ import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 
 import com.eqms.model.*;
-import com.eqms.service.StudentGroupsService;
-import com.eqms.service.StudentService;
+import com.eqms.service.*;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Order;
@@ -26,8 +29,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.eqms.service.TestService;
-import com.eqms.service.UserService;
 import com.eqms.web.JsonResponse;
 
 @Controller
@@ -1025,6 +1026,8 @@ public class TestController {
 
     @RequestMapping(value = "/generatedPasswords", method = {RequestMethod.GET, RequestMethod.POST})
     public String getGeneratePasswordsPage(@RequestParam(value = "studentGroupReference") Integer studentgroupId,
+                                                    @RequestParam(value = "testReference") Integer testId,
+                                                    @RequestParam(value = "groupReference") Integer groupId,
                                                     ModelMap model){
 
         List<Students> students = getStudentService().getStudentsByStudentGroupId(studentgroupId);
@@ -1054,13 +1057,65 @@ public class TestController {
 
 
             }
-            model.put("passwords",passwords);
+            model.put("passwordsModel",passwords);
             model.put("allStudentsModel",students);
+            model.put("testModel",testId);
+            model.put("groupModel",groupId);
+            model.put("studentGroupIdModel",studentgroupId);
 
 
 
         return "generatedpasswordspage";
     }
+
+    @RequestMapping(value = "/doSendEmails", method = RequestMethod.POST)
+    public @ResponseBody JsonResponse doSendEmails(@RequestParam(value="testReference") Integer testId,
+                                                   @RequestParam(value = "studentGroupReference") Integer studentgroupId,
+                                                   @RequestParam(value = "passwordsReference") List<String> passwords,
+                                                   @RequestParam(value="_csrf") String csrfToken){
+
+
+        List<Students> students = getStudentService().getStudentsByStudentGroupId(studentgroupId);
+        int i=0;
+        for (Students student : students) {
+
+            EmailService emailService = new EmailService(student.getStudentEmail(), "EQMS login credentials", "Login with this credentials to take the exam."+ System.lineSeparator() +"E-mail: "+student.getStudentEmail()+System.lineSeparator()+"Password: " + passwords.get(i));
+            emailService.sendMessage();
+            i++;
+        }
+
+        // Create JSON response
+        JsonResponse response = new JsonResponse();
+
+        response.setStatus("SUCCESS");
+
+        return response;
+    }
+
+
+	@RequestMapping(value = "/printToPdf", method = RequestMethod.POST)
+	public @ResponseBody JsonResponse printToPdf(@RequestParam(value="testReference") Integer testId,
+												   @RequestParam(value = "studentGroupReference") Integer studentgroupId,
+												   @RequestParam(value = "passwordsReference") List<String> passwords,
+												   @RequestParam(value="_csrf") String csrfToken){
+		try{
+			Document document=new Document();
+			PdfWriter.getInstance(document, new FileOutputStream("d:/"));
+			document.open();
+			document.add(new Paragraph("Hasła dostępu do testu: "+getTestService().getTestByTestId(testId).getTestName()
+			+ " dla studentów z grupy " + getStudentGroupsService().getStudentGroupByStudentGroupId(studentgroupId).getStudentgroupName()));
+			document.close();
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+
+		JsonResponse response=new JsonResponse();
+		response.setStatus("SUCCESS");
+		return response;
+	}
+
+
 
 
 

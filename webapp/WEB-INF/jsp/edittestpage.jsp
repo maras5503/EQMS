@@ -79,7 +79,7 @@
 					<label for="numberOfQuestions" class="col-md-2 control-label" style="padding-top: 7px; margin-bottom: 0px; text-align: right;">Num. of questions:</label>
 					<label id="numberOfQuestions" class="col-md-1 control-label" style="padding-top: 7px; margin-bottom: 0px; text-align: left;">${group.numberOfQuestions}</label>
 					<div class="col-sm-12" style="text-align: right;">
-						<button type="button" class="btn btn-warning btn-sm" id="generatePasswordsBtn" name="generatePasswordsBtn" data-reference="${group.groupId}" data-target="#generatePasswordsModal" data-toggle="modal" aria-expanded="false" style="margin-right: 5px"><span class="glyphicon glyphicon-random" aria-hidden="true"></span>  Generate Passwords</button>
+						<button type="button" class="btn btn-warning btn-sm" id="generatePasswordsBtn" name="generatePasswordsBtn" data-group-reference="${group.groupId}" data-test-reference="${test.testId}" data-target="#generatePasswordsModal" data-toggle="modal" aria-expanded="false" style="margin-right: 5px"><span class="glyphicon glyphicon-random" aria-hidden="true"></span>  Generate Passwords</button>
 					</div>
 				</div>
 	      
@@ -311,13 +311,15 @@
                     </div>
 
 					<input type="hidden" name="studentGroupReference" id="studentGroupReference"/>
+                    <input type="hidden" name="testReference" id="testReference" />
+                    <input type="hidden" name="groupReference" id="groupReference"/>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
 
 				</form>
             </div>
             <div class="modal-footer">
-				<button type="button" class="btn btn-danger" id="generatePasswordsBtnModal">Generate Passwords</button>
+				<button type="button" class="btn btn-warning" id="generatePasswordsBtnModal">Generate Passwords</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -551,7 +553,7 @@
 		}
 	});
     /*****************************************************************/
-    /*** Adding validation and handling events for "deleteStudent" ***/
+    /*** Adding validation and handling events for "generatePasswords" ***/
     /*****************************************************************/
 
 
@@ -562,9 +564,13 @@
 
         var button = $(event.relatedTarget);
         var studentgroupId = button.data('studentgroup-reference');
+        var testId = button.data('test-reference');
+        var groupId = button.data('group-reference');
         var message = button.data('message');
 
         $(this).find('.modal-body #studentGroupReference').val(studentgroupId);
+        $(this).find('.modal-body #testReference').val(testId);
+        $(this).find('.modal-body #groupReference').val(groupId);
         $(this).find('.modal-body #generatePasswordsLabel').text(message);
     });
 

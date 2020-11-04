@@ -105,6 +105,10 @@
           <element id="library" level="project" name="Maven: org.seleniumhq.selenium:selenium-chrome-driver:2.48.2" />
           <element id="library" level="project" name="Maven: xml-apis:xml-apis:1.4.01" />
           <element id="library" level="project" name="Maven: javax.servlet:servlet-api:2.5" />
+          <element id="library" level="project" name="Maven: com.itextpdf:itextpdf:5.0.6" />
+          <element id="library" level="project" name="Maven: org.bouncycastle:bcmail-jdk14:1.38" />
+          <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk14:1.38" />
+          <element id="library" level="project" name="Maven: org.bouncycastle:bctsp-jdk14:1.38" />
         </element>
       </element>
       <element id="directory" name="META-INF">
