@@ -1100,10 +1100,10 @@ public class TestController {
 												   @RequestParam(value="_csrf") String csrfToken){
 		try{
 			Document document=new Document();
-			PdfWriter.getInstance(document, new FileOutputStream("d:/"));
+			PdfWriter.getInstance(document, new FileOutputStream("d:/Exam_passwords_" + getStudentGroupsService().getStudentGroupByStudentGroupId(studentgroupId).getStudentgroupName() + ".pdf"));
 			document.open();
-			document.add(new Paragraph("Hasła dostępu do testu: "+getTestService().getTestByTestId(testId).getTestName()
-			+ " dla studentów z grupy " + getStudentGroupsService().getStudentGroupByStudentGroupId(studentgroupId).getStudentgroupName()));
+			document.add(new Paragraph("Passwords for the test: '"+getTestService().getTestByTestId(testId).getTestName()
+			+ "' for students from group: '" + getStudentGroupsService().getStudentGroupByStudentGroupId(studentgroupId).getStudentgroupName()+"'"));
 			document.close();
 		}
 		catch (Exception e){

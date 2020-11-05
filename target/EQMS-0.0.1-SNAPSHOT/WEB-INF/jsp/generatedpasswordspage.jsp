@@ -16,7 +16,13 @@
                     </div>
                     <div></div>
                     <div class="pull-right">
-                        <button type="button" class="btn btn-danger" id="printToPdfBtn" style="margin-right:5px; margin-top: 15px;"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Export to PDF</button>
+                    <form action="<c:url value="tests/printToPdf"/>" method="POST" id="printToPdfForm">
+                        <input type="hidden" name="testReference" id="testReference" value="${testModel}"/>
+                        <input type="hidden" name="studentGroupReference" id="studentGroupReference" value="${studentGroupIdModel}"/>
+                        <input type="hidden" name="passwordsReference" id="passwordsReference" value="${passwordsModel}"/>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                        <button type="submit" class="btn btn-danger" id="printToPdfBtn" style="margin-right:5px; margin-top: 15px;"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Export to PDF</button>
+                    </form>
                     </div>
                     <div class="clearfix"></div>
 
@@ -131,11 +137,22 @@
         console.log("$('#confirmSendEmails').on('hide.bs.modal')");
     });
 
+    var submit=true;
+
     $('#printToPdfBtn').on('click', function() {
         console.log("$('#printToPdfBtn').on('click')");
     });
 
-    var validatorPrintToPdf = $('#printToPdfBtn').validate({
+    $('#printToPdfForm').on('submit', function(event) {
+        if(submit === false) {
+            event.preventDefault(); // if you want to disable the action
+            return false;
+        } else {
+            return true;
+        }
+    });
+
+    var validatorPrintToPdf = $('#printToPdfForm').validate({
 
         submitHandler: function(form) {
             console.log("********* submitHandler *********");
