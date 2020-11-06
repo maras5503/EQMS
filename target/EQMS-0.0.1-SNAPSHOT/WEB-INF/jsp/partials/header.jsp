@@ -140,8 +140,12 @@
 		        <!-- Retrieves list items for users with ROLE_ANONYMOUS -->
 			    <sec:authorize access="isAnonymous()">
 				  <li><a href="<c:url value="/main/welcome"/>">Welcome page</a></li>
-			    </sec:authorize>	
-		      
+			    </sec:authorize>
+
+				  <sec:authorize access="hasRole('ROLE_STUDENT')">
+					  <li><a href="<c:url value="/main/exam"/>">Exam page</a></li>
+				  </sec:authorize>
+
 		        <!-- Retrieves list items for users with ROLE_USER -->
 		        <sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
 				  <li><a href="<c:url value="/main/common"/>">Main page</a></li>
@@ -156,8 +160,9 @@
 		        <!-- Retrieves list items for users with ROLE_ADMIN -->
 			    <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
 				  <li><a href="<c:url value="/main/admin"/>">Admin page</a></li>
-			    </sec:authorize>	
-		      </ul>
+			    </sec:authorize>
+
+			  </ul>
 		      
 		      <ul class="nav navbar-nav navbar-right">
 		      	<sec:authorize access="isAnonymous() or isAuthenticated()">

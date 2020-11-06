@@ -77,19 +77,27 @@ public class CustomUserDetailsService implements UserDetailsService {
 	 public Collection<GrantedAuthority> getAuthorities(Integer access) {
 		 // Create a list of grants for this user
 		 List<GrantedAuthority> authList = new ArrayList<GrantedAuthority>(2);
-	
-		 // All users are granted with ROLE_USER access
-		 // Therefore this user gets a ROLE_USER by default
-		 logger.debug("Grant ROLE_USER to this user");
-		 authList.add(new SimpleGrantedAuthority("ROLE_USER"));
-	
-		 // Check if this user has admin access 
-		 // We interpret Integer(1) as an admin user
-		 if ( access.compareTo(1) == 0) {
-			 // User has admin access
-			 logger.debug("Grant ROLE_ADMIN to this user");
-			 authList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-		 }
+
+         if( access.compareTo(3) == 0) {
+             //User has student role
+             logger.debug("Grant ROLE_STUDENT to this user");
+             authList.add(new SimpleGrantedAuthority("ROLE_STUDENT"));
+         }
+         else {
+             // All users are granted with ROLE_USER access
+             // Therefore this user gets a ROLE_USER by default
+             logger.debug("Grant ROLE_USER to this user");
+             authList.add(new SimpleGrantedAuthority("ROLE_USER"));
+
+             // Check if this user has admin access
+             // We interpret Integer(1) as an admin user
+             if (access.compareTo(1) == 0) {
+                 // User has admin access
+                 logger.debug("Grant ROLE_ADMIN to this user");
+                 authList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+             }
+         }
+
 	
 		 // Return list of granted authorities
 		 return authList;

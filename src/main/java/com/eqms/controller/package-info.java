@@ -2,7 +2,7 @@
  * 
  */
 /**
- * @author Adrian
+ * @author Adrian & Marek
  *
  */
 package com.eqms.controller;

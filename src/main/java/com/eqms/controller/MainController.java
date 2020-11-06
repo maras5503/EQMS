@@ -2,7 +2,10 @@ package com.eqms.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.eqms.model.User;
+import com.eqms.service.UserService;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/main")
 public class MainController {
 
+	@Autowired
+	UserService userService;
 	protected static Logger logger = Logger.getLogger("controller");
 	
 	/**
@@ -56,7 +61,14 @@ public class MainController {
     	
     	return "welcomepage";
     }
-    
+
+	@RequestMapping(value = "/exam", method = RequestMethod.GET)
+	public String getExamPage() {
+		logger.debug("Received request to show exam page");
+
+		return "exampage";
+	}
+
     /**
      * Gets default page.
      * 
@@ -65,9 +77,23 @@ public class MainController {
      */
     @RequestMapping(value = "/main/default", method = RequestMethod.GET)
     public String getDefaultPage(HttpServletRequest request) {
-    	if (request.isUserInRole("ROLE_ADMIN")) {
+    	String userEmail=request.getUserPrincipal().getName();
+		User user=getUserService().findByEmail(userEmail);
+		Integer userRole=user.getUserRoles().getRoleId();
+    	if (userRole==1) {
             return "redirect:/main/admin";
         }
-        return "redirect:/main/common";
+
+    	if(userRole==2){
+			return "redirect:/main/common";
+		}
+    	if(userRole==3){
+    	    return "redirect:/main/exam";
+        }
+    	return "redirect:/main/welcome";
     }
+
+	public UserService getUserService() {
+		return userService;
+	}
 }
