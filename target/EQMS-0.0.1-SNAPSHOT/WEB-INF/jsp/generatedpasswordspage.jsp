@@ -165,6 +165,8 @@
                     console.log("Status: " + data.status);
                     console.log("Result: " + data.result);
 
+                    alert("The file has been saved in: "+data.result);
+
                 }
             });
         }

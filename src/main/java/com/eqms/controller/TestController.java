@@ -4,13 +4,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.eqms.model.*;
 import com.eqms.service.*;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.*;
+import com.itextpdf.text.html.simpleparser.TableWrapper;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
@@ -1098,12 +1101,36 @@ public class TestController {
 												   @RequestParam(value = "studentGroupReference") Integer studentgroupId,
 												   @RequestParam(value = "passwordsReference") List<String> passwords,
 												   @RequestParam(value="_csrf") String csrfToken){
-		try{
+        String location="d:/Exam_passwords_" + getStudentGroupsService().getStudentGroupByStudentGroupId(studentgroupId).getStudentgroupName() + ".pdf";
+        try{
+
 			Document document=new Document();
-			PdfWriter.getInstance(document, new FileOutputStream("d:/Exam_passwords_" + getStudentGroupsService().getStudentGroupByStudentGroupId(studentgroupId).getStudentgroupName() + ".pdf"));
+			PdfWriter.getInstance(document, new FileOutputStream(location));
 			document.open();
-			document.add(new Paragraph("Passwords for the test: '"+getTestService().getTestByTestId(testId).getTestName()
+
+			document.add(new Paragraph("                Passwords for the test: '"+getTestService().getTestByTestId(testId).getTestName()
 			+ "' for students from group: '" + getStudentGroupsService().getStudentGroupByStudentGroupId(studentgroupId).getStudentgroupName()+"'"));
+            document.add(new Paragraph(Chunk.NEWLINE));
+
+            float[] columnWidths={2,2,5,2};
+			PdfPTable table=new PdfPTable(columnWidths);
+			table.setWidthPercentage(100);
+
+			List<Students> students = getStudentService().getStudentsByStudentGroupId(studentgroupId);
+
+			int i = 0;
+            for (Students student : students) {
+                Phrase firstname = new Phrase(student.getStudentFirstname());
+                PdfPCell cell = new PdfPCell(firstname);
+                cell.setFixedHeight(24);
+                table.addCell(cell);
+                table.addCell(student.getStudentLastname());
+                table.addCell(student.getStudentEmail());
+                table.addCell(passwords.get(i));
+                i++;
+            }
+
+            document.add(table);
 			document.close();
 		}
 		catch (Exception e){
@@ -1111,6 +1138,7 @@ public class TestController {
 		}
 
 		JsonResponse response=new JsonResponse();
+		response.setResult(location);
 		response.setStatus("SUCCESS");
 		return response;
 	}
