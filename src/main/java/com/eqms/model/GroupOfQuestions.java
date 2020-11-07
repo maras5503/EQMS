@@ -32,6 +32,7 @@ public class GroupOfQuestions implements java.io.Serializable {
 	private String groupName;
 	private int numberOfQuestions;
 	private Set<Question> questionses = new HashSet<Question>(0);
+	private Set<Students> studentses = new HashSet<Students>(0);
 
 	public GroupOfQuestions() {
 	}
@@ -47,6 +48,13 @@ public class GroupOfQuestions implements java.io.Serializable {
 		this.groupName = groupName;
 		this.numberOfQuestions = numberOfQuestions;
 		this.questionses = questionses;
+	}
+	public GroupOfQuestions(Test tests, String groupName, int numberOfQuestions, Set<Question> questionses, Set<Students> studentses) {
+		this.tests = tests;
+		this.groupName = groupName;
+		this.numberOfQuestions = numberOfQuestions;
+		this.questionses = questionses;
+		this.studentses=studentses;
 	}
 
 	@Id
@@ -99,5 +107,18 @@ public class GroupOfQuestions implements java.io.Serializable {
 	public void setQuestionses(Set<Question> questionses) {
 		this.questionses = questionses;
 	}
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "students_groups_of_questions", catalog = "exam_questions_5", joinColumns = {
+			@JoinColumn(name = "GROUP_ID", nullable = false, updatable = false) }, inverseJoinColumns = {
+			@JoinColumn(name = "STUDENT_ID", nullable = false, updatable = false) })
+	public Set<Students> getStudentses() {
+		return this.studentses;
+	}
+
+	public void setStudentses(Set<Students> studentses) {
+		this.studentses = studentses;
+	}
+
 
 }

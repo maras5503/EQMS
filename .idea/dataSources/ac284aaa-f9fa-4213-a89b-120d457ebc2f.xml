@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="exam_questions_5@localhost">
+<dataSource name="exam_questions_5@localhost [2]">
   <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.14">
     <root id="1">
       <ServerVersion>10.4.8</ServerVersion>
