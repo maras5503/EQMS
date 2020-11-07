@@ -64,8 +64,26 @@
 		<security:intercept-url pattern="/import_export/doExportAjax" access="hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/import_export/doPreviewAjax" access="hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/import_export/doImportAjax" access="hasRole('ROLE_USER')"/>
-		
-		<!-- NOTE: username-parameter by default is username, password-parameter by default is password !!! -->
+
+        <security:intercept-url pattern="/students/index" access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/students/doAddStudentAjax" access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/students/doEditStudentAjax" access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/students/getStudentsByStudentGroup" access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/students/doDeleteStudentAjax" access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/students/checkStudentsEmail" access="hasRole('ROLE_USER')"/>
+
+        <security:intercept-url pattern="/studentgroups/index" access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/studentgroups/doAddStudentGroupAjax" access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/students/doEditStudenteGroupAjax" access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/students/doDeleteStudentGroupAjax" access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/students/checkStudentGroupName" access="hasRole('ROLE_USER')"/>
+
+
+
+
+
+
+        <!-- NOTE: username-parameter by default is username, password-parameter by default is password !!! -->
 		<security:form-login
 				username-parameter="j_username"
 				password-parameter="j_password"
