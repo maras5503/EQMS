@@ -2,8 +2,10 @@ package com.eqms.controller;
 
 
 import com.eqms.model.GroupOfQuestions;
+import com.eqms.model.Question;
 import com.eqms.model.Test;
 import com.eqms.service.StudentService;
+import com.eqms.service.TestService;
 import com.eqms.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ public class ExamController {
     private StudentService studentService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private TestService testService;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String getExamPage(Map<String, List<GroupOfQuestions>> map, ModelMap model) {
@@ -35,6 +39,19 @@ public class ExamController {
         logger.debug("Address email of current logged user = " + currentUserEmail);
 
         Integer currentStudentId=getStudentService().getStudentByEmail(currentUserEmail).getStudentId();
+        Integer currentGroupId=getTestService().getGroupOfQuestionsIdbyStudentId(currentStudentId);
+        Integer currentTestId=getTestService().getTestIdByGroupId(currentGroupId);
+
+        GroupOfQuestions currentGroup=getTestService().getGroupByGroupId(currentGroupId);
+        Test currentTest=getTestService().getTestByTestId(currentTestId);
+        List <Question> questions=getTestService().getAllQuestionsByGroupId(currentGroupId);
+        Boolean isEnabled=currentTest.isEnabled();
+
+        model.put("currentTestModel",currentTest);
+        model.put("currentGroupModel",currentGroup);
+        model.put("questionsModel",questions);
+        model.put("isTestEnabledModel",isEnabled);
+
 
         return "exampage";
     }
@@ -52,5 +69,12 @@ public class ExamController {
     }
     public void setUserService(UserService userService){
         this.userService=userService;
+    }
+
+    public TestService getTestService(){
+        return testService;
+    }
+    public void setTestService(TestService testService){
+        this.testService=testService;
     }
 }

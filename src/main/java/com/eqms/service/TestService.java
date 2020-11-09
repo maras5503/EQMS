@@ -37,6 +37,7 @@ public interface TestService {
 	public void updateTest(Test test);
 	public void deleteTest(Integer testId);
 	Test getTestByTestId(Integer testId);
+	Integer getTestIdByGroupId(Integer groupId);
 	Boolean checkTestName(String testName, Integer subjectId);
 	
 	public void addGroup(GroupOfQuestions group);
@@ -46,6 +47,7 @@ public interface TestService {
 	Boolean checkGroupName(String groupName, Integer testId);
 
 	public void addReferenceStudentToGroupOfQuestions(Integer studentId, Integer groupId);
+	public int getGroupOfQuestionsIdbyStudentId(Integer studentId);
 	
 	public void addQuestion(Question question, Integer groupId);
 	public void updateQuestion(Question question);

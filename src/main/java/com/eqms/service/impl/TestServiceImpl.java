@@ -96,6 +96,9 @@ public class TestServiceImpl implements TestService {
 	public Test getTestByTestId(Integer testId) {
 		return testDao.getTestByTestId(testId);
 	}
+
+	@Override
+	public Integer getTestIdByGroupId(Integer groupId){return testDao.getTestIdByGroupId(groupId);}
 	
 	@Override
 	public Boolean checkTestName(String testName, Integer subjectId) {
@@ -129,6 +132,9 @@ public class TestServiceImpl implements TestService {
 
 	@Override
 	public void addReferenceStudentToGroupOfQuestions(Integer studentId, Integer groupId){testDao.addReferenceStudentToGroupOfQuestions(studentId,groupId);}
+
+	@Override
+	public int getGroupOfQuestionsIdbyStudentId(Integer studentId) { return testDao.getGroupOfQuestionsIdbyStudentId(studentId);}
 
 	@Override
 	public void addQuestion(Question question, Integer groupId) {

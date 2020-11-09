@@ -1040,7 +1040,7 @@ public class TestController {
             for (Students student : students) {
 
 				String password=getTestService().generatePassword();
-				/*
+
 				User registerUser=new User();
 
 				ShaPasswordEncoder shaPasswordEncoder = new ShaPasswordEncoder();	// hash SHA1
@@ -1055,7 +1055,7 @@ public class TestController {
 				registerUser.setPassword(hashedPassword);
 
                 getUserService().add(registerUser);
-                */
+
 				Integer studentId=student.getStudentId();
 				getTestService().addReferenceStudentToGroupOfQuestions(studentId,groupId);
 

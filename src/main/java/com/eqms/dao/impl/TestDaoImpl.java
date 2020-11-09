@@ -210,6 +210,21 @@ public class TestDaoImpl implements TestDao {
 	}
 
 	@Override
+	public Integer getTestIdByGroupId(Integer groupId) {
+
+		List<Integer> test = new ArrayList<Integer>();
+		Integer testId;
+
+		String queryString = "SELECT TEST_ID FROM GROUPS_OF_QUESTIONS WHERE GROUP_ID = ?";
+		SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
+		query.setParameter(0, groupId);
+		test = query.list();
+		testId=test.get(0);
+
+		return testId;
+	}
+
+	@Override
 	public Boolean checkTestName(String testName, Integer subjectId) {
 		
 		String queryString = "SELECT COUNT(*) FROM TESTS WHERE TEST_NAME = ? AND SUBJECT_ID = ?";
@@ -320,6 +335,16 @@ public class TestDaoImpl implements TestDao {
 		query.setParameter(0, studentId);
 		query.setParameter(1, groupId);
 		query.executeUpdate();
+	}
+
+	@Override
+	public int getGroupOfQuestionsIdbyStudentId(Integer studentId){
+		String queryString = "SELECT GROUP_ID FROM STUDENTS_GROUPS_OF_QUESTIONS WHERE STUDENT_ID = (?)";
+		SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
+		query.setParameter(0, studentId);
+		List<Integer> list = query.list();
+		int groupId=list.get(0);
+		return groupId;
 	}
 
 
