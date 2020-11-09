@@ -10,6 +10,7 @@ public interface StudentDao {
     public void updateStudent(Students students);
     public void deleteStudent(Integer studentId);
     Students getStudentByStudentId(Integer studentId);
+    Students getStudentByEmail(String email);
     Boolean checkStudentEmail(String studentEmail);
 
     List<Students> getAllStudents(Order order, Integer maxResults);

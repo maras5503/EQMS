@@ -312,7 +312,17 @@ public class TestDaoImpl implements TestDao {
 			return true;		// groupName exists
 		}
 	}
-	
+
+	@Override
+	public void addReferenceStudentToGroupOfQuestions(Integer studentId, Integer groupId){
+		String queryString = "INSERT INTO STUDENTS_GROUPS_OF_QUESTIONS VALUES (?, ?)";
+		SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
+		query.setParameter(0, studentId);
+		query.setParameter(1, groupId);
+		query.executeUpdate();
+	}
+
+
 	@Override
 	public void addQuestion(Question question, Integer groupId) {
 		
@@ -381,7 +391,8 @@ public class TestDaoImpl implements TestDao {
 			logger.debug("The number of entities updated or deleted (questions): " + String.valueOf(numberDeletedUpdatedEntities));
 		}
 	}
-	
+
+
 	/*@Override
 	public void deleteReferenceQuestionToGroup(Integer questionId) {
 		

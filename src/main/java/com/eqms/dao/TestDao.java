@@ -43,7 +43,9 @@ public interface TestDao {
 	//public void deleteReferenceGroupToQuestions(Integer groupId);
 	GroupOfQuestions getGroupByGroupId(Integer groupId);
 	Boolean checkGroupName(String groupName, Integer testId);
-	
+
+	public  void addReferenceStudentToGroupOfQuestions(Integer studentId, Integer groupId);
+
 	public void addQuestion(Question question, Integer groupId);
 	public void updateQuestion(Question question);
 	public void deleteQuestion(Integer questionId);

@@ -10,8 +10,9 @@ public interface StudentService {
     public void updateStudent(Students students);
     public void deleteStudent(Integer studentId);
     Students getStudentByStudentId(Integer studentId);
-    Boolean checkStudentEmail(String studentEmail);
+    Students getStudentByEmail(String email);
 
+    Boolean checkStudentEmail(String studentEmail);
     List<Students> getAllStudents(Order order, Integer maxResults);
     List<Students> getStudentsByStudentGroupId(Integer studentgroupId);
 }

@@ -13,6 +13,8 @@ import com.eqms.model.Subject;
 import com.eqms.model.Test;
 import com.eqms.model.User;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 public interface TestService {
 	/**
 	 * Methods for subjects
@@ -42,6 +44,8 @@ public interface TestService {
 	public void deleteGroup(Integer groupId);
 	GroupOfQuestions getGroupByGroupId(Integer groupId);
 	Boolean checkGroupName(String groupName, Integer testId);
+
+	public void addReferenceStudentToGroupOfQuestions(Integer studentId, Integer groupId);
 	
 	public void addQuestion(Question question, Integer groupId);
 	public void updateQuestion(Question question);

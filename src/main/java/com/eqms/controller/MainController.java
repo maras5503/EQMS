@@ -62,12 +62,6 @@ public class MainController {
     	return "welcomepage";
     }
 
-	@RequestMapping(value = "/exam", method = RequestMethod.GET)
-	public String getExamPage() {
-		logger.debug("Received request to show exam page");
-
-		return "exampage";
-	}
 
     /**
      * Gets default page.
@@ -88,7 +82,7 @@ public class MainController {
 			return "redirect:/main/common";
 		}
     	if(userRole==3){
-    	    return "redirect:/main/exam";
+    	    return "redirect:/exam/index";
         }
     	return "redirect:/main/welcome";
     }

@@ -43,7 +43,7 @@ public class StudentController {
      * @return logic view name represented by String type
      */
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String getStudentGroupsPage(Map<String, List<GroupsOfStudents>> map, ModelMap model) {
+    public String getStudentsPage(Map<String, List<GroupsOfStudents>> map, ModelMap model) {
         logger.debug("Received request to show groups page");
 
         model.put("allStudentGroupsModel", getStudentGroupsService().getAllStudentGroups(Order.asc("studentgroupId"), null));

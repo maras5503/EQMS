@@ -52,6 +52,18 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
+    public Students getStudentByEmail(String email) {
+        List<Students> students =new ArrayList<Students>();
+
+        String queryString = "SELECT * FROM STUDENTS WHERE E_MAIL = ?";
+        SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString).addEntity(Students.class);
+        query.setParameter(0,email);
+        students=query.list();
+
+        return  students.get(0);
+    }
+
+    @Override
     public Boolean checkStudentEmail(String studentEmail) {
         String queryString = "SELECT COUNT(*) FROM STUDENTS WHERE E_MAIL = ?";
         SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);

@@ -128,6 +128,9 @@ public class TestServiceImpl implements TestService {
 	}
 
 	@Override
+	public void addReferenceStudentToGroupOfQuestions(Integer studentId, Integer groupId){testDao.addReferenceStudentToGroupOfQuestions(studentId,groupId);}
+
+	@Override
 	public void addQuestion(Question question, Integer groupId) {
 		testDao.addQuestion(question, groupId);
 	}
