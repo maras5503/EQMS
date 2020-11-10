@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Map;
@@ -38,20 +39,35 @@ public class ExamController {
         String currentUserEmail = userDetails.getUsername();
         logger.debug("Address email of current logged user = " + currentUserEmail);
 
-        Integer currentStudentId=getStudentService().getStudentByEmail(currentUserEmail).getStudentId();
-        Integer currentGroupId=getTestService().getGroupOfQuestionsIdbyStudentId(currentStudentId);
-        Integer currentTestId=getTestService().getTestIdByGroupId(currentGroupId);
+        Integer currentStudentId = getStudentService().getStudentByEmail(currentUserEmail).getStudentId();
+        Integer currentGroupId = getTestService().getGroupOfQuestionsIdbyStudentId(currentStudentId);
+        Integer currentTestId = getTestService().getTestIdByGroupId(currentGroupId);
 
-        GroupOfQuestions currentGroup=getTestService().getGroupByGroupId(currentGroupId);
-        Test currentTest=getTestService().getTestByTestId(currentTestId);
-        List <Question> questions=getTestService().getAllQuestionsByGroupId(currentGroupId);
-        Boolean isEnabled=currentTest.isEnabled();
+        GroupOfQuestions currentGroup = getTestService().getGroupByGroupId(currentGroupId);
+        Test currentTest = getTestService().getTestByTestId(currentTestId);
+        List <Question> questions = getTestService().getAllQuestionsByGroupId(currentGroupId);
+        Boolean isEnabled = currentTest.isEnabled();
 
         model.put("currentTestModel",currentTest);
         model.put("currentGroupModel",currentGroup);
         model.put("questionsModel",questions);
         model.put("isTestEnabledModel",isEnabled);
 
+
+        return "studenthomepage";
+    }
+
+    @RequestMapping(value = "/startExam", method = {RequestMethod.GET, RequestMethod.POST})
+    public String getGeneratePasswordsPage(@RequestParam(value = "testReference") Integer testId,
+                                           @RequestParam(value = "groupReference") Integer groupId,
+                                           ModelMap model){
+
+        Test test = getTestService().getTestByTestId(testId);
+        GroupOfQuestions group = getTestService().getGroupByGroupId(groupId);
+        List <Question> questions = getTestService().getAllQuestionsByGroupId(groupId);
+        model.put("currentTestModel",test);
+        model.put("currentGroupModel",group);
+        model.put("questionsModel",questions);
 
         return "exampage";
     }

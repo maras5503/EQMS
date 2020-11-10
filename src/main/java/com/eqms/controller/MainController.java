@@ -84,7 +84,7 @@ public class MainController {
     	if(userRole==3){
     	    return "redirect:/exam/index";
         }
-    	return "redirect:/main/welcome";
+    	return "redirect:/auth/denied";
     }
 
 	public UserService getUserService() {
