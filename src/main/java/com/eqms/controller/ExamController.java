@@ -1,12 +1,11 @@
 package com.eqms.controller;
 
 
-import com.eqms.model.GroupOfQuestions;
-import com.eqms.model.Question;
-import com.eqms.model.Test;
+import com.eqms.model.*;
 import com.eqms.service.StudentService;
 import com.eqms.service.TestService;
 import com.eqms.service.UserService;
+import com.eqms.web.JsonResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,9 +15,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 @Controller
 @RequestMapping("/exam")
@@ -62,15 +62,60 @@ public class ExamController {
                                            @RequestParam(value = "groupReference") Integer groupId,
                                            ModelMap model){
 
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String currentUserEmail = userDetails.getUsername();
+        Integer currentStudentId = getStudentService().getStudentByEmail(currentUserEmail).getStudentId();
+        Students currentStudent= getStudentService().getStudentByStudentId(currentStudentId);
+
         Test test = getTestService().getTestByTestId(testId);
         GroupOfQuestions group = getTestService().getGroupByGroupId(groupId);
         List <Question> questions = getTestService().getAllQuestionsByGroupId(groupId);
+        Question question=questions.get(0);
+        List <Answer> answers = getTestService().getAllAnswersByQuestionId(question.getQuestionId());
+
+
+
         model.put("currentTestModel",test);
         model.put("currentGroupModel",group);
+        model.put("question",question);
         model.put("questionsModel",questions);
+        model.put("answersModel", answers);
+        model.put("currentStudentModel", currentStudent);
+
 
         return "exampage";
     }
+
+    @RequestMapping(value = "/nextQuestion", method = RequestMethod.POST)
+    public @ResponseBody JsonResponse nextQuestion(@RequestParam (value = "questionReference") Integer questionId,
+                                                  @RequestParam (value = "groupReference") Integer groupId,
+                                                   HttpServletRequest request) {
+        List <Question> questions=getTestService().getAllQuestionsByGroupId(groupId);
+        Question question=new Question();
+        for (Question q : questions){
+            if(q.getQuestionId().equals(questionId+1)){
+                question=q;
+            }
+        }
+
+        List <Answer> answers=getTestService().getAllAnswersByQuestionId(questionId);
+
+        JsonResponse response=new JsonResponse();
+        Map<String, Object> nextQuestion = new HashMap<String, Object>();
+        nextQuestion.put("question",question);
+        nextQuestion.put("answersModel",answers);
+
+        response.setStatus("SUCCESS");
+        response.setResult(nextQuestion);
+        return response;
+    }
+
+
+    @RequestMapping(value = "/processExam", method = {RequestMethod.GET, RequestMethod.POST})
+    public String processExam() throws Exception {
+        return "finishexampage";
+    }
+
 
 
     public StudentService getStudentService() {
