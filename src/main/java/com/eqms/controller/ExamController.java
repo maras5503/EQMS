@@ -99,11 +99,19 @@ public class ExamController {
         }
 
         List <Answer> answers=getTestService().getAllAnswersByQuestionId(question.getQuestionId());
+        String resultsuccess=new String();
+        for ( Answer a : answers){
+            resultsuccess+="<label class=\"container\">" +
+                    "<input type=\"radio\" id=\"answerReference\" value=\""+a.getAnswerId()+"\" > "+a.getContentOfAnswer() +
+                    "<span class=\"checkmark\"></span>" +
+                    "</label>";
+        }
 
         JsonResponse response=new JsonResponse();
         Map<String, Object> nextQuestion = new HashMap<String, Object>();
         nextQuestion.put("question",question.getContentOfQuestion());
         nextQuestion.put("answersModel",answers);
+        nextQuestion.put("resultsuccess",resultsuccess);
 
         response.setStatus("SUCCESS");
         response.setResult(nextQuestion);

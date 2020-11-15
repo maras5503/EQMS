@@ -35,16 +35,16 @@
 
                     <div class="qList">
                         <div class="jumbotron">
-                            <div id="questionDiv">
-                            <h1 class="display-4" id="questionh">${question.contentOfQuestion}</h1>
-                            </div>
+                            <h1 class="display-4" id="questiontext">${question.contentOfQuestion}</h1>
                             <hr class="my-4">
+                            <div id="answersloop">
                             <c:forEach var="a" items="${answersModel}">
                                 <label class="container">
                                 <input type="radio" id="answerReference" value="${a.answerId}" > ${a.contentOfAnswer}
                                     <span class="checkmark"></span>
                                 </label>
                             </c:forEach>
+                            </div>
                         </div>
                     </div>
                 <div hidden="hidden" id="submitDiv"><button class="btn btn-primary btn-lg btn-block" id="btnSubmit">Submit</button></div>            </form>
@@ -85,7 +85,9 @@
                     console.log("********* AJAX CALL *********");
                     console.log("Status: " + data.status);
                     console.log("Result: " + data.result);
-                    $("#questionh").html(data.result.question);
+                    $("#questiontext").html(data.result.question);
+                    $("#answersloop").html(data.result.resultsuccess);
+
                 }
             });
         }
