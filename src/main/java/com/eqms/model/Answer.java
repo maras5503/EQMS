@@ -2,6 +2,8 @@ package com.eqms.model;
 // default package
 // Generated 2015-11-14 00:29:40 by Hibernate Tools 4.3.1.Final
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -87,6 +89,7 @@ public class Answer implements java.io.Serializable {
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "answerses")
+	@JsonIgnore
 	public Set<Question> getQuestionses() {
 		return this.questionses;
 	}

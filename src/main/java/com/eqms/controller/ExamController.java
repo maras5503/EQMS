@@ -98,11 +98,11 @@ public class ExamController {
             }
         }
 
-        List <Answer> answers=getTestService().getAllAnswersByQuestionId(questionId);
+        List <Answer> answers=getTestService().getAllAnswersByQuestionId(question.getQuestionId());
 
         JsonResponse response=new JsonResponse();
         Map<String, Object> nextQuestion = new HashMap<String, Object>();
-        nextQuestion.put("question",question);
+        nextQuestion.put("question",question.getContentOfQuestion());
         nextQuestion.put("answersModel",answers);
 
         response.setStatus("SUCCESS");
