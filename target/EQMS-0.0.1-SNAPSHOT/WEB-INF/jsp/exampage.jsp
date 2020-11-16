@@ -40,21 +40,30 @@
                             <div id="answersloop">
                             <c:forEach var="a" items="${answersModel}">
                                 <label class="container">
-                                <input type="radio" id="answerReference" value="${a.answerId}" > ${a.contentOfAnswer}
-                                    <span class="checkmark"></span>
+                                <input type="radio" id="answerReference" name="answer" value="${a.answerId}" > ${a.contentOfAnswer}
                                 </label>
                             </c:forEach>
                             </div>
                         </div>
                     </div>
-                <div hidden="hidden" id="submitDiv"><button class="btn btn-primary btn-lg btn-block" id="btnSubmit">Submit</button></div>            </form>
-            <form id="nextQuestionForm" action="<c:url value="/exam/nextQuestion"/>" method="POST" >
-                <input type="hidden" name="questionReference" id="questionReference" value="${question.questionId}"/>
-                <input type="hidden" name="groupReference" id="groupReference" value="${currentGroupModel.groupId}">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                <button type="submit" class="btn btn-primary btn-lg " id="btnNext" style="width:50%">Next</button>
+                <div hidden="hidden" id="submitDiv"><button class="btn btn-success btn-lg btn-block" id="btnSubmit">Submit</button></div>
             </form>
-            <a class="btn btn-link btn-lg " id="btnPrevious" href="#" style="width: 50%" >Previous</a>
+            <div class="pull-left" style="width: 50%">
+                <form id="previousQuestionForm" action="<c:url value="/exam/previousQuestion"/>" method="POST">
+                    <input type="hidden" name="previousQuestionReference" id="previousQuestionReference" value="0"/>
+                    <input type="hidden" name="groupReference" id="groupReference" value="${currentGroupModel.groupId}"/>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                    <button type="submit" class="btn btn-link btn-lg btn-block" id="btnPrevious" disabled="true" >Previous</button>
+                </form>
+            </div>
+            <div class="pull-left" style="width: 50%">
+            <form id="nextQuestionForm" action="<c:url value="/exam/nextQuestion"/>" method="POST" >
+                <input type="hidden" name="nextQuestionReference" id="nextQuestionReference" value="0"/>
+                <input type="hidden" name="groupReference" id="groupReference" value="${currentGroupModel.groupId}"/>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                <button type="submit" class="btn btn-primary btn-lg btn-block" id="btnNext">Next</button>
+            </form>
+            </div>
 
 
         </div>
@@ -85,8 +94,55 @@
                     console.log("********* AJAX CALL *********");
                     console.log("Status: " + data.status);
                     console.log("Result: " + data.result);
-                    $("#questiontext").html(data.result.question);
+                    $("#questiontext").html(data.result.contentOfQuestion);
+                    $("#nextQuestionReference").attr("value",data.result.questionReference);
+                    $("#previousQuestionReference").attr("value",data.result.questionReference);
                     $("#answersloop").html(data.result.resultsuccess);
+                    $("#btnPrevious").attr("disabled",false);
+
+                    if(data.result.isQuestionLast){
+                        $("#btnNext").attr("disabled",true);
+                        $("#submitDiv").show();
+                    }
+
+                }
+            });
+        }
+    });
+
+    $('#previousQuestionForm').on('submit', function(event) {
+        if(submit === false) {
+            event.preventDefault(); // if you want to disable the action
+            return false;
+        } else {
+            return true;
+        }
+    });
+
+    var validatorPreviousQuestion = $('#previousQuestionForm').validate({
+        submitHandler: function(form) {
+            console.log("********* submitHandler *********");
+            $(form).ajaxSubmit({
+                url: URLWithContextPath + "/exam/previousQuestion",
+                dataType: "json",
+                type: "post",
+                success: function(data) {
+                    console.log("********* AJAX CALL *********");
+                    console.log("Status: " + data.status);
+                    console.log("Result: " + data.result);
+                    $("#questiontext").html(data.result.question);
+                    $("#nextQuestionReference").attr("value", data.result.questionReference);
+                    $("#previousQuestionReference").attr("value", data.result.questionReference);
+                    $("#answersloop").html(data.result.resultsuccess);
+
+                    if (data.result.isQuestionFirst) {
+                        $("#btnPrevious").attr("disabled", true);
+                    }
+
+                    if ($("#btnNext").prop("disabled")) {
+                        $("#btnNext").attr("disabled", false);
+                    }
+                    $("#submitDiv").hide();
 
                 }
             });

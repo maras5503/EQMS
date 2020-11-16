@@ -87,19 +87,64 @@ public class ExamController {
     }
 
     @RequestMapping(value = "/nextQuestion", method = RequestMethod.POST)
-    public @ResponseBody JsonResponse nextQuestion(@RequestParam (value = "questionReference") Integer questionId,
+    public @ResponseBody JsonResponse nextQuestion(@RequestParam (value = "nextQuestionReference") Integer questionNumber,
                                                   @RequestParam (value = "groupReference") Integer groupId,
                                                    HttpServletRequest request) {
         List <Question> questions=getTestService().getAllQuestionsByGroupId(groupId);
+        Integer lastquestionId=questions.get(questions.size()-1).getQuestionId();
+        Boolean isQuestionLast=false;
         Question question=new Question();
-        for (Question q : questions){
-            if(q.getQuestionId().equals(questionId+1)){
-                question=q;
-            }
+        question=questions.get(questionNumber+1);
+
+        if(question.getQuestionId()==lastquestionId){
+            isQuestionLast=true;
         }
+
+
+
 
         List <Answer> answers=getTestService().getAllAnswersByQuestionId(question.getQuestionId());
         String resultsuccess=new String();
+
+        for ( Answer a : answers){
+            resultsuccess+="<label class=\"container\">" +
+                    "<input type=\"radio\" id=\"answerReference\" value=\""+a.getAnswerId()+"\" > "+a.getContentOfAnswer() +
+                    "<span class=\"checkmark\"></span>" +
+                    "</label>";
+        }
+
+        JsonResponse response=new JsonResponse();
+        Map<String, Object> nextQuestion = new HashMap<String, Object>();
+        nextQuestion.put("contentOfQuestion",question.getContentOfQuestion());
+        nextQuestion.put("questionReference",questionNumber+1);
+        nextQuestion.put("answersModel",answers);
+        nextQuestion.put("resultsuccess",resultsuccess);
+        nextQuestion.put("isQuestionLast",isQuestionLast);
+
+        response.setStatus("SUCCESS");
+        response.setResult(nextQuestion);
+        return response;
+    }
+
+    @RequestMapping(value = "/previousQuestion", method = RequestMethod.POST)
+    public @ResponseBody JsonResponse previousQuestion(@RequestParam (value = "previousQuestionReference") Integer questionNumber,
+                                                   @RequestParam (value = "groupReference") Integer groupId,
+                                                   HttpServletRequest request) {
+        List <Question> questions=getTestService().getAllQuestionsByGroupId(groupId);
+        Integer firstquestionId=questions.get(0).getQuestionId();
+        Boolean isQuestionFirst=false;
+        Question question=questions.get(questionNumber-1);
+
+        if(question.getQuestionId()==firstquestionId){
+                    isQuestionFirst=true;
+        }
+
+
+
+        List <Answer> answers=getTestService().getAllAnswersByQuestionId(question.getQuestionId());
+        String resultsuccess=new String();
+        String nextQuestionReference="<input type=\"hidden\" name=\"nextQuestionReference\" id=\"nextQuestionReference\" value=\""+ question.getQuestionId() +"\"/>";
+        String previosQuestionReference="<input type=\"hidden\" name=\"previousQuestionReference\" id=\"previousQuestionReference\" value=\""+ question.getQuestionId() +"\"/>";
         for ( Answer a : answers){
             resultsuccess+="<label class=\"container\">" +
                     "<input type=\"radio\" id=\"answerReference\" value=\""+a.getAnswerId()+"\" > "+a.getContentOfAnswer() +
@@ -110,8 +155,10 @@ public class ExamController {
         JsonResponse response=new JsonResponse();
         Map<String, Object> nextQuestion = new HashMap<String, Object>();
         nextQuestion.put("question",question.getContentOfQuestion());
+        nextQuestion.put("questionReference",questionNumber-1);
         nextQuestion.put("answersModel",answers);
         nextQuestion.put("resultsuccess",resultsuccess);
+        nextQuestion.put("isQuestionFirst",isQuestionFirst);
 
         response.setStatus("SUCCESS");
         response.setResult(nextQuestion);
