@@ -45,6 +45,9 @@
                                 <label class="container">
                                     <input type="radio" id="answerReference" name="answer" value="${a.answerId}" > ${a.contentOfAnswer}
                                 </label>
+                                <c:if test="${a.pictures.pictureId != null}">
+                                <img src="${URLwithContextPath}/tests/image/${a.pictures.pictureId}" alt="questionImage" name="questionImage" id="questionImage"/></label><br><br>
+                                </c:if>
                             </c:forEach>
                         </div>
                     </div>

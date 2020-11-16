@@ -89,6 +89,7 @@ public class ExamController {
         model.put("question",question);
         model.put("questionsModel",questions);
         model.put("answersModel", answers);
+        model.put("URLwithContextPath",getURLWithContextPath(request));
         model.put("currentStudentModel", currentStudent);
         model.put("image", image);
 
@@ -121,6 +122,9 @@ public class ExamController {
                     "<input type=\"radio\" id=\"answerReference\" value=\""+a.getAnswerId()+"\" > "+a.getContentOfAnswer() +
                     "<span class=\"checkmark\"></span>" +
                     "</label>";
+            if(a.getPictures() != null){
+                resultsuccess+="<img src=\"" + getURLWithContextPath(request) + "/tests/image/" + a.getPictures().getPictureId() + "\" alt=\"questionImage\" name=\"questionImage\" id=\"questionImage\"/></label><br><br>";
+            }
         }
 
         String image=new String();
@@ -136,7 +140,6 @@ public class ExamController {
         Map<String, Object> nextQuestion = new HashMap<String, Object>();
         nextQuestion.put("contentOfQuestion",question.getContentOfQuestion());
         nextQuestion.put("questionReference",questionNumber+1);
-        nextQuestion.put("answersModel",answers);
         nextQuestion.put("resultsuccess",resultsuccess);
         nextQuestion.put("isQuestionLast",isQuestionLast);
         nextQuestion.put("image",image);
@@ -170,6 +173,9 @@ public class ExamController {
                     "<input type=\"radio\" id=\"answerReference\" value=\""+a.getAnswerId()+"\" > "+a.getContentOfAnswer() +
                     "<span class=\"checkmark\"></span>" +
                     "</label>";
+            if(a.getPictures() != null){
+                resultsuccess+="<img src=\"" + getURLWithContextPath(request) + "/tests/image/" + a.getPictures().getPictureId() + "\" alt=\"questionImage\" name=\"questionImage\" id=\"questionImage\"/></label><br><br>";
+            }
         }
 
         String image=new String();
@@ -185,7 +191,6 @@ public class ExamController {
         Map<String, Object> nextQuestion = new HashMap<String, Object>();
         nextQuestion.put("question",question.getContentOfQuestion());
         nextQuestion.put("questionReference",questionNumber-1);
-        nextQuestion.put("answersModel",answers);
         nextQuestion.put("resultsuccess",resultsuccess);
         nextQuestion.put("isQuestionFirst",isQuestionFirst);
         nextQuestion.put("image",image);
