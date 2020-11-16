@@ -33,19 +33,22 @@
 
             <form action="<c:url value="/exam/processExam"/>" id="questionForm" method="POST">
 
-                    <div class="qList">
-                        <div class="jumbotron">
-                            <h1 class="display-4" id="questiontext">${question.contentOfQuestion}</h1>
-                            <hr class="my-4">
-                            <div id="answersloop">
+                <div class="qList">
+                    <div align="center" id="questionImageDiv">
+                        ${image} <br><br>
+                    </div>
+                    <div class="jumbotron">
+                        <h1 class="display-4" id="questiontext">${question.contentOfQuestion}</h1>
+                        <hr class="my-4">
+                        <div id="answersloop">
                             <c:forEach var="a" items="${answersModel}">
                                 <label class="container">
-                                <input type="radio" id="answerReference" name="answer" value="${a.answerId}" > ${a.contentOfAnswer}
+                                    <input type="radio" id="answerReference" name="answer" value="${a.answerId}" > ${a.contentOfAnswer}
                                 </label>
                             </c:forEach>
-                            </div>
                         </div>
                     </div>
+                </div>
                 <div hidden="hidden" id="submitDiv"><button class="btn btn-success btn-lg btn-block" id="btnSubmit">Submit</button></div>
             </form>
             <div class="pull-left" style="width: 50%">
@@ -99,6 +102,7 @@
                     $("#previousQuestionReference").attr("value",data.result.questionReference);
                     $("#answersloop").html(data.result.resultsuccess);
                     $("#btnPrevious").attr("disabled",false);
+                    $("#questionImageDiv").html(data.result.image);
 
                     if(data.result.isQuestionLast){
                         $("#btnNext").attr("disabled",true);
@@ -134,6 +138,7 @@
                     $("#nextQuestionReference").attr("value", data.result.questionReference);
                     $("#previousQuestionReference").attr("value", data.result.questionReference);
                     $("#answersloop").html(data.result.resultsuccess);
+                    $("#questionImageDiv").html(data.result.image);
 
                     if (data.result.isQuestionFirst) {
                         $("#btnPrevious").attr("disabled", true);

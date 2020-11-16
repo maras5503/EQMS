@@ -25,6 +25,9 @@ import java.util.*;
 public class ExamController {
     protected static Logger logger = Logger.getLogger("controller");
 
+    public static String getURLWithContextPath(HttpServletRequest request) {
+        return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+    }
     @Autowired
     private StudentService studentService;
     @Autowired
@@ -60,7 +63,7 @@ public class ExamController {
     @RequestMapping(value = "/startExam", method = {RequestMethod.GET, RequestMethod.POST})
     public String getGeneratePasswordsPage(@RequestParam(value = "testReference") Integer testId,
                                            @RequestParam(value = "groupReference") Integer groupId,
-                                           ModelMap model){
+                                           ModelMap model, HttpServletRequest request){
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String currentUserEmail = userDetails.getUsername();
@@ -73,6 +76,12 @@ public class ExamController {
         Question question=questions.get(0);
         List <Answer> answers = getTestService().getAllAnswersByQuestionId(question.getQuestionId());
 
+        String image=new String();
+        if(question.getPictures() != null) {
+            image = "<img src=\"" + getURLWithContextPath(request) + "/tests/image/" + question.getPictures().getPictureId() + "\" alt=\"questionImage\" name=\"questionImage\" id=\"questionImage\"/></label>";
+        } else {
+            image = "";
+        }
 
 
         model.put("currentTestModel",test);
@@ -81,6 +90,7 @@ public class ExamController {
         model.put("questionsModel",questions);
         model.put("answersModel", answers);
         model.put("currentStudentModel", currentStudent);
+        model.put("image", image);
 
 
         return "exampage";
@@ -113,6 +123,15 @@ public class ExamController {
                     "</label>";
         }
 
+        String image=new String();
+        if(question.getPictures() != null) {
+            image = "<div align=\"center\" id=\"questionImageDiv\">" +
+                    "<img src=\"" + getURLWithContextPath(request) + "/tests/image/" + question.getPictures().getPictureId() + "\" alt=\"questionImage\" name=\"questionImage\" id=\"questionImage\"/></label><br><br>" +
+                    "</div>";
+        } else {
+            image = "<div align=\"center\" id=\"questionImageDiv\"><div>";
+        }
+
         JsonResponse response=new JsonResponse();
         Map<String, Object> nextQuestion = new HashMap<String, Object>();
         nextQuestion.put("contentOfQuestion",question.getContentOfQuestion());
@@ -120,6 +139,7 @@ public class ExamController {
         nextQuestion.put("answersModel",answers);
         nextQuestion.put("resultsuccess",resultsuccess);
         nextQuestion.put("isQuestionLast",isQuestionLast);
+        nextQuestion.put("image",image);
 
         response.setStatus("SUCCESS");
         response.setResult(nextQuestion);
@@ -152,6 +172,15 @@ public class ExamController {
                     "</label>";
         }
 
+        String image=new String();
+        if(question.getPictures() != null) {
+            image = "<div align=\"center\" id=\"questionImageDiv\">" +
+                    "<img src=\"" + getURLWithContextPath(request) + "/tests/image/" + question.getPictures().getPictureId() + "\" alt=\"questionImage\" name=\"questionImage\" id=\"questionImage\"/></label><br><br>" +
+                    "</div>";
+        } else {
+            image = "<div align=\"center\" id=\"questionImageDiv\"><div>";
+        }
+
         JsonResponse response=new JsonResponse();
         Map<String, Object> nextQuestion = new HashMap<String, Object>();
         nextQuestion.put("question",question.getContentOfQuestion());
@@ -159,6 +188,7 @@ public class ExamController {
         nextQuestion.put("answersModel",answers);
         nextQuestion.put("resultsuccess",resultsuccess);
         nextQuestion.put("isQuestionFirst",isQuestionFirst);
+        nextQuestion.put("image",image);
 
         response.setStatus("SUCCESS");
         response.setResult(nextQuestion);
