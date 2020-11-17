@@ -43,24 +43,13 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/controller/StudentGroupController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="901">
-              <caret line="78" column="31" selection-start-line="78" selection-start-column="31" selection-end-line="78" selection-end-column="31" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/controller/ExamController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="171" column="43" selection-start-line="171" selection-start-column="43" selection-end-line="171" selection-end-column="43" />
+            <state relative-caret-position="190">
+              <caret line="157" selection-start-line="157" selection-end-line="157" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#6723#6739#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -78,7 +67,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/controller/StudentController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1411">
+            <state relative-caret-position="391">
               <caret line="101" column="63" selection-start-line="101" selection-start-column="63" selection-end-line="101" selection-end-column="63" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -99,8 +88,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/exampage.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-85">
-              <caret line="32" column="12" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
+            <state relative-caret-position="82">
+              <caret line="102" column="91" lean-forward="true" selection-start-line="102" selection-start-column="91" selection-end-line="102" selection-end-column="91" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#body#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#body#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -730,12 +723,12 @@
       <workItem from="1605285651756" duration="337000" />
       <workItem from="1605436879637" duration="24649000" />
       <workItem from="1605521990499" duration="26798000" />
-      <workItem from="1605619351926" duration="3161000" />
+      <workItem from="1605619351926" duration="12161000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="583373000" />
+    <option name="totallyTimeSpent" value="592373000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -750,7 +743,7 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8549618" visible="true" weight="0.23827533" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8549618" visible="true" weight="0.23827533" />
       <window_info id="Structure" order="1" sideWeight="0.36007464" side_tool="true" weight="0.19894099" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -761,13 +754,13 @@
       <window_info id="Persistence" order="8" sideWeight="0.14503817" side_tool="true" visible="true" weight="0.23827533" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.4091653" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924356" visible="true" weight="0.14238952" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49924356" weight="0.15875614" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49924356" visible="true" weight="0.14238952" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49924356" weight="0.23240589" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3289689" />
       <window_info anchor="bottom" id="Spring" order="7" weight="0.3289689" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.06546645" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.049099836" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50075644" side_tool="true" weight="0.0801964" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" weight="0.3289689" />
@@ -841,19 +834,11 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/eqms/controller/ExamController.java</url>
-          <line>151</line>
+          <line>154</line>
           <properties class="com.eqms.controller.ExamController" method="previousQuestion">
             <option name="EMULATED" value="true" />
           </properties>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/eqms/controller/ExamController.java</url>
-          <line>100</line>
-          <properties class="com.eqms.controller.ExamController" method="nextQuestion">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="16" />
+          <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -1084,13 +1069,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.1.7.RELEASE/spring-webmvc-4.1.7.RELEASE-sources.jar!/org/springframework/web/servlet/mvc/method/annotation/ServletInvocableHandlerMethod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="140" selection-start-line="140" selection-end-line="140" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/model/GroupOfQuestions.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="291">
@@ -1169,13 +1147,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.1.7.RELEASE/spring-web-4.1.7.RELEASE-sources.jar!/org/springframework/web/method/support/InvocableHandlerMethod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="228" selection-start-line="228" selection-end-line="228" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/service/impl/TestServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1825">
@@ -1207,16 +1178,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="31" column="29" selection-start-line="31" selection-start-column="29" selection-end-line="31" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/controller/StudentController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1411">
-          <caret line="101" column="63" selection-start-line="101" selection-start-column="63" selection-end-line="101" selection-end-column="63" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1265,20 +1226,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/controller/ExamController.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.1.7.RELEASE/spring-web-4.1.7.RELEASE-sources.jar!/org/springframework/web/method/support/InvocableHandlerMethod.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="171" column="43" selection-start-line="171" selection-start-column="43" selection-end-line="171" selection-end-column="43" />
+        <state relative-caret-position="223">
+          <caret line="140" selection-start-line="140" selection-end-line="140" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.1.7.RELEASE/spring-webmvc-4.1.7.RELEASE-sources.jar!/org/springframework/web/servlet/mvc/method/annotation/ServletInvocableHandlerMethod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="110" selection-start-line="110" selection-end-line="110" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/controller/StudentController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="101" column="63" selection-start-line="101" selection-start-column="63" selection-end-line="101" selection-end-column="63" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/controller/ExamController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="157" selection-start-line="157" selection-end-line="157" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#6723#6739#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/exampage.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-85">
-          <caret line="32" column="12" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
+        <state relative-caret-position="82">
+          <caret line="102" column="91" lean-forward="true" selection-start-line="102" selection-start-column="91" selection-end-line="102" selection-end-column="91" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#body#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#body#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -101,6 +101,9 @@ public class ExamController {
     public @ResponseBody JsonResponse nextQuestion(@RequestParam (value = "nextQuestionReference") Integer questionNumber,
                                                   @RequestParam (value = "groupReference") Integer groupId,
                                                    HttpServletRequest request) {
+
+
+
         List <Question> questions=getTestService().getAllQuestionsByGroupId(groupId);
         Integer lastquestionId=questions.get(questions.size()-1).getQuestionId();
         Boolean isQuestionLast=false;
