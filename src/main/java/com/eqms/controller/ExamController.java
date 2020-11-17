@@ -119,8 +119,7 @@ public class ExamController {
 
         for ( Answer a : answers){
             resultsuccess+="<label class=\"container\">" +
-                    "<input type=\"radio\" id=\"answerReference\" value=\""+a.getAnswerId()+"\" > "+a.getContentOfAnswer() +
-                    "<span class=\"checkmark\"></span>" +
+                    "<input type=\"checkbox\" id=\"answerReference\" value=\""+a.getAnswerId()+"\" > "+a.getContentOfAnswer() +
                     "</label>";
             if(a.getPictures() != null){
                 resultsuccess+="<img src=\"" + getURLWithContextPath(request) + "/tests/image/" + a.getPictures().getPictureId() + "\" alt=\"questionImage\" name=\"questionImage\" id=\"questionImage\"/></label><br><br>";
@@ -170,8 +169,7 @@ public class ExamController {
         String previosQuestionReference="<input type=\"hidden\" name=\"previousQuestionReference\" id=\"previousQuestionReference\" value=\""+ question.getQuestionId() +"\"/>";
         for ( Answer a : answers){
             resultsuccess+="<label class=\"container\">" +
-                    "<input type=\"radio\" id=\"answerReference\" value=\""+a.getAnswerId()+"\" > "+a.getContentOfAnswer() +
-                    "<span class=\"checkmark\"></span>" +
+                    "<input type=\"checkbox\" id=\"answerReference\" value=\""+a.getAnswerId()+"\" > "+a.getContentOfAnswer() +
                     "</label>";
             if(a.getPictures() != null){
                 resultsuccess+="<img src=\"" + getURLWithContextPath(request) + "/tests/image/" + a.getPictures().getPictureId() + "\" alt=\"questionImage\" name=\"questionImage\" id=\"questionImage\"/></label><br><br>";

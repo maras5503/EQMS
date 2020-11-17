@@ -31,8 +31,6 @@
 
             <!-- Questions and answers -->
 
-            <form action="<c:url value="/exam/processExam"/>" id="questionForm" method="POST">
-
                 <div class="qList">
                     <div align="center" id="questionImageDiv">
                         ${image} <br><br>
@@ -43,7 +41,7 @@
                         <div id="answersloop">
                             <c:forEach var="a" items="${answersModel}">
                                 <label class="container">
-                                    <input type="radio" id="answerReference" name="answer" value="${a.answerId}" > ${a.contentOfAnswer}
+                                    <input type="checkbox" id="answerReference" name="answer" value="${a.answerId}" > ${a.contentOfAnswer}
                                 </label>
                                 <c:if test="${a.pictures.pictureId != null}">
                                 <img src="${URLwithContextPath}/tests/image/${a.pictures.pictureId}" alt="questionImage" name="questionImage" id="questionImage"/></label><br><br>
@@ -53,7 +51,7 @@
                     </div>
                 </div>
                 <div hidden="hidden" id="submitDiv"><button class="btn btn-success btn-lg btn-block" id="btnSubmit">Submit</button></div>
-            </form>
+
             <div class="pull-left" style="width: 50%">
                 <form id="previousQuestionForm" action="<c:url value="/exam/previousQuestion"/>" method="POST">
                     <input type="hidden" name="previousQuestionReference" id="previousQuestionReference" value="0"/>
