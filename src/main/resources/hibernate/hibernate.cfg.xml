@@ -22,5 +22,6 @@
         <mapping class="SetsOfRating" />
         <mapping class="Tests" />
         <mapping class="GroupsOfStudents"/>
+        <mapping class="com.eqms.model.StudentsAnswers"/>
     </session-factory>
 </hibernate-configuration>

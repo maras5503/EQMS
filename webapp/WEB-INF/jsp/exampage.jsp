@@ -30,18 +30,20 @@
             </ol>
 
             <!-- Questions and answers -->
+            <form id="QuestionForm"  method="POST">
 
                 <div class="qList">
                     <div align="center" id="questionImageDiv">
                         ${image} <br><br>
                     </div>
+
                     <div class="jumbotron">
                         <h1 class="display-4" id="questiontext">${question.contentOfQuestion}</h1>
                         <hr class="my-4">
                         <div id="answersloop">
                             <c:forEach var="a" items="${answersModel}">
                                 <label class="container">
-                                    <input type="checkbox" id="answerReference" name="answer" value="${a.answerId}" > ${a.contentOfAnswer}
+                                    <input type="checkbox" id="answerReference" name="answer" value="${a.answerId}"> ${a.contentOfAnswer}
                                 </label>
                                 <c:if test="${a.pictures.pictureId != null}">
                                 <img src="${URLwithContextPath}/tests/image/${a.pictures.pictureId}" alt="questionImage" name="questionImage" id="questionImage"/></label><br><br>
@@ -53,7 +55,6 @@
                 <div hidden="hidden" id="submitDiv"><button class="btn btn-success btn-lg btn-block" id="btnSubmit">Submit</button></div>
 
 
-                <form id="QuestionForm"  method="POST">
                     <input type="hidden" name="previousQuestionReference" id="previousQuestionReference" value="0"/>
                     <input type="hidden" name="nextQuestionReference" id="nextQuestionReference" value="0"/>
                     <input type="hidden" name="groupReference" id="groupReference" value="${currentGroupModel.groupId}"/>

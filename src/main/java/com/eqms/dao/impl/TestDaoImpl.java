@@ -347,6 +347,27 @@ public class TestDaoImpl implements TestDao {
 		return groupId;
 	}
 
+	@Override
+	public void addReferenceStudentToAnswers(Integer studentId, Integer answerId) {
+		String queryString = "INSERT INTO STUDENTS_ANSWERS VALUES (?, ?)";
+		SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
+		query.setParameter(0, studentId);
+		query.setParameter(1, answerId);
+		query.executeUpdate();
+	}
+
+	@Override
+	public List<Answer> getAnswersbyStudentId(Integer studentId) {
+		List<Answer> answers = new ArrayList<Answer>();
+
+		String queryString = "SELECT * FROM ANSWERS a, STUDENTS_ANSWERS q_a WHERE a.ANSWER_ID = q_a.ANSWER_ID AND q_a.STUDENT_ID = ?";
+		SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString).addEntity(Answer.class);
+		query.setParameter(0, studentId);
+		answers = query.list();
+
+		return answers;
+	}
+
 
 	@Override
 	public void addQuestion(Question question, Integer groupId) {

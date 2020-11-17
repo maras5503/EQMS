@@ -103,6 +103,12 @@ public class ExamController {
                                                    HttpServletRequest request) {
 
 
+        String [] s=request.getParameterValues("answer");
+
+        for (String s1:s){
+            System.out.println(getTestService().getAnswerByAnswerId(Integer.parseInt(s1)).getContentOfAnswer());
+        }
+
 
         List <Question> questions=getTestService().getAllQuestionsByGroupId(groupId);
         Integer lastquestionId=questions.get(questions.size()-1).getQuestionId();

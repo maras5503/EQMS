@@ -48,6 +48,9 @@ public interface TestService {
 
 	public void addReferenceStudentToGroupOfQuestions(Integer studentId, Integer groupId);
 	public int getGroupOfQuestionsIdbyStudentId(Integer studentId);
+
+	public  void addReferenceStudentToAnswers(Integer studentId, Integer groupId);
+	public List<Answer> getAnswersbyStudentId(Integer studentId);
 	
 	public void addQuestion(Question question, Integer groupId);
 	public void updateQuestion(Question question);

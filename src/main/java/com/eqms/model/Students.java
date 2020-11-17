@@ -13,6 +13,7 @@ public class Students {
     private String studentEmail;
     private GroupsOfStudents groupsOfStudents;
     private Set<GroupOfQuestions> groupOfQuestionses;
+    private Set<Answer> answerses;
 
     public Students(){}
 
@@ -23,12 +24,13 @@ public class Students {
         this.groupsOfStudents=groupsOfStudents;
     }
 
-    public Students(String studentFirstname, String studentLastname, String studentEmail, GroupsOfStudents groupsOfStudents, Set<GroupOfQuestions> groupOfQuestionses){
+    public Students(String studentFirstname, String studentLastname, String studentEmail, GroupsOfStudents groupsOfStudents, Set<GroupOfQuestions> groupOfQuestionses, Set<Answer> answerses){
         this.studentFirstname=studentFirstname;
         this.studentLastname=studentLastname;
         this.studentEmail=studentEmail;
         this.groupsOfStudents=groupsOfStudents;
         this.groupOfQuestionses=groupOfQuestionses;
+        this.answerses=answerses;
     }
 
     @Id
@@ -90,6 +92,16 @@ public class Students {
 
     public void setGroupOfQuestionses(Set<GroupOfQuestions> groupOfQuestionses) {
         this.groupOfQuestionses=groupOfQuestionses;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "students_answers", catalog = "exam_questions_5", joinColumns = {
+            @JoinColumn(name = "STUDENT_ID", nullable = false, updatable = false) }, inverseJoinColumns = {
+            @JoinColumn(name = "ANSWER_ID", nullable = false, updatable = false) })
+    public Set<Answer> getAnswerses() { return this.answerses;}
+
+    public void setAnswerses(Set<Answer> answerses) {
+        this.answerses=answerses;
     }
 
     @Override
