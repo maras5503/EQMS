@@ -13,6 +13,8 @@ import com.eqms.model.Subject;
 import com.eqms.model.Test;
 import com.eqms.model.User;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 public interface TestDao {
 	/**
 	 * Methods for subjects
@@ -49,7 +51,10 @@ public interface TestDao {
 	public int getGroupOfQuestionsIdbyStudentId(Integer studentId);
 
 	public  void addReferenceStudentToAnswers(Integer studentId, Integer answerId);
-	public List<Answer> getAnswersbyStudentId(Integer studentId);
+	public void  deleteReferenceStudentToAnswers(Integer studentId, Integer answerId);
+	public List<Integer> getAnswersIdByStudentId(Integer studentId);
+	public Boolean checkIfAnswerIsChoosedByStudent(Integer studentId, Integer answerId);
+
 
 	public void addQuestion(Question question, Integer groupId);
 	public void updateQuestion(Question question);

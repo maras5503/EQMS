@@ -100,10 +100,7 @@ public class Answer implements java.io.Serializable {
 		this.questionses = questionses;
 	}
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "students_answers", catalog = "exam_questions_5", joinColumns = {
-            @JoinColumn(name = "ANSWER_ID", nullable = false, updatable = false) }, inverseJoinColumns = {
-            @JoinColumn(name = "STUDENT_ID", nullable = false, updatable = false) })
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "answerses")
     public Set<Students> getStudentses() {
         return this.studentses;
     }

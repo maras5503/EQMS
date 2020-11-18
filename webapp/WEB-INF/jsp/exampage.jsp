@@ -80,11 +80,9 @@
 
     $("#btnNext").click(function(){
         $("#QuestionForm").attr("action", "<c:url value="/exam/nextQuestion"/>");
-        $("#QuestionForm").submit();
     });
     $("#btnPrevious").click(function(){
         $("#QuestionForm").attr("action", "<c:url value="/exam/previousQuestion"/>");
-        $("#QuestionForm").submit();
     });
 
     var submit=true;
@@ -107,7 +105,7 @@
                     dataType: "json",
                     type: "post",
                     success: function (data) {
-                        console.log("********* AJAX CALL *********");
+                        console.log("********* AJAX CALL 1*********");
                         console.log("Status: " + data.status);
                         console.log("Result: " + data.result);
                         $("#questiontext").html(data.result.contentOfQuestion);
@@ -132,7 +130,7 @@
                     dataType: "json",
                     type: "post",
                     success: function (data) {
-                        console.log("********* AJAX CALL *********");
+                        console.log("********* AJAX CALL 2*********");
                         console.log("Status: " + data.status);
                         console.log("Result: " + data.result);
                         $("#questiontext").html(data.result.question);

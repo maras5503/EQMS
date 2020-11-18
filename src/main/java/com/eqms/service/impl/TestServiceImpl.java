@@ -140,7 +140,13 @@ public class TestServiceImpl implements TestService {
 	public  void addReferenceStudentToAnswers(Integer studentId, Integer answerId){testDao.addReferenceStudentToAnswers(studentId,answerId);}
 
 	@Override
-	public List<Answer> getAnswersbyStudentId(Integer studentId) {return testDao.getAnswersbyStudentId(studentId);}
+	public void deleteReferenceStudentToAnswers(Integer currentStudentId, Integer answerId) {testDao.deleteReferenceStudentToAnswers(currentStudentId,answerId);}
+
+	@Override
+	public List<Integer> getAnswersIdByStudentId(Integer studentId) {return testDao.getAnswersIdByStudentId(studentId);}
+
+	@Override
+	public Boolean checkIfAnswerIsChoosedByStudent(Integer studentId, Integer answerId) {return testDao.checkIfAnswerIsChoosedByStudent(studentId, answerId);}
 
 	@Override
 	public void addQuestion(Question question, Integer groupId) {

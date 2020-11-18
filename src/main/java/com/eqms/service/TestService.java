@@ -49,8 +49,10 @@ public interface TestService {
 	public void addReferenceStudentToGroupOfQuestions(Integer studentId, Integer groupId);
 	public int getGroupOfQuestionsIdbyStudentId(Integer studentId);
 
-	public  void addReferenceStudentToAnswers(Integer studentId, Integer groupId);
-	public List<Answer> getAnswersbyStudentId(Integer studentId);
+	public void addReferenceStudentToAnswers(Integer studentId, Integer groupId);
+	public void deleteReferenceStudentToAnswers(Integer currentStudentId, Integer answerId);
+	public List<Integer> getAnswersIdByStudentId(Integer studentId);
+	Boolean checkIfAnswerIsChoosedByStudent(Integer studentId, Integer answerId);
 	
 	public void addQuestion(Question question, Integer groupId);
 	public void updateQuestion(Question question);
@@ -89,5 +91,6 @@ public interface TestService {
 	GroupOfQuestions getGroupByQuestionId(Integer questionId);
 	Question getQuestionByAnswerId(Integer answerId);
 	String generatePassword();
+
 
 }

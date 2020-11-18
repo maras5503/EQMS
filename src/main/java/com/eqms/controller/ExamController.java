@@ -102,12 +102,10 @@ public class ExamController {
                                                   @RequestParam (value = "groupReference") Integer groupId,
                                                    HttpServletRequest request) {
 
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String currentUserEmail = userDetails.getUsername();
+        Integer currentStudentId = getStudentService().getStudentByEmail(currentUserEmail).getStudentId();
 
-        String [] s=request.getParameterValues("answer");
-
-        for (String s1:s){
-            System.out.println(getTestService().getAnswerByAnswerId(Integer.parseInt(s1)).getContentOfAnswer());
-        }
 
 
         List <Question> questions=getTestService().getAllQuestionsByGroupId(groupId);
@@ -120,16 +118,36 @@ public class ExamController {
             isQuestionLast=true;
         }
 
+        String [] choosedAnswers=request.getParameterValues("answer");
 
+        List <Answer> previousAnswers=getTestService().getAllAnswersByQuestionId(questions.get(questionNumber).getQuestionId());
+
+        for(Answer a:previousAnswers){
+            getTestService().deleteReferenceStudentToAnswers(currentStudentId,a.getAnswerId());
+        }
+
+        if(choosedAnswers!=null){
+            for (String a : choosedAnswers) {
+                Integer answerId = getTestService().getAnswerByAnswerId(Integer.parseInt(a)).getAnswerId();
+                getTestService().addReferenceStudentToAnswers(currentStudentId, answerId);
+            }
+        }
 
 
         List <Answer> answers=getTestService().getAllAnswersByQuestionId(question.getQuestionId());
         String resultsuccess=new String();
 
         for ( Answer a : answers){
-            resultsuccess+="<label class=\"container\">" +
-                    "<input type=\"checkbox\" id=\"answerReference\" value=\""+a.getAnswerId()+"\" > "+a.getContentOfAnswer() +
-                    "</label>";
+            if(getTestService().checkIfAnswerIsChoosedByStudent(currentStudentId,a.getAnswerId())){
+                resultsuccess += "<label class=\"container\">" +
+                        "<input type=\"checkbox\" id=\"answerReference\" name=\"answer\" value=\"" + a.getAnswerId() + "\" checked> " + a.getContentOfAnswer() +
+                        "</label>";
+            }
+            else {
+                resultsuccess += "<label class=\"container\">" +
+                        "<input type=\"checkbox\" id=\"answerReference\" name=\"answer\" value=\"" + a.getAnswerId() + "\" > " + a.getContentOfAnswer() +
+                        "</label>";
+            }
             if(a.getPictures() != null){
                 resultsuccess+="<img src=\"" + getURLWithContextPath(request) + "/tests/image/" + a.getPictures().getPictureId() + "\" alt=\"questionImage\" name=\"questionImage\" id=\"questionImage\"/></label><br><br>";
             }
@@ -161,6 +179,16 @@ public class ExamController {
     public @ResponseBody JsonResponse previousQuestion(@RequestParam (value = "previousQuestionReference") Integer questionNumber,
                                                    @RequestParam (value = "groupReference") Integer groupId,
                                                    HttpServletRequest request) {
+
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String currentUserEmail = userDetails.getUsername();
+        Integer currentStudentId = getStudentService().getStudentByEmail(currentUserEmail).getStudentId();
+
+
+
+
+
+
         List <Question> questions=getTestService().getAllQuestionsByGroupId(groupId);
         Integer firstquestionId=questions.get(0).getQuestionId();
         Boolean isQuestionFirst=false;
@@ -170,16 +198,36 @@ public class ExamController {
                     isQuestionFirst=true;
         }
 
+        String [] choosedAnswers=request.getParameterValues("answer");
 
+        List <Answer> previousAnswers=getTestService().getAllAnswersByQuestionId(questions.get(questionNumber).getQuestionId());
+
+            for(Answer a:previousAnswers){
+                getTestService().deleteReferenceStudentToAnswers(currentStudentId,a.getAnswerId());
+            }
+
+        if(choosedAnswers!=null){
+            for (String a : choosedAnswers) {
+                Integer answerId = getTestService().getAnswerByAnswerId(Integer.parseInt(a)).getAnswerId();
+                getTestService().addReferenceStudentToAnswers(currentStudentId, answerId);
+            }
+        }
 
         List <Answer> answers=getTestService().getAllAnswersByQuestionId(question.getQuestionId());
         String resultsuccess=new String();
         String nextQuestionReference="<input type=\"hidden\" name=\"nextQuestionReference\" id=\"nextQuestionReference\" value=\""+ question.getQuestionId() +"\"/>";
         String previosQuestionReference="<input type=\"hidden\" name=\"previousQuestionReference\" id=\"previousQuestionReference\" value=\""+ question.getQuestionId() +"\"/>";
         for ( Answer a : answers){
-            resultsuccess+="<label class=\"container\">" +
-                    "<input type=\"checkbox\" id=\"answerReference\" value=\""+a.getAnswerId()+"\" > "+a.getContentOfAnswer() +
-                    "</label>";
+            if(getTestService().checkIfAnswerIsChoosedByStudent(currentStudentId,a.getAnswerId())){
+                resultsuccess += "<label class=\"container\">" +
+                        "<input type=\"checkbox\" id=\"answerReference\" name=\"answer\" value=\"" + a.getAnswerId() + "\" checked> " + a.getContentOfAnswer() +
+                        "</label>";
+            }
+            else {
+                resultsuccess += "<label class=\"container\">" +
+                        "<input type=\"checkbox\" id=\"answerReference\" name=\"answer\" value=\"" + a.getAnswerId() + "\" > " + a.getContentOfAnswer() +
+                        "</label>";
+            }
             if(a.getPictures() != null){
                 resultsuccess+="<img src=\"" + getURLWithContextPath(request) + "/tests/image/" + a.getPictures().getPictureId() + "\" alt=\"questionImage\" name=\"questionImage\" id=\"questionImage\"/></label><br><br>";
             }

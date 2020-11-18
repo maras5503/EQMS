@@ -20,6 +20,8 @@ import com.eqms.model.Subject;
 import com.eqms.model.Test;
 import com.eqms.model.User;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 @Repository
 public class TestDaoImpl implements TestDao {
 
@@ -357,15 +359,40 @@ public class TestDaoImpl implements TestDao {
 	}
 
 	@Override
-	public List<Answer> getAnswersbyStudentId(Integer studentId) {
-		List<Answer> answers = new ArrayList<Answer>();
+	public void deleteReferenceStudentToAnswers(Integer studentId, Integer answerId) {
+		String queryString = "DELETE FROM STUDENTS_ANSWERS WHERE STUDENT_ID = ? AND ANSWER_ID = ?";
+		SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
+		query.setParameter(0, studentId);
+		query.setParameter(1, answerId);
+		query.executeUpdate();
+	}
 
-		String queryString = "SELECT * FROM ANSWERS a, STUDENTS_ANSWERS q_a WHERE a.ANSWER_ID = q_a.ANSWER_ID AND q_a.STUDENT_ID = ?";
-		SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString).addEntity(Answer.class);
+	@Override
+	public List<Integer> getAnswersIdByStudentId(Integer studentId) {
+		List<Integer> answers = new ArrayList<Integer>();
+
+		String queryString = "SELECT ANSWER_ID FROM STUDENTS_ANSWERS WHERE STUDENT_ID = ?";
+		SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
 		query.setParameter(0, studentId);
 		answers = query.list();
 
 		return answers;
+	}
+
+	@Override
+	public Boolean checkIfAnswerIsChoosedByStudent(Integer studentId, Integer answerId) {
+		String queryString = "SELECT COUNT(*) FROM STUDENTS_ANSWERS WHERE STUDENT_ID = (?) AND ANSWER_ID = (?)";
+		SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
+		query.setParameter(0, studentId);
+		query.setParameter(1,answerId);
+		int choosedAnswerExists = Integer.valueOf(query.list().get(0).toString());
+		logger.debug("choosedAnswerExists value = " + choosedAnswerExists);
+
+		if(choosedAnswerExists == 0) {
+			return false; 		// contentOfQuestion doesn't exist
+		} else {
+			return true;		// contentOfQuestion exists
+		}
 	}
 
 
