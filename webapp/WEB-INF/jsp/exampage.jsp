@@ -1,7 +1,5 @@
 <%@ include file="partials/header.jsp"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib uri="http://www.springframework.org/tags" prefix="s" %>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="f"%>
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Exam</title>
@@ -52,21 +50,24 @@
                         </div>
                     </div>
                 </div>
-                <div hidden="hidden" id="submitDiv"><button class="btn btn-success btn-lg btn-block" id="btnSubmit">Submit</button></div>
 
 
-                    <input type="hidden" name="previousQuestionReference" id="previousQuestionReference" value="0"/>
-                    <input type="hidden" name="nextQuestionReference" id="nextQuestionReference" value="0"/>
-                    <input type="hidden" name="groupReference" id="groupReference" value="${currentGroupModel.groupId}"/>
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                <input type="hidden" name="previousQuestionReference" id="previousQuestionReference" value="0"/>
+                <input type="hidden" name="nextQuestionReference" id="nextQuestionReference" value="0"/>
+                <input type="hidden" name="groupReference" id="groupReference" value="${currentGroupModel.groupId}"/>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
-                    <div class="pull-left" style="width: 50%">
-                        <input type="submit" class="btn btn-link btn-lg btn-block" id="btnPrevious" name="btnPrevious" disabled="true" value="Previous" />
-                    </div>
+                <div class="pull-left" style="width: 50%">
+                    <input type="submit" class="btn btn-link btn-lg btn-block" id="btnPrevious" name="btnPrevious" disabled="true" value="Previous" />
+                </div>
 
-                    <div class="pull-left" style="width: 50%">
-                        <input type="submit" class="btn btn-primary btn-lg btn-block" id="btnNext" name="btnNext" value="Next"/>
-                    </div>
+                <div class="pull-left" style="width: 50%">
+                    <input type="submit" class="btn btn-primary btn-lg btn-block" id="btnNext" name="btnNext" value="Next"/>
+                </div>
+
+                <div hidden="hidden" id="submitDiv">
+                    <input type="submit" class="btn btn-success btn-lg btn-block" id="btnSubmit" name="btnSubmit" value="Submit"/>
+                </div>
 
                 </form>
 
@@ -84,6 +85,11 @@
     $("#btnPrevious").click(function(){
         $("#QuestionForm").attr("action", "<c:url value="/exam/previousQuestion"/>");
     });
+    $("#btnSubmit").click(function () {
+        $("#QuestionForm").attr("action", "<c:url value="/exam/saveLastAnswer"/>");
+
+
+    });
 
     var submit=true;
 
@@ -96,10 +102,11 @@
         }
     });
 
-    var validatorNextQuestion = $('#QuestionForm').validate({
+
+    var validatorQuestion = $('#QuestionForm').validate({
         submitHandler: function(form) {
             console.log("********* submitHandler *********");
-            if($("#QuestionForm").attr("action")==="<c:url value="/exam/nextQuestion"/>") {
+            if ($("#QuestionForm").attr("action") === "<c:url value="/exam/nextQuestion"/>") {
                 $(form).ajaxSubmit({
                     url: URLWithContextPath + "/exam/nextQuestion",
                     dataType: "json",
@@ -123,7 +130,7 @@
                     }
                 });
             }
-            else {
+            if ($("#QuestionForm").attr("action") === "<c:url value="/exam/previousQuestion"/>") {
 
                 $(form).ajaxSubmit({
                     url: URLWithContextPath + "/exam/previousQuestion",
@@ -147,6 +154,20 @@
                             $("#btnNext").attr("disabled", false);
                         }
                         $("#submitDiv").hide();
+
+                    }
+                });
+            }
+            if ($("#QuestionForm").attr("action") === "<c:url value="/exam/saveLastAnswer"/>") {
+
+                $(form).ajaxSubmit({
+                    url: URLWithContextPath + "/exam/saveLastAnswer",
+                    dataType: "json",
+                    type: "post",
+                    success: function (data) {
+                        console.log("********* AJAX CALL 3*********");
+                        console.log("Status: " + data.status);
+                        console.log("Result: " + data.result);
 
                     }
                 });

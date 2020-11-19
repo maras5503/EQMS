@@ -255,9 +255,72 @@ public class ExamController {
         return response;
     }
 
+    @RequestMapping(value = "/saveLastAnswer", method = RequestMethod.POST)
+    public @ResponseBody JsonResponse saveLastAnswer(@RequestParam (value = "previousQuestionReference") Integer questionNumber,
+                                                       @RequestParam (value = "groupReference") Integer groupId,
+                                                       HttpServletRequest request) {
+
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String currentUserEmail = userDetails.getUsername();
+        Integer currentStudentId = getStudentService().getStudentByEmail(currentUserEmail).getStudentId();
+
+
+
+
+
+
+        List <Question> questions=getTestService().getAllQuestionsByGroupId(groupId);
+        String [] choosedAnswers=request.getParameterValues("answer");
+
+        List <Answer> previousAnswers=getTestService().getAllAnswersByQuestionId(questions.get(questionNumber).getQuestionId());
+
+        for(Answer a:previousAnswers){
+            getTestService().deleteReferenceStudentToAnswers(currentStudentId,a.getAnswerId());
+        }
+
+        if(choosedAnswers!=null){
+            for (String a : choosedAnswers) {
+                Integer answerId = getTestService().getAnswerByAnswerId(Integer.parseInt(a)).getAnswerId();
+                getTestService().addReferenceStudentToAnswers(currentStudentId, answerId);
+            }
+        }
+
+
+
+        JsonResponse response=new JsonResponse();
+        response.setStatus("SUCCESS");
+        response.setResult("SUCCESS");
+        return response;
+    }
+
 
     @RequestMapping(value = "/processExam", method = {RequestMethod.GET, RequestMethod.POST})
-    public String processExam() throws Exception {
+    public String processExam(@RequestParam (value = "previousQuestionReference") Integer questionNumber,
+                              @RequestParam (value = "groupReference") Integer groupId,
+                              ModelMap model,
+                              HttpServletRequest request) throws Exception {
+
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String currentUserEmail = userDetails.getUsername();
+        Integer currentStudentId = getStudentService().getStudentByEmail(currentUserEmail).getStudentId();
+
+
+        List <Question> questions=getTestService().getAllQuestionsByGroupId(groupId);
+        String [] choosedAnswers=request.getParameterValues("answer");
+
+        List <Answer> previousAnswers=getTestService().getAllAnswersByQuestionId(questions.get(questionNumber).getQuestionId());
+
+        for(Answer a:previousAnswers){
+            getTestService().deleteReferenceStudentToAnswers(currentStudentId,a.getAnswerId());
+        }
+
+        if(choosedAnswers!=null){
+            for (String a : choosedAnswers) {
+                Integer answerId = getTestService().getAnswerByAnswerId(Integer.parseInt(a)).getAnswerId();
+                getTestService().addReferenceStudentToAnswers(currentStudentId, answerId);
+            }
+        }
+
         return "finishexampage";
     }
 
