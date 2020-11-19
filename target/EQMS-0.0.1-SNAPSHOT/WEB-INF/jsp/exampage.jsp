@@ -70,6 +70,10 @@
                 </div>
 
                 </form>
+            <form action="<c:url value="/exam/processExam"/>" method="get" id="processExamForm">
+                <input type="hidden" name="groupReference" id="groupReference" value="${currentGroupModel.groupId}"/>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            </form>
 
 
 
@@ -87,7 +91,6 @@
     });
     $("#btnSubmit").click(function () {
         $("#QuestionForm").attr("action", "<c:url value="/exam/saveLastAnswer"/>");
-
 
     });
 
@@ -168,7 +171,7 @@
                         console.log("********* AJAX CALL 3*********");
                         console.log("Status: " + data.status);
                         console.log("Result: " + data.result);
-
+                        $("#processExamForm").submit();
                     }
                 });
             }
