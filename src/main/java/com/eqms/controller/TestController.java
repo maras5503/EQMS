@@ -50,6 +50,9 @@ public class TestController {
 	@Autowired
 	private StudentGroupsService studentGroupsService;
 
+	@Autowired
+	private HistoryService historyService;
+
 
     @Autowired
     private StudentService studentService;
@@ -1029,6 +1032,7 @@ public class TestController {
 
     @RequestMapping(value = "/generatedPasswords", method = {RequestMethod.GET, RequestMethod.POST})
     public String getGeneratePasswordsPage(@RequestParam(value = "studentGroupReference") Integer studentgroupId,
+                                                    @RequestParam(value = "subjectReference") Integer subjectId,
                                                     @RequestParam(value = "testReference") Integer testId,
                                                     @RequestParam(value = "groupReference") Integer groupId,
                                                     ModelMap model){
@@ -1070,6 +1074,13 @@ public class TestController {
             model.put("groupModel",groupId);
             model.put("studentGroupIdModel",studentgroupId);
 
+
+            ConductedExams conductedExams=new ConductedExams();
+            conductedExams.setTestName(getTestService().getTestByTestId(testId).getTestName());
+            conductedExams.setSubjectName(getTestService().getSubjectBySubjectId(subjectId).getSubjectName());
+            conductedExams.setGroupsOfStudents(getStudentGroupsService().getStudentGroupByStudentGroupId(studentgroupId));
+            conductedExams.setExamDate(new Date());
+            getHistoryService().addConductedExam(conductedExams);
 
 
         return "generatedpasswordspage";
@@ -1394,7 +1405,7 @@ public class TestController {
 	 * @return logic view name represented by String type
 	 */
 	@RequestMapping(value = "/editTest", method = {RequestMethod.POST, RequestMethod.GET})
-	public String getEditTestPage(@RequestParam(value="testId") Integer testId, 
+	public String getEditTestPage(@RequestParam(value="testId") Integer testId,
 			@RequestParam(value="subjectId") Integer subjectId, ModelMap model) {
 		
 		logger.debug("Received request with testId to edit to database");
@@ -2208,4 +2219,22 @@ public class TestController {
     public void setStudentService(StudentService studentService) {
         this.studentService = studentService;
     }
+
+	/**
+	 * Gets HistoryService.
+	 *
+	 * @return the HistoryService
+	 */
+	public HistoryService getHistoryService() {
+		return historyService;
+	}
+
+	/**
+	 * Sets HistoryService.
+	 *
+	 * @param historyService the studentService to set
+	 */
+	public void setHistoryService(HistoryService historyService) {
+		this.historyService = historyService;
+	}
 }

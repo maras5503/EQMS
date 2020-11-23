@@ -1,7 +1,7 @@
 package com.eqms.model;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -27,8 +27,9 @@ public class ConductedExams {
 
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CONDUCTED_EXAM_ID")
-    public int getConductedExamId() {
+    public Integer getConductedExamId() {
         return conductedExamId;
     }
 
@@ -36,6 +37,7 @@ public class ConductedExams {
         this.conductedExamId = conductedExamId;
     }
 
+    @Basic
     @Column(name = "TEST_NAME")
     public String getTestName() {
         return testName;
@@ -45,6 +47,7 @@ public class ConductedExams {
         this.testName = testName;
     }
 
+    @Basic
     @Column(name = "SUBJECT_NAME")
     public String getSubjectName() {
         return subjectName;
@@ -65,6 +68,7 @@ public class ConductedExams {
     }
 
     @Basic
+    @Temporal(TemporalType.DATE)
     @Column(name = "EXAM_DATE")
     public Date getExamDate() {
         return examDate;
@@ -90,4 +94,6 @@ public class ConductedExams {
     public int hashCode() {
         return Objects.hash(conductedExamId, testName, subjectName, groupsOfStudents, examDate);
     }
+
+
 }

@@ -31,7 +31,7 @@ public class HistoryController {
     public String getHistoryPage(Map<String, List<ConductedExams>> map, ModelMap model) {
         logger.debug("Received request to show history page");
 
-        model.put("allStudentGroupsModel", getHistoryService().getAllConductedExams(Order.asc("conductedExamId"), null));
+        model.put("allConductedExams", getHistoryService().getAllConductedExams(Order.asc("conductedExamId"), null));
 
         return "conductedexamspage";
     }
