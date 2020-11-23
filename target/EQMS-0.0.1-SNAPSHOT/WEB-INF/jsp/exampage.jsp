@@ -64,19 +64,39 @@
                 <div class="pull-left" style="width: 50%">
                     <input type="submit" class="btn btn-primary btn-lg btn-block" id="btnNext" name="btnNext" value="Next"/>
                 </div>
-
-                <div hidden="hidden" id="submitDiv">
-                    <input type="submit" class="btn btn-success btn-lg btn-block" id="btnSubmit" name="btnSubmit" value="Submit"/>
+                <div hidden="hidden" id="finishDiv">
+                    <input type="submit" class="btn btn-danger btn-lg btn-block" style="margin-top: 10px; display:inline-block"  id="btnFinish" name="btnFinish" value="Finish exam" data-toggle="modal" data-target="#confirmFinishExam"/>
                 </div>
 
                 </form>
-            <form action="<c:url value="/exam/processExam"/>" method="get" id="processExamForm">
-                <input type="hidden" name="groupReference" id="groupReference" value="${currentGroupModel.groupId}"/>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            </form>
 
 
 
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmFinishExam" tabindex="-1" role="dialog" aria-labelledby="confirmFinishExamLabelModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="confirmFinishExamTitleModal">Finish exam</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" id="confirmFinishExamLabel">
+                    Are you sure you want to finish the exam?
+                </div>
+                <form action="<c:url value="/exam/finishExam"/>" method="get" id="finishExamForm">
+                    <input type="hidden" name="groupReference" id="groupReference" value="${currentGroupModel.groupId}"/>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="confirmFinishExamBtnModal">Finish</button>
+            </div>
         </div>
     </div>
 </div>
@@ -89,8 +109,9 @@
     $("#btnPrevious").click(function(){
         $("#QuestionForm").attr("action", "<c:url value="/exam/previousQuestion"/>");
     });
-    $("#btnSubmit").click(function () {
+    $("#confirmFinishExamBtnModal").click(function () {
         $("#QuestionForm").attr("action", "<c:url value="/exam/saveLastAnswer"/>");
+        $("#QuestionForm").submit();
 
     });
 
@@ -127,7 +148,7 @@
 
                         if (data.result.isQuestionLast) {
                             $("#btnNext").attr("disabled", true);
-                            $("#submitDiv").show();
+                            $("#finishDiv").show();
                         }
 
                     }
@@ -156,7 +177,7 @@
                         if ($("#btnNext").prop("disabled")) {
                             $("#btnNext").attr("disabled", false);
                         }
-                        $("#submitDiv").hide();
+                        $("#finishDiv").hide();
 
                     }
                 });
@@ -171,7 +192,7 @@
                         console.log("********* AJAX CALL 3*********");
                         console.log("Status: " + data.status);
                         console.log("Result: " + data.result);
-                        $("#processExamForm").submit();
+                        $("#finishExamForm").submit();
                     }
                 });
             }

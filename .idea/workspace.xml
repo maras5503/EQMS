@@ -9,7 +9,8 @@
     <list default="true" id="9b92d75f-7c53-43fa-9908-b3a500b58590" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/eqms/controller/ExamController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eqms/controller/ExamController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/WEB-INF/jsp/finishexampage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/WEB-INF/jsp/finishexampage.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/WEB-INF/jsp/exampage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/WEB-INF/jsp/exampage.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/WEB-INF/jsp/generatedpasswordspage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/WEB-INF/jsp/generatedpasswordspage.jsp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -60,11 +61,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/controller/ExamController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="331" column="31" selection-start-line="331" selection-start-column="31" selection-end-line="331" selection-end-column="31" />
+            <state relative-caret-position="134">
+              <caret line="300" lean-forward="true" selection-start-line="300" selection-end-line="300" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#15953#15954#0" expanded="true" />
+                <element signature="e#15951#15952#0" expanded="true" />
                 <element signature="e#15469#15470#0" expanded="true" />
                 <element signature="e#15519#15520#0" expanded="true" />
                 <element signature="e#15561#15562#0" expanded="true" />
@@ -80,11 +81,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/finishexampage.jsp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="187">
-              <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
+              <caret line="11" column="166" selection-start-line="11" selection-start-column="166" selection-end-line="11" selection-end-column="166" />
               <folding>
                 <element signature="e#300#364#0#HTML" expanded="true" />
                 <element signature="e#452#515#0#HTML" expanded="true" />
@@ -113,11 +114,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/exampage.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="72" column="57" selection-start-line="72" selection-start-column="57" selection-end-line="72" selection-end-column="57" />
+            <state relative-caret-position="192">
+              <caret line="67" column="101" selection-start-line="67" selection-start-column="101" selection-end-line="67" selection-end-column="101" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/generatedpasswordspage.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="74" column="72" lean-forward="true" selection-start-line="74" selection-start-column="72" selection-end-line="74" selection-end-column="72" />
             </state>
           </provider>
         </entry>
@@ -229,7 +239,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/eqms/controller/MainController.java" />
         <option value="$PROJECT_DIR$/webapp/WEB-INF/jsp/partials/header.jsp" />
         <option value="$PROJECT_DIR$/webapp/WEB-INF/jsp/studenthomepage.jsp" />
-        <option value="$PROJECT_DIR$/webapp/WEB-INF/jsp/generatedpasswordspage.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/eqms/model/Question.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/eqms/controller/StudentController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/eqms/model/StudentsAnswers.java" />
@@ -239,9 +248,10 @@
         <option value="$PROJECT_DIR$/src/main/java/com/eqms/service/impl/TestServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/eqms/dao/TestDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/eqms/dao/impl/TestDaoImpl.java" />
-        <option value="$PROJECT_DIR$/webapp/WEB-INF/jsp/exampage.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/eqms/controller/ExamController.java" />
         <option value="$PROJECT_DIR$/webapp/WEB-INF/jsp/finishexampage.jsp" />
+        <option value="$PROJECT_DIR$/webapp/WEB-INF/jsp/generatedpasswordspage.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/eqms/controller/ExamController.java" />
+        <option value="$PROJECT_DIR$/webapp/WEB-INF/jsp/exampage.jsp" />
       </list>
     </option>
   </component>
@@ -726,12 +736,12 @@
       <workItem from="1605619351926" duration="18364000" />
       <workItem from="1605707423653" duration="18426000" />
       <workItem from="1605797656367" duration="20062000" />
-      <workItem from="1606124442903" duration="6332000" />
+      <workItem from="1606124442903" duration="11362000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="643396000" />
+    <option name="totallyTimeSpent" value="648426000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -746,7 +756,7 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8256228" visible="true" weight="0.24962178" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8262477" visible="true" weight="0.24962178" />
       <window_info id="Structure" order="1" sideWeight="0.44578314" side_tool="true" weight="0.23827533" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -754,10 +764,10 @@
       <window_info id="UI Designer" order="5" />
       <window_info id="Favorites" order="6" sideWeight="0.36007464" side_tool="true" weight="0.19894099" />
       <window_info id="Web" order="7" sideWeight="0.36007464" side_tool="true" weight="0.19894099" />
-      <window_info id="Persistence" order="8" sideWeight="0.17437722" side_tool="true" visible="true" weight="0.24962178" />
+      <window_info id="Persistence" order="8" sideWeight="0.17375231" side_tool="true" visible="true" weight="0.24962178" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.4091653" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49924356" visible="true" weight="0.0801964" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49924356" visible="true" weight="0.11456628" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49924356" weight="0.2782324" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1192,45 +1202,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/generatedpasswordspage.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="112" column="7" lean-forward="true" selection-start-line="112" selection-start-column="7" selection-end-line="112" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/service/TestService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="663">
           <caret line="52" column="11" selection-start-line="52" selection-start-column="11" selection-end-line="52" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/controller/ExamController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="331" column="31" selection-start-line="331" selection-start-column="31" selection-end-line="331" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#15953#15954#0" expanded="true" />
-            <element signature="e#15469#15470#0" expanded="true" />
-            <element signature="e#15519#15520#0" expanded="true" />
-            <element signature="e#15561#15562#0" expanded="true" />
-            <element signature="e#15595#15596#0" expanded="true" />
-            <element signature="e#15652#15653#0" expanded="true" />
-            <element signature="e#15696#15697#0" expanded="true" />
-            <element signature="e#15738#15739#0" expanded="true" />
-            <element signature="e#15772#15773#0" expanded="true" />
-            <element signature="e#15829#15830#0" expanded="true" />
-            <element signature="e#15873#15874#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/exampage.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="72" column="57" selection-start-line="72" selection-start-column="57" selection-end-line="72" selection-end-column="57" />
         </state>
       </provider>
     </entry>
@@ -1260,13 +1235,48 @@
     <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/finishexampage.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
-          <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
+          <caret line="11" column="166" selection-start-line="11" selection-start-column="166" selection-end-line="11" selection-end-column="166" />
           <folding>
             <element signature="e#300#364#0#HTML" expanded="true" />
             <element signature="e#452#515#0#HTML" expanded="true" />
             <element signature="e#1769#1833#0#HTML" expanded="true" />
             <element signature="e#1940#2003#0#HTML" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/generatedpasswordspage.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="74" column="72" lean-forward="true" selection-start-line="74" selection-start-column="72" selection-end-line="74" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/controller/ExamController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="300" lean-forward="true" selection-start-line="300" selection-end-line="300" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#15951#15952#0" expanded="true" />
+            <element signature="e#15469#15470#0" expanded="true" />
+            <element signature="e#15519#15520#0" expanded="true" />
+            <element signature="e#15561#15562#0" expanded="true" />
+            <element signature="e#15595#15596#0" expanded="true" />
+            <element signature="e#15652#15653#0" expanded="true" />
+            <element signature="e#15696#15697#0" expanded="true" />
+            <element signature="e#15738#15739#0" expanded="true" />
+            <element signature="e#15772#15773#0" expanded="true" />
+            <element signature="e#15829#15830#0" expanded="true" />
+            <element signature="e#15873#15874#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/exampage.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="67" column="101" selection-start-line="67" selection-start-column="101" selection-end-line="67" selection-end-column="101" />
         </state>
       </provider>
     </entry>

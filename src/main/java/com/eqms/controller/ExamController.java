@@ -294,8 +294,8 @@ public class ExamController {
     }
 
 
-    @RequestMapping(value = "/processExam", method = {RequestMethod.GET})
-    public String processExam(@RequestParam (value = "groupReference") Integer groupId,
+    @RequestMapping(value = "/finishExam", method = {RequestMethod.GET})
+    public String finishExam(@RequestParam (value = "groupReference") Integer groupId,
                               ModelMap model,
                               HttpServletRequest request) throws Exception {
 

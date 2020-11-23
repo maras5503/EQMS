@@ -73,7 +73,7 @@
             <div class="modal-body">
                 <form action="<c:url value="/tests/doSendEmails"/>" method="POST" id="confirmSendEmailsFormModal" >
                     <div class="form-group" id="confirmSendEmailsLabel">
-                    </div>
+                </div>
                     <input type="hidden" name="testReference" id="testReference"/>
                     <input type="hidden" name="groupReference" id="groupReference"/>
                     <input type="hidden" name="studentGroupReference" id="studentGroupReference"/>
