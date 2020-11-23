@@ -29,9 +29,9 @@
                         <c:forEach varStatus="loop" var="exam" items="${allConductedExams}">
                             <tr class="success" id="${exam.conductedExamId}">
                                 <td><c:out value="${exam.testName}" /></td>
-                                <td><c:out value="${student.studentLastname}" /></td>
-                                <td><c:out value="${student.studentEmail}" /></td>
-                                <td><c:out value="${passwordsModel.get(loop.index)}"/></td>
+                                <td><c:out value="${exam.subjectName}" /></td>
+                                <td><c:out value="${exam.groupsOfStudents.studentgroupName}" /></td>
+                                <td><c:out value="${exam.examDate}"/></td>
                             </tr>
 
                         </c:forEach>
