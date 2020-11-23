@@ -303,6 +303,36 @@ public class ExamController {
         String currentUserEmail = userDetails.getUsername();
         Integer currentStudentId = getStudentService().getStudentByEmail(currentUserEmail).getStudentId();
 
+        Integer testId = getTestService().getTestIdByGroupId(groupId);
+        Test test=getTestService().getTestByTestId(testId);
+
+        List <Question> questions=getTestService().getAllQuestionsByGroupId(groupId);
+
+        Integer result=0;
+
+        for(Question q : questions){
+            List<Answer> answers=getTestService().getAllAnswersByQuestionId(q.getQuestionId());
+            result+=1;
+            for(Answer a : answers){
+                if (a.isWhetherCorrect() && getTestService().checkIfAnswerIsChoosedByStudent(currentStudentId,a.getAnswerId())
+                    || !a.isWhetherCorrect() && !getTestService().checkIfAnswerIsChoosedByStudent(currentStudentId,a.getAnswerId())){
+                    continue;
+                }
+                else {
+                    result-=1;
+                    break;
+                }
+
+            }
+
+
+        }
+
+        model.put("result",result);
+        model.put("test",test);
+
+
+
 
         return "finishexampage";
     }
