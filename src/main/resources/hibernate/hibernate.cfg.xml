@@ -23,5 +23,6 @@
         <mapping class="Tests" />
         <mapping class="GroupsOfStudents"/>
         <mapping class="com.eqms.model.StudentsAnswers"/>
+        <mapping class="com.eqms.model.ConductedExams"/>
     </session-factory>
 </hibernate-configuration>
