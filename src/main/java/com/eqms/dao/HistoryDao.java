@@ -8,4 +8,6 @@ import java.util.List;
 public interface HistoryDao {
     public void addConductedExam(ConductedExams conductedExams);
     List<ConductedExams> getAllConductedExams(Order order, Integer maxResults);
+
+    void deleteConductedExam(Integer conductedExamId);
 }

@@ -22,4 +22,7 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Override
     public List<ConductedExams> getAllConductedExams(Order order, Integer maxResults) {return historyDao.getAllConductedExams(order,maxResults);}
+
+    @Override
+    public void deleteConductedExam(Integer conductedExamId) {historyDao.deleteConductedExam(conductedExamId);}
 }

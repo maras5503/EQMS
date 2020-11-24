@@ -3,6 +3,7 @@ package com.eqms.dao.impl;
 import com.eqms.dao.HistoryDao;
 import com.eqms.model.ConductedExams;
 import org.apache.log4j.Logger;
+import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,17 @@ public class HistoryDaoImpl implements HistoryDao {
         }
 
         return conductedExams;
+    }
+
+    @Override
+    public void deleteConductedExam(Integer conductedExamId) {
+
+        String query = "DELETE FROM CONDUCTED_EXAMS WHERE CONDUCTED_EXAM_ID = ?";
+        SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(query);
+        sqlQuery.setParameter(0, conductedExamId);
+
+        int numberDeletedUpdatedEntities = sqlQuery.executeUpdate();
+        logger.debug("The number of entities updated or deleted (conducted exams): " + String.valueOf(numberDeletedUpdatedEntities));
     }
 
     public SessionFactory getSessionFactory() {
