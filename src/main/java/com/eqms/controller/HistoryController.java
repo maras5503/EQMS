@@ -50,6 +50,8 @@ public class HistoryController {
         // Delete group from database
         getHistoryService().deleteConductedExam(conductedExamId);
 
+        getHistoryService().deleteExamResult(conductedExamId);
+
         // Create JSON response
         JsonResponse response = new JsonResponse();
 

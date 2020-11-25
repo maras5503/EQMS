@@ -47,6 +47,29 @@ public class HistoryDaoImpl implements HistoryDao {
         logger.debug("The number of entities updated or deleted (conducted exams): " + String.valueOf(numberDeletedUpdatedEntities));
     }
 
+    @Override
+    public void addExamResult(Integer currentStudentId, double mark, Integer score, Integer conductedExamId) {
+        String query = "INSERT INTO EXAM_RESULTS VALUES (?, ? ,? ,?)";
+        SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(query);
+        sqlQuery.setParameter(0, currentStudentId);
+        sqlQuery.setParameter(1, mark);
+        sqlQuery.setParameter(2, score);
+        sqlQuery.setParameter(3, conductedExamId);
+
+        int numberDeletedUpdatedEntities = sqlQuery.executeUpdate();
+        logger.debug("The number of entities updated or deleted (conducted exams): " + String.valueOf(numberDeletedUpdatedEntities));
+    }
+
+    @Override
+    public void deleteExamResult(Integer conductedExamId) {
+        String query = "DELETE FROM EXAM_RESULTS WHERE CONDUCTED_EXAM_ID = ?";
+        SQLQuery sqlQuery = getSessionFactory().getCurrentSession().createSQLQuery(query);
+        sqlQuery.setParameter(0, conductedExamId);
+
+        int numberDeletedUpdatedEntities = sqlQuery.executeUpdate();
+        logger.debug("The number of entities updated or deleted (conducted exams): " + String.valueOf(numberDeletedUpdatedEntities));
+    }
+
     public SessionFactory getSessionFactory() {
         return sessionFactory;
     }

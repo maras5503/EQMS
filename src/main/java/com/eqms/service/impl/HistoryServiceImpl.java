@@ -25,4 +25,14 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Override
     public void deleteConductedExam(Integer conductedExamId) {historyDao.deleteConductedExam(conductedExamId);}
+
+    @Override
+    public void addExamResult(Integer currentStudentId, double mark, Integer score, Integer conductedExamId) {
+        historyDao.addExamResult(currentStudentId, mark, score, conductedExamId);
+    }
+
+    @Override
+    public void deleteExamResult(Integer conductedExamId) {
+        historyDao.deleteExamResult(conductedExamId);
+    }
 }

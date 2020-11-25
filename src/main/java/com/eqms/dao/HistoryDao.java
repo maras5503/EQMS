@@ -10,4 +10,8 @@ public interface HistoryDao {
     List<ConductedExams> getAllConductedExams(Order order, Integer maxResults);
 
     void deleteConductedExam(Integer conductedExamId);
+
+    void addExamResult(Integer currentStudentId, double mark, Integer score, Integer conductedExamId);
+
+    void deleteExamResult(Integer conductedExamId);
 }

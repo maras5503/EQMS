@@ -2,6 +2,7 @@ package com.eqms.controller;
 
 
 import com.eqms.model.*;
+import com.eqms.service.HistoryService;
 import com.eqms.service.StudentService;
 import com.eqms.service.TestService;
 import com.eqms.service.UserService;
@@ -35,6 +36,8 @@ public class ExamController {
     private UserService userService;
     @Autowired
     private TestService testService;
+    @Autowired
+    private HistoryService historyService;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String getExamPage(Map<String, List<GroupOfQuestions>> map, ModelMap model) {
@@ -358,6 +361,8 @@ public class ExamController {
             mark=2;
         }
 
+        getHistoryService().addExamResult(currentStudentId, mark, (int)result, currentExamId);
+
         model.put("result",(int)result);
         model.put("test",test);
         model.put("percentageResult",percentageResult);
@@ -391,4 +396,7 @@ public class ExamController {
     public void setTestService(TestService testService){
         this.testService=testService;
     }
+
+    public HistoryService getHistoryService(){return historyService;}
+    public void  setHistoryService(HistoryService historyService){this.historyService=historyService;}
 }
