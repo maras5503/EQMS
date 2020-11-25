@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
@@ -312,7 +313,7 @@ public class ExamController {
 
         List <Question> questions=getTestService().getAllQuestionsByGroupId(groupId);
 
-        Integer result=0;
+        double result=0;
 
         for(Question q : questions){
             List<Answer> answers=getTestService().getAllAnswersByQuestionId(q.getQuestionId());
@@ -332,8 +333,35 @@ public class ExamController {
 
         }
 
-        model.put("result",result);
+        double mark=2;
+        double percentage=(result/test.getNumberOfQuestions())*100;
+        int percentageResult=(int)percentage;
+
+        SetOfRating setOfRating=getTestService().getSetOfRatingBySetId(test.getSetsOfRating().getSetId());
+
+        if(percentageResult>=setOfRating.getMark5()){
+            mark=5;
+        }
+        else if(percentageResult < setOfRating.getMark5() && percentageResult >= setOfRating.getMark4_5()){
+            mark=4.5;
+        }
+        else if(percentageResult < setOfRating.getMark4_5() && percentageResult >= setOfRating.getMark4()){
+            mark=4;
+        }
+        else if(percentageResult <  setOfRating.getMark4() && percentageResult >= setOfRating.getMark3_5()){
+            mark=3.5;
+        }
+        else if(percentageResult < setOfRating.getMark3_5() && percentageResult >=  setOfRating.getMark3()){
+            mark=3;
+        }
+        else{
+            mark=2;
+        }
+
+        model.put("result",(int)result);
         model.put("test",test);
+        model.put("percentageResult",percentageResult);
+        model.put("mark",mark);
 
 
 

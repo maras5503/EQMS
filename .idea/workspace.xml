@@ -7,15 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b92d75f-7c53-43fa-9908-b3a500b58590" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8ed153c7-524e-4e1e-9f67-a11803339ac3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8ed153c7-524e-4e1e-9f67-a11803339ac3.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/eqms/controller/ExamController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eqms/controller/ExamController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eqms/controller/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eqms/controller/TestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eqms/dao/TestDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eqms/dao/TestDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eqms/dao/impl/TestDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eqms/dao/impl/TestDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eqms/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eqms/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eqms/service/TestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eqms/service/TestService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/eqms/service/impl/TestServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/eqms/service/impl/TestServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/WEB-INF/jsp/finishexampage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/WEB-INF/jsp/finishexampage.jsp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -139,13 +133,31 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/controller/ExamController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="321" column="144" selection-start-line="321" selection-start-column="144" selection-end-line="321" selection-end-column="144" />
+            <state relative-caret-position="293">
+              <caret line="353" column="95" selection-start-line="353" selection-start-column="95" selection-end-line="353" selection-end-column="95" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#15914#15915#0" expanded="true" />
-                <element signature="e#15951#15952#0" expanded="true" />
+                <element signature="e#17576#17577#0" expanded="true" />
+                <element signature="e#17442#17443#0" expanded="true" />
+                <element signature="e#17492#17493#0" expanded="true" />
+                <element signature="e#17534#17535#0" expanded="true" />
+                <element signature="e#17568#17569#0" expanded="true" />
+                <element signature="e#17625#17626#0" expanded="true" />
+                <element signature="e#17669#17670#0" expanded="true" />
+                <element signature="e#17711#17712#0" expanded="true" />
+                <element signature="e#17745#17746#0" expanded="true" />
+                <element signature="e#17802#17803#0" expanded="true" />
+                <element signature="e#17846#17847#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/finishexampage.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="14" column="153" selection-start-line="14" selection-start-column="153" selection-end-line="14" selection-end-column="153" />
             </state>
           </provider>
         </entry>
@@ -164,8 +176,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getAuthorities</find>
-      <find>loadUserByUsername</find>
       <find>Access Denied</find>
       <find>role</find>
       <find>getUserRolebyNazwa</find>
@@ -194,6 +204,8 @@
       <find>gen</find>
       <find>getuser</find>
       <find>addrefere</find>
+      <find>getsets</find>
+      <find>getsetsofrating</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -232,7 +244,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/eqms/model/StudentsAnswers.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/eqms/model/Students.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/eqms/model/Answer.java" />
-        <option value="$PROJECT_DIR$/webapp/WEB-INF/jsp/finishexampage.jsp" />
         <option value="$PROJECT_DIR$/webapp/WEB-INF/jsp/generatedpasswordspage.jsp" />
         <option value="$PROJECT_DIR$/webapp/WEB-INF/jsp/exampage.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/eqms/dao/impl/StudentDaoImpl.java" />
@@ -252,6 +263,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/eqms/dao/TestDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/eqms/service/TestService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/eqms/service/impl/TestServiceImpl.java" />
+        <option value="$PROJECT_DIR$/webapp/WEB-INF/jsp/finishexampage.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/eqms/controller/ExamController.java" />
       </list>
     </option>
@@ -274,7 +286,7 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="974" />
@@ -740,12 +752,12 @@
       <workItem from="1606124442903" duration="24544000" />
       <workItem from="1606231534510" duration="3817000" />
       <workItem from="1606240621612" duration="4240000" />
-      <workItem from="1606319106691" duration="5754000" />
+      <workItem from="1606319106691" duration="10822000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="675419000" />
+    <option name="totallyTimeSpent" value="680487000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -760,7 +772,7 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.879562" visible="true" weight="0.25340393" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8806818" visible="true" weight="0.25340393" />
       <window_info id="Structure" order="1" sideWeight="0.44578314" side_tool="true" weight="0.23827533" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -768,16 +780,16 @@
       <window_info id="UI Designer" order="5" />
       <window_info id="Favorites" order="6" sideWeight="0.36007464" side_tool="true" weight="0.19894099" />
       <window_info id="Web" order="7" sideWeight="0.36007464" side_tool="true" weight="0.19894099" />
-      <window_info id="Persistence" order="8" sideWeight="0.12043796" side_tool="true" visible="true" weight="0.25340393" />
+      <window_info id="Persistence" order="8" sideWeight="0.11931818" side_tool="true" visible="true" weight="0.25340393" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.4091653" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49924356" visible="true" weight="0.10310966" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49924356" weight="0.30114567" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49924356" visible="true" weight="0.13584287" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49924356" weight="0.1898527" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3289689" />
       <window_info anchor="bottom" id="Spring" order="7" weight="0.3289689" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.05400982" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.10474632" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50075644" side_tool="true" weight="0.0801964" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" weight="0.3289689" />
@@ -876,13 +888,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/4.1.7.RELEASE/spring-aop-4.1.7.RELEASE-sources.jar!/org/springframework/aop/support/AopUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="316" selection-start-line="316" selection-end-line="316" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/4.1.7.RELEASE/spring-aop-4.1.7.RELEASE-sources.jar!/org/springframework/aop/framework/ReflectiveMethodInvocation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="117">
@@ -978,19 +983,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/finishexampage.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="166" selection-start-line="11" selection-start-column="166" selection-end-line="11" selection-end-column="166" />
-          <folding>
-            <element signature="e#300#364#0#HTML" expanded="true" />
-            <element signature="e#452#515#0#HTML" expanded="true" />
-            <element signature="e#1769#1833#0#HTML" expanded="true" />
-            <element signature="e#1940#2003#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/model/GroupOfQuestions.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -1065,24 +1057,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.1.7.RELEASE/spring-web-4.1.7.RELEASE-sources.jar!/org/springframework/web/method/support/InvocableHandlerMethod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="229" selection-start-line="229" selection-end-line="229" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/studenthomepage.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-119">
           <caret line="26" column="85" lean-forward="true" selection-start-line="26" selection-start-column="85" selection-end-line="26" selection-end-column="85" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/model/Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="32" selection-start-line="7" selection-start-column="32" selection-end-line="7" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -1194,13 +1172,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/conductedexamspage.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="144" column="35" selection-start-line="144" selection-start-column="35" selection-end-line="144" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/model/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="986">
@@ -1277,14 +1248,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/controller/ExamController.java">
+    <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/conductedexamspage.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="321" column="144" selection-start-line="321" selection-start-column="144" selection-end-line="321" selection-end-column="144" />
+        <state relative-caret-position="475">
+          <caret line="144" column="35" selection-start-line="144" selection-start-column="35" selection-end-line="144" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.1.7.RELEASE/spring-web-4.1.7.RELEASE-sources.jar!/org/springframework/web/method/support/InvocableHandlerMethod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="228" selection-start-line="228" selection-end-line="228" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/model/SetOfRating.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-555">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/model/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="975">
+          <caret line="89" column="23" selection-start-line="89" selection-start-column="23" selection-end-line="89" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#15914#15915#0" expanded="true" />
-            <element signature="e#15951#15952#0" expanded="true" />
+            <element signature="e#2773#2774#0" expanded="true" />
+            <element signature="e#2804#2805#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/WEB-INF/jsp/finishexampage.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="153" selection-start-line="14" selection-start-column="153" selection-end-line="14" selection-end-column="153" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/eqms/controller/ExamController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="353" column="95" selection-start-line="353" selection-start-column="95" selection-end-line="353" selection-end-column="95" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#17576#17577#0" expanded="true" />
+            <element signature="e#17442#17443#0" expanded="true" />
+            <element signature="e#17492#17493#0" expanded="true" />
+            <element signature="e#17534#17535#0" expanded="true" />
+            <element signature="e#17568#17569#0" expanded="true" />
+            <element signature="e#17625#17626#0" expanded="true" />
+            <element signature="e#17669#17670#0" expanded="true" />
+            <element signature="e#17711#17712#0" expanded="true" />
+            <element signature="e#17745#17746#0" expanded="true" />
+            <element signature="e#17802#17803#0" expanded="true" />
+            <element signature="e#17846#17847#0" expanded="true" />
           </folding>
         </state>
       </provider>
