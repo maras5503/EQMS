@@ -350,41 +350,45 @@ public class TestDaoImpl implements TestDao {
 	}
 
 	@Override
-	public void addReferenceStudentToAnswers(Integer studentId, Integer answerId) {
-		String queryString = "INSERT INTO STUDENTS_ANSWERS VALUES (?, ?)";
+	public void addReferenceStudentToAnswers(Integer studentId, Integer answerId, Integer examId) {
+		String queryString = "INSERT INTO STUDENTS_ANSWERS VALUES (?, ?, ?)";
 		SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
 		query.setParameter(0, studentId);
 		query.setParameter(1, answerId);
+		query.setParameter(2, examId);
 		query.executeUpdate();
 	}
 
 	@Override
-	public void deleteReferenceStudentToAnswers(Integer studentId, Integer answerId) {
-		String queryString = "DELETE FROM STUDENTS_ANSWERS WHERE STUDENT_ID = ? AND ANSWER_ID = ?";
+	public void deleteReferenceStudentToAnswers(Integer studentId, Integer answerId, Integer examId) {
+		String queryString = "DELETE FROM STUDENTS_ANSWERS WHERE STUDENT_ID = ? AND ANSWER_ID = ? AND CONDUCTED_EXAM_ID = ?";
 		SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
 		query.setParameter(0, studentId);
 		query.setParameter(1, answerId);
+		query.setParameter(2, examId);
 		query.executeUpdate();
 	}
 
 	@Override
-	public List<Integer> getAnswersIdByStudentId(Integer studentId) {
+	public List<Integer> getAnswersIdByStudentId(Integer studentId, Integer examId) {
 		List<Integer> answers = new ArrayList<Integer>();
 
-		String queryString = "SELECT ANSWER_ID FROM STUDENTS_ANSWERS WHERE STUDENT_ID = ?";
+		String queryString = "SELECT ANSWER_ID FROM STUDENTS_ANSWERS WHERE STUDENT_ID = ? AND CONDUCTED_EXAM_ID = ?";
 		SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
 		query.setParameter(0, studentId);
+		query.setParameter(1, examId);
 		answers = query.list();
 
 		return answers;
 	}
 
 	@Override
-	public Boolean checkIfAnswerIsChoosedByStudent(Integer studentId, Integer answerId) {
-		String queryString = "SELECT COUNT(*) FROM STUDENTS_ANSWERS WHERE STUDENT_ID = (?) AND ANSWER_ID = (?)";
+	public Boolean checkIfAnswerIsChoosedByStudent(Integer studentId, Integer answerId, Integer examId) {
+		String queryString = "SELECT COUNT(*) FROM STUDENTS_ANSWERS WHERE STUDENT_ID = (?) AND ANSWER_ID = (?) AND CONDUCTED_EXAM_ID = (?)";
 		SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
 		query.setParameter(0, studentId);
 		query.setParameter(1,answerId);
+		query.setParameter(2, examId);
 		int choosedAnswerExists = Integer.valueOf(query.list().get(0).toString());
 		logger.debug("choosedAnswerExists value = " + choosedAnswerExists);
 

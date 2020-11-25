@@ -13,8 +13,6 @@ import com.eqms.model.Subject;
 import com.eqms.model.Test;
 import com.eqms.model.User;
 
-import javax.persistence.criteria.CriteriaBuilder;
-
 public interface TestService {
 	/**
 	 * Methods for subjects
@@ -49,10 +47,10 @@ public interface TestService {
 	public void addReferenceStudentToGroupOfQuestions(Integer studentId, Integer groupId);
 	public int getGroupOfQuestionsIdbyStudentId(Integer studentId);
 
-	public void addReferenceStudentToAnswers(Integer studentId, Integer groupId);
-	public void deleteReferenceStudentToAnswers(Integer currentStudentId, Integer answerId);
-	public List<Integer> getAnswersIdByStudentId(Integer studentId);
-	Boolean checkIfAnswerIsChoosedByStudent(Integer studentId, Integer answerId);
+	public void addReferenceStudentToAnswers(Integer studentId, Integer groupId, Integer currentExamId);
+	public void deleteReferenceStudentToAnswers(Integer currentStudentId, Integer answerId, Integer currentExamId);
+	public List<Integer> getAnswersIdByStudentId(Integer studentId, Integer examId);
+	Boolean checkIfAnswerIsChoosedByStudent(Integer studentId, Integer answerId, Integer examId);
 	
 	public void addQuestion(Question question, Integer groupId);
 	public void updateQuestion(Question question);

@@ -36,6 +36,7 @@ public class User implements java.io.Serializable {
 	private String email;
 	private String password;
 	private boolean enabled;
+	private Integer conductedExamId;
 	private Set<Subject> subjectses = new HashSet<Subject>(0);
 	private Set<VerificationToken> verificationTokenses = new HashSet<VerificationToken>(0);
 
@@ -129,6 +130,11 @@ public class User implements java.io.Serializable {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
+
+	@Column(name = "CONDUCTED_EXAM_ID", nullable = true)
+	public Integer getConductedExamId(){ return this.conductedExamId;}
+
+	public void setConductedExamId(Integer conductedExamId){ this.conductedExamId=conductedExamId;}
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "users_subjects", catalog = "exam_questions_4", joinColumns = {

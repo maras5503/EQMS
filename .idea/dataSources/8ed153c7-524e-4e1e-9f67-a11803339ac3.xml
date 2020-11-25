@@ -2053,29 +2053,34 @@ GROUP_ID</ColNames>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="477" parent="351" name="E_MAIL">
+    <column id="477" parent="351" name="CONDUCTED_EXAM_ID">
+      <Position>8</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="478" parent="351" name="E_MAIL">
       <ColNames>E_MAIL</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="478" parent="351" name="AI_USER_ID">
+    <index id="479" parent="351" name="AI_USER_ID">
       <ColNames>USER_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="479" parent="351" name="USER_ROLES__USERS_FK">
+    <index id="480" parent="351" name="USER_ROLES__USERS_FK">
       <ColNames>ROLE_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="480" parent="351" name="PRIMARY">
+    <key id="481" parent="351" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>USER_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="481" parent="351" name="E_MAIL">
+    <key id="482" parent="351" name="E_MAIL">
       <ColNames>E_MAIL</ColNames>
       <UnderlyingIndexName>E_MAIL</UnderlyingIndexName>
     </key>
-    <foreign-key id="482" parent="351" name="USER_ROLES__USERS_FK">
+    <foreign-key id="483" parent="351" name="USER_ROLES__USERS_FK">
       <ColNames>ROLE_ID</ColNames>
       <RefSchemaName>exam_questions_5</RefSchemaName>
       <RefTableName>user_roles</RefTableName>
@@ -2083,29 +2088,29 @@ GROUP_ID</ColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="483" parent="352" name="USER_ID">
+    <column id="484" parent="352" name="USER_ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="484" parent="352" name="SUBJECT_ID">
+    <column id="485" parent="352" name="SUBJECT_ID">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="485" parent="352" name="SUBJECTS__USERS_SUBJECTS_PFK">
+    <index id="486" parent="352" name="SUBJECTS__USERS_SUBJECTS_PFK">
       <ColNames>SUBJECT_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="486" parent="352" name="PRIMARY">
+    <key id="487" parent="352" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>USER_ID
 SUBJECT_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="487" parent="352" name="USERS__USERS_SUBJECTS_PFK">
+    <foreign-key id="488" parent="352" name="USERS__USERS_SUBJECTS_PFK">
       <ColNames>USER_ID</ColNames>
       <RefSchemaName>exam_questions_5</RefSchemaName>
       <RefTableName>users</RefTableName>
@@ -2113,7 +2118,7 @@ SUBJECT_ID</ColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="488" parent="352" name="SUBJECTS__USERS_SUBJECTS_PFK">
+    <foreign-key id="489" parent="352" name="SUBJECTS__USERS_SUBJECTS_PFK">
       <ColNames>SUBJECT_ID</ColNames>
       <RefSchemaName>exam_questions_5</RefSchemaName>
       <RefTableName>subjects</RefTableName>
@@ -2121,48 +2126,48 @@ SUBJECT_ID</ColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="489" parent="353" name="TOKEN_ID">
+    <column id="490" parent="353" name="TOKEN_ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="490" parent="353" name="TOKEN">
+    <column id="491" parent="353" name="TOKEN">
       <Position>2</Position>
       <DataType>varchar(64)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="491" parent="353" name="USER_ID">
+    <column id="492" parent="353" name="USER_ID">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="492" parent="353" name="TOKEN">
+    <index id="493" parent="353" name="TOKEN">
       <ColNames>TOKEN</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="493" parent="353" name="AI_TOKEN_ID">
+    <index id="494" parent="353" name="AI_TOKEN_ID">
       <ColNames>TOKEN_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="494" parent="353" name="USERS__VERIFICATION_TOKENS_FK">
+    <index id="495" parent="353" name="USERS__VERIFICATION_TOKENS_FK">
       <ColNames>USER_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="495" parent="353" name="PRIMARY">
+    <key id="496" parent="353" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>TOKEN_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="496" parent="353" name="TOKEN">
+    <key id="497" parent="353" name="TOKEN">
       <ColNames>TOKEN</ColNames>
       <UnderlyingIndexName>TOKEN</UnderlyingIndexName>
     </key>
-    <foreign-key id="497" parent="353" name="USERS__VERIFICATION_TOKENS_FK">
+    <foreign-key id="498" parent="353" name="USERS__VERIFICATION_TOKENS_FK">
       <ColNames>USER_ID</ColNames>
       <RefSchemaName>exam_questions_5</RefSchemaName>
       <RefTableName>users</RefTableName>

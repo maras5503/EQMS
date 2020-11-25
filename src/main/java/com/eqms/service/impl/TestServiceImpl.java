@@ -2,7 +2,6 @@ package com.eqms.service.impl;
 
 import java.util.List;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -137,16 +136,16 @@ public class TestServiceImpl implements TestService {
 	public int getGroupOfQuestionsIdbyStudentId(Integer studentId) { return testDao.getGroupOfQuestionsIdbyStudentId(studentId);}
 
 	@Override
-	public  void addReferenceStudentToAnswers(Integer studentId, Integer answerId){testDao.addReferenceStudentToAnswers(studentId,answerId);}
+	public  void addReferenceStudentToAnswers(Integer studentId, Integer answerId, Integer examId){testDao.addReferenceStudentToAnswers(studentId,answerId, examId);}
 
 	@Override
-	public void deleteReferenceStudentToAnswers(Integer currentStudentId, Integer answerId) {testDao.deleteReferenceStudentToAnswers(currentStudentId,answerId);}
+	public void deleteReferenceStudentToAnswers(Integer currentStudentId, Integer answerId, Integer examId) {testDao.deleteReferenceStudentToAnswers(currentStudentId,answerId,examId);}
 
 	@Override
-	public List<Integer> getAnswersIdByStudentId(Integer studentId) {return testDao.getAnswersIdByStudentId(studentId);}
+	public List<Integer> getAnswersIdByStudentId(Integer studentId,Integer examId) {return testDao.getAnswersIdByStudentId(studentId,examId);}
 
 	@Override
-	public Boolean checkIfAnswerIsChoosedByStudent(Integer studentId, Integer answerId) {return testDao.checkIfAnswerIsChoosedByStudent(studentId, answerId);}
+	public Boolean checkIfAnswerIsChoosedByStudent(Integer studentId, Integer answerId, Integer examId) {return testDao.checkIfAnswerIsChoosedByStudent(studentId, answerId, examId);}
 
 	@Override
 	public void addQuestion(Question question, Integer groupId) {

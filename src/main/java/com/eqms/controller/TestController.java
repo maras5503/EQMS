@@ -1041,6 +1041,13 @@ public class TestController {
 
         List<String> passwords=new ArrayList<String>();
 
+		ConductedExams conductedExams=new ConductedExams();
+		conductedExams.setTestName(getTestService().getTestByTestId(testId).getTestName());
+		conductedExams.setSubjectName(getTestService().getSubjectBySubjectId(subjectId).getSubjectName());
+		conductedExams.setGroupsOfStudents(getStudentGroupsService().getStudentGroupByStudentGroupId(studentgroupId));
+		conductedExams.setExamDate(new Date());
+		getHistoryService().addConductedExam(conductedExams);
+
             for (Students student : students) {
 
 				String password=getTestService().generatePassword();
@@ -1057,6 +1064,7 @@ public class TestController {
 				registerUser.setEnabled(true);
 				registerUser.setEmail(student.getStudentEmail());
 				registerUser.setPassword(hashedPassword);
+				registerUser.setConductedExamId(getHistoryService().getAllConductedExams(Order.desc("conductedExamId"),1).get(0).getConductedExamId());
 
                 getUserService().add(registerUser);
 
@@ -1074,13 +1082,6 @@ public class TestController {
             model.put("groupModel",groupId);
             model.put("studentGroupIdModel",studentgroupId);
 
-
-            ConductedExams conductedExams=new ConductedExams();
-            conductedExams.setTestName(getTestService().getTestByTestId(testId).getTestName());
-            conductedExams.setSubjectName(getTestService().getSubjectBySubjectId(subjectId).getSubjectName());
-            conductedExams.setGroupsOfStudents(getStudentGroupsService().getStudentGroupByStudentGroupId(studentgroupId));
-            conductedExams.setExamDate(new Date());
-            getHistoryService().addConductedExam(conductedExams);
 
 
         return "generatedpasswordspage";

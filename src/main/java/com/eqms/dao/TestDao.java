@@ -50,10 +50,10 @@ public interface TestDao {
 	public  void addReferenceStudentToGroupOfQuestions(Integer studentId, Integer groupId);
 	public int getGroupOfQuestionsIdbyStudentId(Integer studentId);
 
-	public  void addReferenceStudentToAnswers(Integer studentId, Integer answerId);
-	public void  deleteReferenceStudentToAnswers(Integer studentId, Integer answerId);
-	public List<Integer> getAnswersIdByStudentId(Integer studentId);
-	public Boolean checkIfAnswerIsChoosedByStudent(Integer studentId, Integer answerId);
+	public  void addReferenceStudentToAnswers(Integer studentId, Integer answerId, Integer examId);
+	public void  deleteReferenceStudentToAnswers(Integer studentId, Integer answerId, Integer examId);
+	public List<Integer> getAnswersIdByStudentId(Integer studentId, Integer examId);
+	public Boolean checkIfAnswerIsChoosedByStudent(Integer studentId, Integer answerId, Integer examId);
 
 
 	public void addQuestion(Question question, Integer groupId);

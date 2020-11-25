@@ -105,6 +105,7 @@ public class ExamController {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String currentUserEmail = userDetails.getUsername();
         Integer currentStudentId = getStudentService().getStudentByEmail(currentUserEmail).getStudentId();
+        Integer currentExamId = getUserService().findByEmail(currentUserEmail).getConductedExamId();
 
 
 
@@ -123,13 +124,13 @@ public class ExamController {
         List <Answer> previousAnswers=getTestService().getAllAnswersByQuestionId(questions.get(questionNumber).getQuestionId());
 
         for(Answer a:previousAnswers){
-            getTestService().deleteReferenceStudentToAnswers(currentStudentId,a.getAnswerId());
+            getTestService().deleteReferenceStudentToAnswers(currentStudentId,a.getAnswerId(),currentExamId);
         }
 
         if(choosedAnswers!=null){
             for (String a : choosedAnswers) {
                 Integer answerId = getTestService().getAnswerByAnswerId(Integer.parseInt(a)).getAnswerId();
-                getTestService().addReferenceStudentToAnswers(currentStudentId, answerId);
+                getTestService().addReferenceStudentToAnswers(currentStudentId, answerId, currentExamId);
             }
         }
 
@@ -138,7 +139,7 @@ public class ExamController {
         String resultsuccess=new String();
 
         for ( Answer a : answers){
-            if(getTestService().checkIfAnswerIsChoosedByStudent(currentStudentId,a.getAnswerId())){
+            if(getTestService().checkIfAnswerIsChoosedByStudent(currentStudentId,a.getAnswerId(),currentExamId)){
                 resultsuccess += "<label class=\"container\">" +
                         "<input type=\"checkbox\" id=\"answerReference\" name=\"answer\" value=\"" + a.getAnswerId() + "\" checked> " + a.getContentOfAnswer() +
                         "</label>";
@@ -183,6 +184,7 @@ public class ExamController {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String currentUserEmail = userDetails.getUsername();
         Integer currentStudentId = getStudentService().getStudentByEmail(currentUserEmail).getStudentId();
+        Integer currentExamId = getUserService().findByEmail(currentUserEmail).getConductedExamId();
 
 
 
@@ -203,13 +205,13 @@ public class ExamController {
         List <Answer> previousAnswers=getTestService().getAllAnswersByQuestionId(questions.get(questionNumber).getQuestionId());
 
             for(Answer a:previousAnswers){
-                getTestService().deleteReferenceStudentToAnswers(currentStudentId,a.getAnswerId());
+                getTestService().deleteReferenceStudentToAnswers(currentStudentId,a.getAnswerId(), currentExamId);
             }
 
         if(choosedAnswers!=null){
             for (String a : choosedAnswers) {
                 Integer answerId = getTestService().getAnswerByAnswerId(Integer.parseInt(a)).getAnswerId();
-                getTestService().addReferenceStudentToAnswers(currentStudentId, answerId);
+                getTestService().addReferenceStudentToAnswers(currentStudentId, answerId, currentExamId);
             }
         }
 
@@ -218,7 +220,7 @@ public class ExamController {
         String nextQuestionReference="<input type=\"hidden\" name=\"nextQuestionReference\" id=\"nextQuestionReference\" value=\""+ question.getQuestionId() +"\"/>";
         String previosQuestionReference="<input type=\"hidden\" name=\"previousQuestionReference\" id=\"previousQuestionReference\" value=\""+ question.getQuestionId() +"\"/>";
         for ( Answer a : answers){
-            if(getTestService().checkIfAnswerIsChoosedByStudent(currentStudentId,a.getAnswerId())){
+            if(getTestService().checkIfAnswerIsChoosedByStudent(currentStudentId,a.getAnswerId(),currentExamId)){
                 resultsuccess += "<label class=\"container\">" +
                         "<input type=\"checkbox\" id=\"answerReference\" name=\"answer\" value=\"" + a.getAnswerId() + "\" checked> " + a.getContentOfAnswer() +
                         "</label>";
@@ -263,6 +265,7 @@ public class ExamController {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String currentUserEmail = userDetails.getUsername();
         Integer currentStudentId = getStudentService().getStudentByEmail(currentUserEmail).getStudentId();
+        Integer currentExamId = getUserService().findByEmail(currentUserEmail).getConductedExamId();
 
 
 
@@ -275,13 +278,13 @@ public class ExamController {
         List <Answer> previousAnswers=getTestService().getAllAnswersByQuestionId(questions.get(questionNumber).getQuestionId());
 
         for(Answer a:previousAnswers){
-            getTestService().deleteReferenceStudentToAnswers(currentStudentId,a.getAnswerId());
+            getTestService().deleteReferenceStudentToAnswers(currentStudentId,a.getAnswerId(), currentExamId);
         }
 
         if(choosedAnswers!=null){
             for (String a : choosedAnswers) {
                 Integer answerId = getTestService().getAnswerByAnswerId(Integer.parseInt(a)).getAnswerId();
-                getTestService().addReferenceStudentToAnswers(currentStudentId, answerId);
+                getTestService().addReferenceStudentToAnswers(currentStudentId, answerId, currentExamId);
             }
         }
 
@@ -302,6 +305,7 @@ public class ExamController {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String currentUserEmail = userDetails.getUsername();
         Integer currentStudentId = getStudentService().getStudentByEmail(currentUserEmail).getStudentId();
+        Integer currentExamId = getUserService().findByEmail(currentUserEmail).getConductedExamId();
 
         Integer testId = getTestService().getTestIdByGroupId(groupId);
         Test test=getTestService().getTestByTestId(testId);
@@ -314,8 +318,8 @@ public class ExamController {
             List<Answer> answers=getTestService().getAllAnswersByQuestionId(q.getQuestionId());
             result+=1;
             for(Answer a : answers){
-                if (a.isWhetherCorrect() && getTestService().checkIfAnswerIsChoosedByStudent(currentStudentId,a.getAnswerId())
-                    || !a.isWhetherCorrect() && !getTestService().checkIfAnswerIsChoosedByStudent(currentStudentId,a.getAnswerId())){
+                if (a.isWhetherCorrect() && getTestService().checkIfAnswerIsChoosedByStudent(currentStudentId,a.getAnswerId(),currentExamId)
+                    || !a.isWhetherCorrect() && !getTestService().checkIfAnswerIsChoosedByStudent(currentStudentId,a.getAnswerId(),currentExamId)){
                     continue;
                 }
                 else {
