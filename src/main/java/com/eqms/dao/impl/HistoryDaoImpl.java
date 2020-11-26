@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class HistoryDaoImpl implements HistoryDao {
@@ -68,6 +70,64 @@ public class HistoryDaoImpl implements HistoryDao {
 
         int numberDeletedUpdatedEntities = sqlQuery.executeUpdate();
         logger.debug("The number of entities updated or deleted (conducted exams): " + String.valueOf(numberDeletedUpdatedEntities));
+    }
+
+    @Override
+    public ConductedExams getConductedExamByConductedExamId(Integer conductedExamId) {
+        List<ConductedExams> conductedExams = new ArrayList<ConductedExams>();
+
+        String queryString = "SELECT * FROM CONDUCTED_EXAMS WHERE CONDUCTED_EXAM_ID = ?";
+        SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString).addEntity(ConductedExams.class);
+        query.setParameter(0, conductedExamId);
+        conductedExams = query.list();
+
+        return conductedExams.get(0);
+    }
+
+    @Override
+    public Map<Integer, Integer> getExamResultsByConductedExamId(Integer conductedExamId) {
+        Map<Integer, Integer> examResults= new HashMap<Integer, Integer>();
+
+        String queryString = "SELECT STUDENT_ID FROM EXAM_RESULTS WHERE CONDUCTED_EXAM_ID = ?";
+        SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
+        query.setParameter(0, conductedExamId);
+        List<Integer> studentIds = query.list();
+
+        queryString = "SELECT SCORE FROM EXAM_RESULTS WHERE CONDUCTED_EXAM_ID = ?";
+        query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
+        query.setParameter(0,conductedExamId);
+        List<Integer> scores = query.list();
+
+        int i=0;
+        for(Integer s:studentIds){
+            examResults.put(s,scores.get(i));
+            i++;
+        }
+
+        return examResults;
+    }
+
+    @Override
+    public Map<Integer, Double> getExamMarksByConductedExamId(Integer conductedExamId) {
+        Map<Integer, Double> examMarks= new HashMap<Integer, Double>();
+
+        String queryString = "SELECT STUDENT_ID FROM EXAM_RESULTS WHERE CONDUCTED_EXAM_ID = ?";
+        SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
+        query.setParameter(0, conductedExamId);
+        List<Integer> studentIds = query.list();
+
+        queryString = "SELECT MARK FROM EXAM_RESULTS WHERE CONDUCTED_EXAM_ID = ?";
+        query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
+        query.setParameter(0,conductedExamId);
+        List<Double> marks = query.list();
+
+        int i=0;
+        for(Integer s:studentIds){
+            examMarks.put(s,marks.get(i));
+            i++;
+        }
+
+        return examMarks;
     }
 
     public SessionFactory getSessionFactory() {

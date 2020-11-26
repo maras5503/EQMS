@@ -35,7 +35,12 @@
                                 <td><c:out value="${exam.groupsOfStudents.studentgroupName}" /></td>
                                 <td><c:out value="${exam.examDate}"/></td>
                                 <td>
-                                    <button type="button" class="btn btn-info btn-block btn-sm" id="resultsBtn" name="resultsBtn"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Results</button>
+                                    <form action="<c:url value="/history/examResults"/>" method="POST"   id="examResultsForm">
+                                        <input type="hidden" name="studentGroupReference" value="${exam.groupsOfStudents.studentgroupId}"/>
+                                        <input type="hidden" name="conductedExamReference" value="${exam.conductedExamId}" />
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                        <button type="submit" class="btn btn-info btn-block btn-sm" id="resultsBtn" name="resultsBtn"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Results</button>
+                                    </form>
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-danger btn-block btn-sm" id="deleteConductedExamBtn" name="deleteConductedExamBtn" data-toggle="modal" data-target="#confirmDeleteConductedExam" data-title="Delete" data-message="Are you sure you want to delete conducted exam history?" data-conductedexam-reference="${exam.conductedExamId}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete</button>

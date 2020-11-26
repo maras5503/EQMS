@@ -1,7 +1,11 @@
 package com.eqms.controller;
 
 import com.eqms.model.ConductedExams;
+import com.eqms.model.GroupsOfStudents;
+import com.eqms.model.Students;
 import com.eqms.service.HistoryService;
+import com.eqms.service.StudentGroupsService;
+import com.eqms.service.StudentService;
 import com.eqms.web.JsonResponse;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Order;
@@ -29,6 +33,12 @@ public class HistoryController {
 
     @Autowired
     private HistoryService historyService;
+
+    @Autowired
+    private StudentGroupsService studentGroupsService;
+
+    @Autowired
+    private StudentService studentService;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String getHistoryPage(Map<String, List<ConductedExams>> map, ModelMap model) {
@@ -62,6 +72,26 @@ public class HistoryController {
         return response;
     }
 
+    @RequestMapping(value = "/examResults", method = {RequestMethod.POST, RequestMethod.GET})
+    public String getExamResultsPage(@RequestParam(value="conductedExamReference") Integer conductedExamId,
+                                  @RequestParam(value="studentGroupReference") Integer studentgroupId, ModelMap model) {
+
+
+        GroupsOfStudents groupsOfStudents=getStudentGroupsService().getStudentGroupByStudentGroupId(studentgroupId);
+        List<Students> students = getStudentService().getStudentsByStudentGroupId(studentgroupId);
+
+        model.put("studentgroup",groupsOfStudents);
+        model.put("students",students);
+        model.put("conductedexam", getHistoryService().getConductedExamByConductedExamId(conductedExamId));
+        model.put("examresults",getHistoryService().getExamResultsByConductedExamId(conductedExamId));
+        model.put("exammarks",getHistoryService().getExamMarksByConductedExamId(conductedExamId));
+
+
+
+
+        return "examresultspage";
+    }
+
     public HistoryService getHistoryService() {
         return historyService;
     }
@@ -70,5 +100,14 @@ public class HistoryController {
         this.historyService=historyService;
     }
 
+    public StudentGroupsService getStudentGroupsService() {
+        return studentGroupsService;
+    }
+
+    public void setStudentGroupsService(StudentGroupsService studentGroupsService){this.studentGroupsService=studentGroupsService; }
+
+    public StudentService getStudentService() { return studentService; }
+
+    public void setStudentService(StudentService studentService) {  this.studentService = studentService; }
 
 }

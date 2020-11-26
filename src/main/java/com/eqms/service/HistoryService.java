@@ -4,6 +4,7 @@ import com.eqms.model.ConductedExams;
 import org.hibernate.criterion.Order;
 
 import java.util.List;
+import java.util.Map;
 
 public interface HistoryService {
     public void addConductedExam(ConductedExams conductedExams);
@@ -15,4 +16,10 @@ public interface HistoryService {
     void addExamResult(Integer currentStudentId, double mark, Integer score, Integer conductedExamId);
 
     void deleteExamResult(Integer conductedExamId);
+
+    ConductedExams getConductedExamByConductedExamId(Integer conductedExamId);
+
+    Map <Integer,Integer> getExamResultsByConductedExamId(Integer conductedExamId);
+
+    Map<Integer, Double> getExamMarksByConductedExamId(Integer conductedExamId);
 }
