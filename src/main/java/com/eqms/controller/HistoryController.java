@@ -98,9 +98,9 @@ public class HistoryController {
 
     @RequestMapping(value = "/answers", method = {RequestMethod.POST, RequestMethod.GET})
     public String getAnswersPage(@RequestParam(value="conductedExamReference") Integer conductedExamId,
+                                     @RequestParam(value = "studentReference") Integer studentId,
                                      @RequestParam(value = "groupReference") Integer groupId,
-                                     @RequestParam(value="studentGroupReference") Integer studentgroupId, ModelMap model,
-                                        HttpServletRequest request ){
+                                     @RequestParam(value="studentGroupReference") Integer studentgroupId, ModelMap model){
 
         Test test = getTestService().getTestByTestId(getTestService().getTestIdByGroupId(groupId));
         GroupOfQuestions group = getTestService().getGroupByGroupId(groupId);
@@ -110,15 +110,20 @@ public class HistoryController {
 
         String image=new String();
         if(question.getPictures() != null) {
-            image = "<img src=\"" + getURLWithContextPath(request) + "/tests/image/" + question.getPictures().getPictureId() + "\" alt=\"questionImage\" name=\"questionImage\" id=\"questionImage\"/></label>";
+            image = "<img src=\" /tests/image/" + question.getPictures().getPictureId() + "\" alt=\"questionImage\" name=\"questionImage\" id=\"questionImage\"/></label>";
         } else {
             image = "";
         }
 
+        model.put("test", test);
+        model.put("student", getStudentService().getStudentByStudentId(studentId));
+        model.put("group",group);
+        model.put("questions",questions);
 
 
 
-        return "examresultspage";
+
+        return "answerspage";
     }
 
     public HistoryService getHistoryService() {
