@@ -11,20 +11,22 @@ public class ConductedExams {
     private String testName;
     private String subjectName;
     private GroupsOfStudents groupsOfStudents;
+    private  GroupOfQuestions groupOfQuestions;
     private Date examDate;
 
     public ConductedExams(){
 
     }
 
-    public ConductedExams(Integer conductedExamId, String testName, String subjectName, GroupsOfStudents groupsOfStudents, Date examDate){
+
+    public ConductedExams(Integer conductedExamId, String testName, String subjectName, GroupsOfStudents groupsOfStudents, GroupOfQuestions groupOfQuestions, Date examDate){
         this.conductedExamId=conductedExamId;
         this.testName=testName;
         this.subjectName=subjectName;
         this.groupsOfStudents=groupsOfStudents;
+        this.groupOfQuestions=groupOfQuestions;
         this.examDate=examDate;
     }
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,11 +69,25 @@ public class ConductedExams {
         this.groupsOfStudents = groupsOfStudents;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "GROUP_ID")
+    public GroupOfQuestions getGroupOfQuestions() {
+        return groupOfQuestions;
+    }
+
+    public void setGroupOfQuestions(GroupOfQuestions groupOfQuestions) {
+        this.groupOfQuestions=groupOfQuestions;
+    }
+
     @Basic
     @Temporal(TemporalType.DATE)
     @Column(name = "EXAM_DATE")
     public Date getExamDate() {
         return examDate;
+    }
+
+    public void setExamDate(java.sql.Date examDate) {
+        this.examDate = examDate;
     }
 
     public void setExamDate(Date examDate) {

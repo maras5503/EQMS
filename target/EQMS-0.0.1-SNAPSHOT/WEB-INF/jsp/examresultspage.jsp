@@ -40,7 +40,7 @@
                                 <td>
                                     <c:forEach var="score" items="${examresults}">
                                         <c:if test="${score.key == student.studentId}">
-                                            <c:out value="${score.value}"/>
+                                            <c:out value="${score.value} / ${group.numberOfQuestions}"/>
                                         </c:if>
                                     </c:forEach>
 

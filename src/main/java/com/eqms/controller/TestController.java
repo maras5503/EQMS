@@ -1045,6 +1045,7 @@ public class TestController {
 		conductedExams.setTestName(getTestService().getTestByTestId(testId).getTestName());
 		conductedExams.setSubjectName(getTestService().getSubjectBySubjectId(subjectId).getSubjectName());
 		conductedExams.setGroupsOfStudents(getStudentGroupsService().getStudentGroupByStudentGroupId(studentgroupId));
+		conductedExams.setGroupOfQuestions(getTestService().getGroupByGroupId(groupId));
 		conductedExams.setExamDate(new Date());
 		getHistoryService().addConductedExam(conductedExams);
 

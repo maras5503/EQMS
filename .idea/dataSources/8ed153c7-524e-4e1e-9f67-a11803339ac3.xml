@@ -1417,97 +1417,107 @@
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="367" parent="336" name="EXAM_DATE">
+    <column id="367" parent="336" name="GROUP_ID">
       <Position>5</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="368" parent="336" name="EXAM_DATE">
+      <Position>6</Position>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="368" parent="336" name="STUDENTGROUP__CONDUCTED_EXAMS_FK">
+    <index id="369" parent="336" name="STUDENTGROUP__CONDUCTED_EXAMS_FK">
       <ColNames>STUDENTGROUP_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="369" parent="336" name="PRIMARY">
+    <index id="370" parent="336" name="GROUPS_CONDUCTED_EXAMS_FK">
+      <ColNames>GROUP_ID</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="371" parent="336" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>CONDUCTED_EXAM_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="370" parent="337" name="STUDENT_ID">
+    <column id="372" parent="337" name="STUDENT_ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="371" parent="337" name="MARK">
+    <column id="373" parent="337" name="MARK">
       <Position>2</Position>
       <DataType>double|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="372" parent="337" name="SCORE">
+    <column id="374" parent="337" name="SCORE">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="373" parent="337" name="CONDUCTED_EXAM_ID">
+    <column id="375" parent="337" name="CONDUCTED_EXAM_ID">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="374" parent="337" name="EXAM_RESULTS__STUDENTS_FK">
+    <index id="376" parent="337" name="EXAM_RESULTS__STUDENTS_FK">
       <ColNames>STUDENT_ID</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="375" parent="337" name="PRIMARY">
+    <key id="377" parent="337" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>CONDUCTED_EXAM_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="376" parent="337" name="EXAM_RESULTS__STUDENTS_FK">
+    <key id="378" parent="337" name="EXAM_RESULTS__STUDENTS_FK">
       <ColNames>STUDENT_ID</ColNames>
       <UnderlyingIndexName>EXAM_RESULTS__STUDENTS_FK</UnderlyingIndexName>
     </key>
-    <column id="377" parent="338" name="GROUP_ID">
+    <column id="379" parent="338" name="GROUP_ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="378" parent="338" name="GROUP_NAME">
+    <column id="380" parent="338" name="GROUP_NAME">
       <Position>2</Position>
       <DataType>varchar(200)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="379" parent="338" name="NUMBER_OF_QUESTIONS">
+    <column id="381" parent="338" name="NUMBER_OF_QUESTIONS">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="380" parent="338" name="TEST_ID">
+    <column id="382" parent="338" name="TEST_ID">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="381" parent="338" name="AI_GROUP_ID">
+    <index id="383" parent="338" name="AI_GROUP_ID">
       <ColNames>GROUP_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="382" parent="338" name="TESTS__GROUPS_OF_QUESTIONS_FK">
+    <index id="384" parent="338" name="TESTS__GROUPS_OF_QUESTIONS_FK">
       <ColNames>TEST_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="383" parent="338" name="PRIMARY">
+    <key id="385" parent="338" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>GROUP_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="384" parent="338" name="TESTS__GROUPS_OF_QUESTIONS_FK">
+    <foreign-key id="386" parent="338" name="TESTS__GROUPS_OF_QUESTIONS_FK">
       <ColNames>TEST_ID</ColNames>
       <RefSchemaName>exam_questions_5</RefSchemaName>
       <RefTableName>tests</RefTableName>
@@ -1515,47 +1525,47 @@
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="385" parent="339" name="STUDENTGROUP_ID">
+    <column id="387" parent="339" name="STUDENTGROUP_ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="386" parent="339" name="STUDENTGROUP_NAME">
+    <column id="388" parent="339" name="STUDENTGROUP_NAME">
       <Position>2</Position>
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="387" parent="339" name="PRIMARY">
+    <key id="389" parent="339" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>STUDENTGROUP_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="388" parent="340" name="GROUP_ID">
+    <column id="390" parent="340" name="GROUP_ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="389" parent="340" name="QUESTION_ID">
+    <column id="391" parent="340" name="QUESTION_ID">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="390" parent="340" name="QUESTIONS__GROUPS_QUESTIONS_PFK">
+    <index id="392" parent="340" name="QUESTIONS__GROUPS_QUESTIONS_PFK">
       <ColNames>QUESTION_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="391" parent="340" name="PRIMARY">
+    <key id="393" parent="340" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>GROUP_ID
 QUESTION_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="392" parent="340" name="GROUPS__GROUPS_QUESTIONS_PFK">
+    <foreign-key id="394" parent="340" name="GROUPS__GROUPS_QUESTIONS_PFK">
       <ColNames>GROUP_ID</ColNames>
       <RefSchemaName>exam_questions_5</RefSchemaName>
       <RefTableName>groups_of_questions</RefTableName>
@@ -1563,7 +1573,7 @@ QUESTION_ID</ColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="393" parent="340" name="QUESTIONS__GROUPS_QUESTIONS_PFK">
+    <foreign-key id="395" parent="340" name="QUESTIONS__GROUPS_QUESTIONS_PFK">
       <ColNames>QUESTION_ID</ColNames>
       <RefSchemaName>exam_questions_5</RefSchemaName>
       <RefTableName>questions</RefTableName>
@@ -1571,25 +1581,25 @@ QUESTION_ID</ColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="394" parent="341" name="USERNAME">
+    <column id="396" parent="341" name="USERNAME">
       <Position>1</Position>
       <DataType>varchar(64)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="395" parent="341" name="SERIES">
+    <column id="397" parent="341" name="SERIES">
       <Position>2</Position>
       <DataType>varchar(64)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="396" parent="341" name="TOKEN">
+    <column id="398" parent="341" name="TOKEN">
       <Position>3</Position>
       <DataType>varchar(64)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="397" parent="341" name="LAST_USED">
+    <column id="399" parent="341" name="LAST_USED">
       <Position>4</Position>
       <DataType>timestamp|0s</DataType>
       <NotNull>1</NotNull>
@@ -1597,89 +1607,89 @@ QUESTION_ID</ColNames>
       <ColumnKind>normal</ColumnKind>
       <OnUpdate>current_timestamp()</OnUpdate>
     </column>
-    <key id="398" parent="341" name="PRIMARY">
+    <key id="400" parent="341" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>SERIES</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="399" parent="342" name="PICTURE_ID">
+    <column id="401" parent="342" name="PICTURE_ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="400" parent="342" name="PICTURE_NAME">
+    <column id="402" parent="342" name="PICTURE_NAME">
       <Position>2</Position>
       <DataType>varchar(30)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="401" parent="342" name="PICTURE_TYPE">
+    <column id="403" parent="342" name="PICTURE_TYPE">
       <Position>3</Position>
       <DataType>varchar(4)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="402" parent="342" name="PICTURE">
+    <column id="404" parent="342" name="PICTURE">
       <Position>4</Position>
       <DataType>mediumblob|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="403" parent="342" name="AI_PICTURE_ID">
+    <index id="405" parent="342" name="AI_PICTURE_ID">
       <ColNames>PICTURE_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="404" parent="342" name="PRIMARY">
+    <key id="406" parent="342" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>PICTURE_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="405" parent="343" name="QUESTION_ID">
+    <column id="407" parent="343" name="QUESTION_ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="406" parent="343" name="CONTENT_OF_QUESTION">
+    <column id="408" parent="343" name="CONTENT_OF_QUESTION">
       <Position>2</Position>
       <DataType>varchar(2000)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="407" parent="343" name="NUMBER_OF_ANSWERS">
+    <column id="409" parent="343" name="NUMBER_OF_ANSWERS">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="408" parent="343" name="NUMBER_OF_CORRECT_ANSWERS">
+    <column id="410" parent="343" name="NUMBER_OF_CORRECT_ANSWERS">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="409" parent="343" name="PICTURE_ID">
+    <column id="411" parent="343" name="PICTURE_ID">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="410" parent="343" name="AI_QUESTION_ID">
+    <index id="412" parent="343" name="AI_QUESTION_ID">
       <ColNames>QUESTION_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="411" parent="343" name="PICTURES__QUESTIONS_FK">
+    <index id="413" parent="343" name="PICTURES__QUESTIONS_FK">
       <ColNames>PICTURE_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="412" parent="343" name="PRIMARY">
+    <key id="414" parent="343" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>QUESTION_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="413" parent="343" name="PICTURES__QUESTIONS_FK">
+    <foreign-key id="415" parent="343" name="PICTURES__QUESTIONS_FK">
       <ColNames>PICTURE_ID</ColNames>
       <RefSchemaName>exam_questions_5</RefSchemaName>
       <RefTableName>pictures</RefTableName>
@@ -1687,29 +1697,29 @@ QUESTION_ID</ColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="414" parent="344" name="QUESTION_ID">
+    <column id="416" parent="344" name="QUESTION_ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="415" parent="344" name="ANSWER_ID">
+    <column id="417" parent="344" name="ANSWER_ID">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="416" parent="344" name="ANSWERS__QUESTIONS_ANSWERS_PFK">
+    <index id="418" parent="344" name="ANSWERS__QUESTIONS_ANSWERS_PFK">
       <ColNames>ANSWER_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="417" parent="344" name="PRIMARY">
+    <key id="419" parent="344" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>QUESTION_ID
 ANSWER_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="418" parent="344" name="QUESTIONS__QUESTIONS_ANSWERS_PFK">
+    <foreign-key id="420" parent="344" name="QUESTIONS__QUESTIONS_ANSWERS_PFK">
       <ColNames>QUESTION_ID</ColNames>
       <RefSchemaName>exam_questions_5</RefSchemaName>
       <RefTableName>questions</RefTableName>
@@ -1717,7 +1727,7 @@ ANSWER_ID</ColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="419" parent="344" name="ANSWERS__QUESTIONS_ANSWERS_PFK">
+    <foreign-key id="421" parent="344" name="ANSWERS__QUESTIONS_ANSWERS_PFK">
       <ColNames>ANSWER_ID</ColNames>
       <RefSchemaName>exam_questions_5</RefSchemaName>
       <RefTableName>answers</RefTableName>
@@ -1725,290 +1735,290 @@ ANSWER_ID</ColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="420" parent="345" name="SET_ID">
+    <column id="422" parent="345" name="SET_ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="421" parent="345" name="MARK_5">
+    <column id="423" parent="345" name="MARK_5">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="422" parent="345" name="MARK_4_5">
+    <column id="424" parent="345" name="MARK_4_5">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="423" parent="345" name="MARK_4">
+    <column id="425" parent="345" name="MARK_4">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="424" parent="345" name="MARK_3_5">
+    <column id="426" parent="345" name="MARK_3_5">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="425" parent="345" name="MARK_3">
+    <column id="427" parent="345" name="MARK_3">
       <Position>6</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="426" parent="345" name="MARK_2">
+    <column id="428" parent="345" name="MARK_2">
       <Position>7</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="427" parent="345" name="AI_SET_ID">
+    <index id="429" parent="345" name="AI_SET_ID">
       <ColNames>SET_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="428" parent="345" name="PRIMARY">
+    <key id="430" parent="345" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>SET_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="429" parent="346" name="STUDENT_ID">
+    <column id="431" parent="346" name="STUDENT_ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="430" parent="346" name="FIRSTNAME">
+    <column id="432" parent="346" name="FIRSTNAME">
       <Position>2</Position>
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="431" parent="346" name="LASTNAME">
+    <column id="433" parent="346" name="LASTNAME">
       <Position>3</Position>
       <DataType>varchar(30)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="432" parent="346" name="E_MAIL">
+    <column id="434" parent="346" name="E_MAIL">
       <Position>4</Position>
       <DataType>varchar(70)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="433" parent="346" name="STUDENTGROUP_ID">
+    <column id="435" parent="346" name="STUDENTGROUP_ID">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="434" parent="346" name="STUDENT_E_MAIL">
+    <index id="436" parent="346" name="STUDENT_E_MAIL">
       <ColNames>E_MAIL</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="435" parent="346" name="STUDENTGROUP_STUDENT_FK">
+    <index id="437" parent="346" name="STUDENTGROUP_STUDENT_FK">
       <ColNames>STUDENTGROUP_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="436" parent="346" name="PRIMARY">
+    <key id="438" parent="346" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>STUDENT_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="437" parent="346" name="STUDENT_E_MAIL">
+    <key id="439" parent="346" name="STUDENT_E_MAIL">
       <ColNames>E_MAIL</ColNames>
       <UnderlyingIndexName>STUDENT_E_MAIL</UnderlyingIndexName>
     </key>
-    <column id="438" parent="347" name="STUDENT_ID">
+    <column id="440" parent="347" name="STUDENT_ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="439" parent="347" name="ANSWER_ID">
+    <column id="441" parent="347" name="ANSWER_ID">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="440" parent="347" name="CONDUCTED_EXAM_ID">
+    <column id="442" parent="347" name="CONDUCTED_EXAM_ID">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="441" parent="347" name="ANSWERS__STUDENTS_ANSWERS_PFK">
+    <index id="443" parent="347" name="ANSWERS__STUDENTS_ANSWERS_PFK">
       <ColNames>ANSWER_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="442" parent="347" name="PRIMARY">
+    <key id="444" parent="347" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>STUDENT_ID
 ANSWER_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="443" parent="348" name="STUDENT_ID">
+    <column id="445" parent="348" name="STUDENT_ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="444" parent="348" name="GROUP_ID">
+    <column id="446" parent="348" name="GROUP_ID">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="445" parent="348" name="GROUPS__STUDENTS_GROUPS_PFK">
+    <index id="447" parent="348" name="GROUPS__STUDENTS_GROUPS_PFK">
       <ColNames>STUDENT_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="446" parent="348" name="PRIMARY">
+    <key id="448" parent="348" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>STUDENT_ID
 GROUP_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="447" parent="349" name="SUBJECT_ID">
+    <column id="449" parent="349" name="SUBJECT_ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="448" parent="349" name="SUBJECT_NAME">
+    <column id="450" parent="349" name="SUBJECT_NAME">
       <Position>2</Position>
       <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="449" parent="349" name="CREATION_DATE">
+    <column id="451" parent="349" name="CREATION_DATE">
       <Position>3</Position>
       <DataType>date|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="450" parent="349" name="CREATED_BY">
+    <column id="452" parent="349" name="CREATED_BY">
       <Position>4</Position>
       <DataType>varchar(70)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="451" parent="349" name="SUBJECT_NAME">
+    <index id="453" parent="349" name="SUBJECT_NAME">
       <ColNames>SUBJECT_NAME</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="452" parent="349" name="AI_SUBJECT_ID">
+    <index id="454" parent="349" name="AI_SUBJECT_ID">
       <ColNames>SUBJECT_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="453" parent="349" name="PRIMARY">
+    <key id="455" parent="349" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>SUBJECT_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="454" parent="349" name="SUBJECT_NAME">
+    <key id="456" parent="349" name="SUBJECT_NAME">
       <ColNames>SUBJECT_NAME</ColNames>
       <UnderlyingIndexName>SUBJECT_NAME</UnderlyingIndexName>
     </key>
-    <column id="455" parent="350" name="TEST_ID">
+    <column id="457" parent="350" name="TEST_ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="456" parent="350" name="TEST_NAME">
+    <column id="458" parent="350" name="TEST_NAME">
       <Position>2</Position>
       <DataType>varchar(200)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="457" parent="350" name="TIME_FOR_TEST">
+    <column id="459" parent="350" name="TIME_FOR_TEST">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="458" parent="350" name="NUMBER_OF_GROUPS">
+    <column id="460" parent="350" name="NUMBER_OF_GROUPS">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="459" parent="350" name="NUMBER_OF_QUESTIONS">
+    <column id="461" parent="350" name="NUMBER_OF_QUESTIONS">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="460" parent="350" name="CREATION_DATE">
+    <column id="462" parent="350" name="CREATION_DATE">
       <Position>6</Position>
       <DataType>date|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="461" parent="350" name="CREATED_BY">
+    <column id="463" parent="350" name="CREATED_BY">
       <Position>7</Position>
       <DataType>varchar(70)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="462" parent="350" name="MODIFICATION_DATE">
+    <column id="464" parent="350" name="MODIFICATION_DATE">
       <Position>8</Position>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="463" parent="350" name="MODIFIED_BY">
+    <column id="465" parent="350" name="MODIFIED_BY">
       <Position>9</Position>
       <DataType>varchar(70)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="464" parent="350" name="ENABLED">
+    <column id="466" parent="350" name="ENABLED">
       <Position>10</Position>
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="465" parent="350" name="SET_ID">
+    <column id="467" parent="350" name="SET_ID">
       <Position>11</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="466" parent="350" name="SUBJECT_ID">
+    <column id="468" parent="350" name="SUBJECT_ID">
       <Position>12</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="467" parent="350" name="AI_TEST_ID">
+    <index id="469" parent="350" name="AI_TEST_ID">
       <ColNames>TEST_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="468" parent="350" name="SETS_OF_RATING__TESTS_FK">
+    <index id="470" parent="350" name="SETS_OF_RATING__TESTS_FK">
       <ColNames>SET_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="469" parent="350" name="SUBJECTS__TESTS_FK">
+    <index id="471" parent="350" name="SUBJECTS__TESTS_FK">
       <ColNames>SUBJECT_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="470" parent="350" name="PRIMARY">
+    <key id="472" parent="350" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>TEST_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="471" parent="350" name="SETS_OF_RATING__TESTS_FK">
+    <foreign-key id="473" parent="350" name="SETS_OF_RATING__TESTS_FK">
       <ColNames>SET_ID</ColNames>
       <RefSchemaName>exam_questions_5</RefSchemaName>
       <RefTableName>sets_of_rating</RefTableName>
@@ -2016,7 +2026,7 @@ GROUP_ID</ColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="472" parent="350" name="SUBJECTS__TESTS_FK">
+    <foreign-key id="474" parent="350" name="SUBJECTS__TESTS_FK">
       <ColNames>SUBJECT_ID</ColNames>
       <RefSchemaName>exam_questions_5</RefSchemaName>
       <RefTableName>subjects</RefTableName>
@@ -2024,108 +2034,108 @@ GROUP_ID</ColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="473" parent="351" name="ROLE_ID">
+    <column id="475" parent="351" name="ROLE_ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="474" parent="351" name="NAME">
+    <column id="476" parent="351" name="NAME">
       <Position>2</Position>
       <DataType>varchar(30)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="475" parent="351" name="NAME">
+    <index id="477" parent="351" name="NAME">
       <ColNames>NAME</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="476" parent="351" name="AI_ROLE_ID">
+    <index id="478" parent="351" name="AI_ROLE_ID">
       <ColNames>ROLE_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="477" parent="351" name="PRIMARY">
+    <key id="479" parent="351" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ROLE_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="478" parent="351" name="NAME">
+    <key id="480" parent="351" name="NAME">
       <ColNames>NAME</ColNames>
       <UnderlyingIndexName>NAME</UnderlyingIndexName>
     </key>
-    <column id="479" parent="352" name="USER_ID">
+    <column id="481" parent="352" name="USER_ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="480" parent="352" name="FIRSTNAME">
+    <column id="482" parent="352" name="FIRSTNAME">
       <Position>2</Position>
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="481" parent="352" name="LASTNAME">
+    <column id="483" parent="352" name="LASTNAME">
       <Position>3</Position>
       <DataType>varchar(30)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="482" parent="352" name="E_MAIL">
+    <column id="484" parent="352" name="E_MAIL">
       <Position>4</Position>
       <DataType>varchar(70)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="483" parent="352" name="PASSWORD">
+    <column id="485" parent="352" name="PASSWORD">
       <Position>5</Position>
       <DataType>varchar(40)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="484" parent="352" name="ENABLED">
+    <column id="486" parent="352" name="ENABLED">
       <Position>6</Position>
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="485" parent="352" name="ROLE_ID">
+    <column id="487" parent="352" name="ROLE_ID">
       <Position>7</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="486" parent="352" name="CONDUCTED_EXAM_ID">
+    <column id="488" parent="352" name="CONDUCTED_EXAM_ID">
       <Position>8</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="487" parent="352" name="E_MAIL">
+    <index id="489" parent="352" name="E_MAIL">
       <ColNames>E_MAIL</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="488" parent="352" name="AI_USER_ID">
+    <index id="490" parent="352" name="AI_USER_ID">
       <ColNames>USER_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="489" parent="352" name="USER_ROLES__USERS_FK">
+    <index id="491" parent="352" name="USER_ROLES__USERS_FK">
       <ColNames>ROLE_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="490" parent="352" name="PRIMARY">
+    <key id="492" parent="352" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>USER_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="491" parent="352" name="E_MAIL">
+    <key id="493" parent="352" name="E_MAIL">
       <ColNames>E_MAIL</ColNames>
       <UnderlyingIndexName>E_MAIL</UnderlyingIndexName>
     </key>
-    <foreign-key id="492" parent="352" name="USER_ROLES__USERS_FK">
+    <foreign-key id="494" parent="352" name="USER_ROLES__USERS_FK">
       <ColNames>ROLE_ID</ColNames>
       <RefSchemaName>exam_questions_5</RefSchemaName>
       <RefTableName>user_roles</RefTableName>
@@ -2133,29 +2143,29 @@ GROUP_ID</ColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="493" parent="353" name="USER_ID">
+    <column id="495" parent="353" name="USER_ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="494" parent="353" name="SUBJECT_ID">
+    <column id="496" parent="353" name="SUBJECT_ID">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="495" parent="353" name="SUBJECTS__USERS_SUBJECTS_PFK">
+    <index id="497" parent="353" name="SUBJECTS__USERS_SUBJECTS_PFK">
       <ColNames>SUBJECT_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="496" parent="353" name="PRIMARY">
+    <key id="498" parent="353" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>USER_ID
 SUBJECT_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="497" parent="353" name="USERS__USERS_SUBJECTS_PFK">
+    <foreign-key id="499" parent="353" name="USERS__USERS_SUBJECTS_PFK">
       <ColNames>USER_ID</ColNames>
       <RefSchemaName>exam_questions_5</RefSchemaName>
       <RefTableName>users</RefTableName>
@@ -2163,7 +2173,7 @@ SUBJECT_ID</ColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="498" parent="353" name="SUBJECTS__USERS_SUBJECTS_PFK">
+    <foreign-key id="500" parent="353" name="SUBJECTS__USERS_SUBJECTS_PFK">
       <ColNames>SUBJECT_ID</ColNames>
       <RefSchemaName>exam_questions_5</RefSchemaName>
       <RefTableName>subjects</RefTableName>
@@ -2171,48 +2181,48 @@ SUBJECT_ID</ColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="499" parent="354" name="TOKEN_ID">
+    <column id="501" parent="354" name="TOKEN_ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="500" parent="354" name="TOKEN">
+    <column id="502" parent="354" name="TOKEN">
       <Position>2</Position>
       <DataType>varchar(64)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="501" parent="354" name="USER_ID">
+    <column id="503" parent="354" name="USER_ID">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="502" parent="354" name="TOKEN">
+    <index id="504" parent="354" name="TOKEN">
       <ColNames>TOKEN</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="503" parent="354" name="AI_TOKEN_ID">
+    <index id="505" parent="354" name="AI_TOKEN_ID">
       <ColNames>TOKEN_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="504" parent="354" name="USERS__VERIFICATION_TOKENS_FK">
+    <index id="506" parent="354" name="USERS__VERIFICATION_TOKENS_FK">
       <ColNames>USER_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="505" parent="354" name="PRIMARY">
+    <key id="507" parent="354" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>TOKEN_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="506" parent="354" name="TOKEN">
+    <key id="508" parent="354" name="TOKEN">
       <ColNames>TOKEN</ColNames>
       <UnderlyingIndexName>TOKEN</UnderlyingIndexName>
     </key>
-    <foreign-key id="507" parent="354" name="USERS__VERIFICATION_TOKENS_FK">
+    <foreign-key id="509" parent="354" name="USERS__VERIFICATION_TOKENS_FK">
       <ColNames>USER_ID</ColNames>
       <RefSchemaName>exam_questions_5</RefSchemaName>
       <RefTableName>users</RefTableName>

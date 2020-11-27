@@ -40,13 +40,19 @@
                                 <td>
                                     <c:forEach var="score" items="${examresults}">
                                         <c:if test="${score.key == student.studentId}">
-                                            <c:out value="${score.value}"/>
+                                            <c:out value="${score.value} / ${group.numberOfQuestions}"/>
                                         </c:if>
                                     </c:forEach>
 
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-info btn-block btn-sm" id="answersBtn" name="answersBtn"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Answers</button>
+                                    <form action="<c:url value="/history/answers"/>" method="POST"   id="answersForm">
+                                        <input type="hidden" name="studentGroupReference" value="${exam.groupsOfStudents.studentgroupId}"/>
+                                        <input type="hidden" name="conductedExamReference" value="${exam.conductedExamId}" />
+                                        <input type="hidden" name="groupReference" value="${exam.groupOfQuestions.groupId}"/>
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                        <button type="submit" class="btn btn-info btn-block btn-sm" id="answersBtn" name="answersBtn"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span> Answers</button>
+                                    </form>
                                 </td>
                             </tr>
 

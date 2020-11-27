@@ -19,6 +19,7 @@
                         <thead>
                         <tr class="success">
                             <th>TEST NAME</th>
+                            <th>GROUP OF QUESTIONS</th>
                             <th>SUBJECT NAME</th>
                             <th>STUDENT GROUP</th>
                             <th>DATE</th>
@@ -31,13 +32,15 @@
                         <c:forEach varStatus="loop" var="exam" items="${allConductedExams}">
                             <tr class="success" id="${exam.conductedExamId}">
                                 <td><c:out value="${exam.testName}" /></td>
-                                <td><c:out value="${exam.subjectName}" /></td>
+                                <td><c:out value="${exam.groupOfQuestions.groupName}"/></td>
+                                <td><c:out value="${exam.subjectName}"/></td>
                                 <td><c:out value="${exam.groupsOfStudents.studentgroupName}" /></td>
                                 <td><c:out value="${exam.examDate}"/></td>
                                 <td>
                                     <form action="<c:url value="/history/examResults"/>" method="POST"   id="examResultsForm">
                                         <input type="hidden" name="studentGroupReference" value="${exam.groupsOfStudents.studentgroupId}"/>
                                         <input type="hidden" name="conductedExamReference" value="${exam.conductedExamId}" />
+                                        <input type="hidden" name="groupReference" value="${exam.groupOfQuestions.groupId}"/>
                                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                                         <button type="submit" class="btn btn-info btn-block btn-sm" id="resultsBtn" name="resultsBtn"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Results</button>
                                     </form>

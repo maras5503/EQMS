@@ -312,6 +312,7 @@ public class ExamController {
         Integer currentExamId = getUserService().findByEmail(currentUserEmail).getConductedExamId();
 
         Integer testId = getTestService().getTestIdByGroupId(groupId);
+        GroupOfQuestions groupOfQuestions=getTestService().getGroupByGroupId(groupId);
         Test test=getTestService().getTestByTestId(testId);
 
         List <Question> questions=getTestService().getAllQuestionsByGroupId(groupId);
@@ -365,6 +366,7 @@ public class ExamController {
 
         model.put("result",(int)result);
         model.put("test",test);
+        model.put("group", groupOfQuestions);
         model.put("percentageResult",percentageResult);
         model.put("mark",mark);
 

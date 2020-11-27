@@ -1,11 +1,10 @@
 package com.eqms.controller;
 
-import com.eqms.model.ConductedExams;
-import com.eqms.model.GroupsOfStudents;
-import com.eqms.model.Students;
+import com.eqms.model.*;
 import com.eqms.service.HistoryService;
 import com.eqms.service.StudentGroupsService;
 import com.eqms.service.StudentService;
+import com.eqms.service.TestService;
 import com.eqms.web.JsonResponse;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Order;
@@ -39,6 +38,9 @@ public class HistoryController {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private TestService testService;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String getHistoryPage(Map<String, List<ConductedExams>> map, ModelMap model) {
@@ -74,17 +76,44 @@ public class HistoryController {
 
     @RequestMapping(value = "/examResults", method = {RequestMethod.POST, RequestMethod.GET})
     public String getExamResultsPage(@RequestParam(value="conductedExamReference") Integer conductedExamId,
+                                  @RequestParam(value = "groupReference") Integer groupId,
                                   @RequestParam(value="studentGroupReference") Integer studentgroupId, ModelMap model) {
 
-
+        GroupOfQuestions groupOfQuestions=getTestService().getGroupByGroupId(groupId);
         GroupsOfStudents groupsOfStudents=getStudentGroupsService().getStudentGroupByStudentGroupId(studentgroupId);
         List<Students> students = getStudentService().getStudentsByStudentGroupId(studentgroupId);
 
         model.put("studentgroup",groupsOfStudents);
+        model.put("group", groupOfQuestions);
         model.put("students",students);
         model.put("conductedexam", getHistoryService().getConductedExamByConductedExamId(conductedExamId));
         model.put("examresults",getHistoryService().getExamResultsByConductedExamId(conductedExamId));
         model.put("exammarks",getHistoryService().getExamMarksByConductedExamId(conductedExamId));
+
+
+
+
+        return "examresultspage";
+    }
+
+    @RequestMapping(value = "/answers", method = {RequestMethod.POST, RequestMethod.GET})
+    public String getAnswersPage(@RequestParam(value="conductedExamReference") Integer conductedExamId,
+                                     @RequestParam(value = "groupReference") Integer groupId,
+                                     @RequestParam(value="studentGroupReference") Integer studentgroupId, ModelMap model,
+                                        HttpServletRequest request ){
+
+        Test test = getTestService().getTestByTestId(getTestService().getTestIdByGroupId(groupId));
+        GroupOfQuestions group = getTestService().getGroupByGroupId(groupId);
+        List <Question> questions = getTestService().getAllQuestionsByGroupId(groupId);
+        Question question=questions.get(0);
+        List <Answer> answers = getTestService().getAllAnswersByQuestionId(question.getQuestionId());
+
+        String image=new String();
+        if(question.getPictures() != null) {
+            image = "<img src=\"" + getURLWithContextPath(request) + "/tests/image/" + question.getPictures().getPictureId() + "\" alt=\"questionImage\" name=\"questionImage\" id=\"questionImage\"/></label>";
+        } else {
+            image = "";
+        }
 
 
 
@@ -109,5 +138,9 @@ public class HistoryController {
     public StudentService getStudentService() { return studentService; }
 
     public void setStudentService(StudentService studentService) {  this.studentService = studentService; }
+
+    public TestService getTestService() { return testService; }
+
+    public void setTestService(TestService testService) { this.testService = testService; }
 
 }
