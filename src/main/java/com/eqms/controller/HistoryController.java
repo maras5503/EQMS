@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -106,19 +108,21 @@ public class HistoryController {
         GroupOfQuestions group = getTestService().getGroupByGroupId(groupId);
         List <Question> questions = getTestService().getAllQuestionsByGroupId(groupId);
         Question question=questions.get(0);
-        List <Answer> answers = getTestService().getAllAnswersByQuestionId(question.getQuestionId());
 
-        String image=new String();
-        if(question.getPictures() != null) {
-            image = "<img src=\" /tests/image/" + question.getPictures().getPictureId() + "\" alt=\"questionImage\" name=\"questionImage\" id=\"questionImage\"/></label>";
-        } else {
-            image = "";
+        Map <Integer, List<Answer>> answers= new HashMap<Integer, List<Answer>>();
+
+        for(Question q:questions){
+            answers.put(q.getQuestionId(),getTestService().getAllAnswersByQuestionId(q.getQuestionId()));
         }
+
+        List <Integer> studentsAnswers=getTestService().getAnswersIdByStudentId(studentId, conductedExamId);
 
         model.put("test", test);
         model.put("student", getStudentService().getStudentByStudentId(studentId));
         model.put("group",group);
         model.put("questions",questions);
+        model.put("answers", answers);
+        model.put("studentsAnswers", studentsAnswers);
 
 
 

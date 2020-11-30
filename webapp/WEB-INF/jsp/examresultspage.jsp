@@ -8,11 +8,11 @@
             <c:when test="${not empty students}">
 
                 <div class="page-header" style="margin-top: 10px;">
-                    <div class="col-sm-offset-3 col-sm-6" align="center">
-                        <h1>Results of the test "${conductedexam.testName}" for group "${studentgroup.studentgroupName}"</h1>
-                    </div>
-                    <div class="clearfix"></div>
+                <div class="col-sm-offset-3 col-sm-6" align="center">
+                    <h1>Results of the test "${conductedexam.testName}" for group "${studentgroup.studentgroupName}"</h1>
                 </div>
+                <div class="clearfix"></div>
+            </div>
                 <div class="table-responsive" style="margin-bottom: 0px">
                     <table class="table table-bordered" id="conducted_exams_table">
                         <thead>
@@ -47,9 +47,9 @@
                                 </td>
                                 <td>
                                     <form action="<c:url value="/history/answers"/>" method="POST"   id="answersForm">
-                                        <input type="hidden" name="studentGroupReference" value="${exam.groupsOfStudents.studentgroupId}"/>
+                                        <input type="hidden" name="studentGroupReference" value="${studentgroup.studentgroupId}"/>
                                         <input type="hidden" name="studentReference" value="${student.studentId}"/>
-                                        <input type="hidden" name="conductedExamReference" value="${exam.conductedExamId}" />
+                                        <input type="hidden" name="conductedExamReference" value="${conductedexam.conductedExamId}" />
                                         <input type="hidden" name="groupReference" value="${group.groupId}"/>
                                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                                         <button type="submit" class="btn btn-info btn-block btn-sm" id="answersBtn" name="answersBtn"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span> Answers</button>
