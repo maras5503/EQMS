@@ -238,7 +238,6 @@ public class StudentController {
         // Create JSON response
         JsonResponse response = new JsonResponse();
 
-        //Map<String, Object> deleteSubjectParameters = new HashMap<String, Object>();
 
         response.setStatus("SUCCESS");
 

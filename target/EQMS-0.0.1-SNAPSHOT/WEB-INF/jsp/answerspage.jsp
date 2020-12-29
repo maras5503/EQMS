@@ -20,7 +20,7 @@
                 <div class="qList">
                     <div class="page-header" style="margin-top: 10px;">
                         <div class="col-sm-offset-3 col-sm-6" align="center">
-                            <h1>Results of test "${test.testName}" for student ${student.studentFirstname} ${student.studentLastname} from group "${group.groupName}"</h1>
+                            <h1>Results of test "${test.testName}" for student ${student.studentFirstname} ${student.studentLastname} from group "${studentgroup.groupName}"</h1>
                         </div>
                         <div class="clearfix"></div>
                     </div>

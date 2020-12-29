@@ -25,6 +25,10 @@
                     <a href="#">${currentStudentModel.studentFirstname} ${currentStudentModel.studentLastname}</a>
                 </li>
                 <li class="breadcrumb-item active"><c:out value='${currentTestModel.testName}' /></li>
+                <div class="pull-right">
+                    <b>Time left:&nbsp;&nbsp;</b>
+                    <div id="countdowntime" class="countdown pull-right"></div>
+                </div>
             </ol>
 
             <!-- Questions and answers -->
@@ -64,7 +68,7 @@
                 <div class="pull-left" style="width: 50%">
                     <input type="submit" class="btn btn-primary btn-lg btn-block" id="btnNext" name="btnNext" value="Next"/>
                 </div>
-                <div hidden="hidden" id="finishDiv">
+                <div id="finishDiv">
                     <input type="submit" class="btn btn-danger btn-lg btn-block" style="margin-top: 10px; display:inline-block"  id="btnFinish" name="btnFinish" value="Finish exam" data-toggle="modal" data-target="#confirmFinishExam"/>
                 </div>
 
@@ -148,7 +152,6 @@
 
                         if (data.result.isQuestionLast) {
                             $("#btnNext").attr("disabled", true);
-                            $("#finishDiv").show();
                         }
 
                     }
@@ -177,7 +180,6 @@
                         if ($("#btnNext").prop("disabled")) {
                             $("#btnNext").attr("disabled", false);
                         }
-                        $("#finishDiv").hide();
 
                     }
                 });
@@ -199,6 +201,24 @@
         }
     });
 
+    var timer2 = ${time}+":00";
+    var interval = setInterval(function() {
+
+
+        var timer = timer2.split(':');
+        var minutes = parseInt(timer[0], 10);
+        var seconds = parseInt(timer[1], 10);
+        --seconds;
+        minutes = (seconds < 0) ? --minutes : minutes;
+        if (minutes < 0){
+            $("#finishExamForm").submit();
+        };
+        seconds = (seconds < 0) ? 59 : seconds;
+        seconds = (seconds < 10) ? '0' + seconds : seconds;
+        //minutes = (minutes < 10) ?  minutes : minutes;
+        $('.countdown').html(minutes + ':' + seconds);
+        timer2 = minutes + ':' + seconds;
+    }, 1000);
 
 
 </script>

@@ -65,7 +65,7 @@ public class ExamController {
     }
 
     @RequestMapping(value = "/startExam", method = {RequestMethod.GET, RequestMethod.POST})
-    public String getGeneratePasswordsPage(@RequestParam(value = "testReference") Integer testId,
+    public String startExam(@RequestParam(value = "testReference") Integer testId,
                                            @RequestParam(value = "groupReference") Integer groupId,
                                            ModelMap model, HttpServletRequest request){
 
@@ -96,6 +96,7 @@ public class ExamController {
         model.put("URLwithContextPath",getURLWithContextPath(request));
         model.put("currentStudentModel", currentStudent);
         model.put("image", image);
+        model.put("time", test.getTimeForTest());
 
 
         return "exampage";
