@@ -13,10 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
@@ -77,8 +74,10 @@ public class ExamController {
         Test test = getTestService().getTestByTestId(testId);
         GroupOfQuestions group = getTestService().getGroupByGroupId(groupId);
         List <Question> questions = getTestService().getAllQuestionsByGroupId(groupId);
+        Collections.shuffle(questions);
         Question question=questions.get(0);
         List <Answer> answers = getTestService().getAllAnswersByQuestionId(question.getQuestionId());
+        Collections.shuffle(answers);
 
         String image=new String();
         if(question.getPictures() != null) {
@@ -87,11 +86,15 @@ public class ExamController {
             image = "";
         }
 
+        List<String> questionIDs=new ArrayList<String>();
+        for (Question q : questions){
+            questionIDs.add(String.valueOf(q.getQuestionId()));
+        }
 
         model.put("currentTestModel",test);
         model.put("currentGroupModel",group);
         model.put("question",question);
-        model.put("questionsModel",questions);
+        model.put("questionIDsModel",questionIDs);
         model.put("answersModel", answers);
         model.put("URLwithContextPath",getURLWithContextPath(request));
         model.put("currentStudentModel", currentStudent);
@@ -105,6 +108,7 @@ public class ExamController {
     @RequestMapping(value = "/nextQuestion", method = RequestMethod.POST)
     public @ResponseBody JsonResponse nextQuestion(@RequestParam (value = "nextQuestionReference") Integer questionNumber,
                                                   @RequestParam (value = "groupReference") Integer groupId,
+                                                   @RequestParam (value="questionIDsReference") List <String> questions,
                                                    HttpServletRequest request) {
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -114,11 +118,10 @@ public class ExamController {
 
 
 
-        List <Question> questions=getTestService().getAllQuestionsByGroupId(groupId);
-        Integer lastquestionId=questions.get(questions.size()-1).getQuestionId();
+        //List <Question> questions=getTestService().getAllQuestionsByGroupId(groupId);
+        Integer lastquestionId=Integer.parseInt(questions.get(questions.size()-1).replace("[","").replace("]",""));
         Boolean isQuestionLast=false;
-        Question question=new Question();
-        question=questions.get(questionNumber+1);
+        Question question=getTestService().getQuestionByQuestionId(Integer.parseInt(questions.get(questionNumber+1).replace("[","").replace("]","")));
 
         if(question.getQuestionId()==lastquestionId){
             isQuestionLast=true;
@@ -126,7 +129,7 @@ public class ExamController {
 
         String [] choosedAnswers=request.getParameterValues("answer");
 
-        List <Answer> previousAnswers=getTestService().getAllAnswersByQuestionId(questions.get(questionNumber).getQuestionId());
+        List <Answer> previousAnswers=getTestService().getAllAnswersByQuestionId(Integer.parseInt(questions.get(questionNumber).replace("[","").replace("]","")));
 
         for(Answer a:previousAnswers){
             getTestService().deleteReferenceStudentToAnswers(currentStudentId,a.getAnswerId(),currentExamId);
@@ -184,6 +187,7 @@ public class ExamController {
     @RequestMapping(value = "/previousQuestion", method = RequestMethod.POST)
     public @ResponseBody JsonResponse previousQuestion(@RequestParam (value = "previousQuestionReference") Integer questionNumber,
                                                    @RequestParam (value = "groupReference") Integer groupId,
+                                                       @RequestParam (value="questionIDsReference") List <String> questions,
                                                    HttpServletRequest request) {
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -196,10 +200,10 @@ public class ExamController {
 
 
 
-        List <Question> questions=getTestService().getAllQuestionsByGroupId(groupId);
-        Integer firstquestionId=questions.get(0).getQuestionId();
+        //List <Question> questions=getTestService().getAllQuestionsByGroupId(groupId);
+        Integer firstquestionId=Integer.parseInt(questions.get(0).replace("[","").replace("]",""));
         Boolean isQuestionFirst=false;
-        Question question=questions.get(questionNumber-1);
+        Question question=getTestService().getQuestionByQuestionId(Integer.parseInt(questions.get(questionNumber-1).replace("[","").replace("]","")));
 
         if(question.getQuestionId()==firstquestionId){
                     isQuestionFirst=true;
@@ -207,7 +211,7 @@ public class ExamController {
 
         String [] choosedAnswers=request.getParameterValues("answer");
 
-        List <Answer> previousAnswers=getTestService().getAllAnswersByQuestionId(questions.get(questionNumber).getQuestionId());
+        List <Answer> previousAnswers=getTestService().getAllAnswersByQuestionId(Integer.parseInt(questions.get(questionNumber).replace("[","").replace("]","")));
 
             for(Answer a:previousAnswers){
                 getTestService().deleteReferenceStudentToAnswers(currentStudentId,a.getAnswerId(), currentExamId);

@@ -59,6 +59,7 @@
                 <input type="hidden" name="previousQuestionReference" id="previousQuestionReference" value="0"/>
                 <input type="hidden" name="nextQuestionReference" id="nextQuestionReference" value="0"/>
                 <input type="hidden" name="groupReference" id="groupReference" value="${currentGroupModel.groupId}"/>
+                <input type="hidden" name="questionIDsReference" id="questionIDsReference" value="${questionIDsModel}"/>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
                 <div class="pull-left" style="width: 50%">
