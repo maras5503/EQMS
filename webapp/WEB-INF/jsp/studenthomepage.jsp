@@ -25,7 +25,7 @@
                 <label class="col-sm-9 control-label" id="timeForTest" style="padding-top: 7px; margin-bottom: 0px; text-align: left;">${currentTestModel.timeForTest} min</label>
 
                 <label for="numberOfQuestions" class="col-md-3 control-label" style="padding-top: 7px; margin-bottom: 0px; text-align: right;">Number of questions:</label>
-                <label class="col-sm-9 control-label" id="numberOfQuestions" style="padding-top: 7px; margin-bottom: 0px; text-align: left;">${currentTestModel.numberOfQuestions}</label>
+                <label class="col-sm-9 control-label" id="numberOfQuestions" style="padding-top: 7px; margin-bottom: 0px; text-align: left;">${currentGroupModel.numberOfQuestions}</label>
 
 
             </div>

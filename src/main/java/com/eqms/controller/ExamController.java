@@ -343,7 +343,7 @@ public class ExamController {
         }
 
         double mark=2;
-        double percentage=(result/test.getNumberOfQuestions())*100;
+        double percentage=(result/groupOfQuestions.getNumberOfQuestions())*100;
         int percentageResult=(int)percentage;
 
         SetOfRating setOfRating=getTestService().getSetOfRatingBySetId(test.getSetsOfRating().getSetId());
@@ -375,7 +375,10 @@ public class ExamController {
         model.put("percentageResult",percentageResult);
         model.put("mark",mark);
 
+        getTestService().deleteReferenceStudentToGroupOfQuestions(currentStudentId, groupId);
 
+        User currentUser=getUserService().findByEmail(currentUserEmail);
+        getUserService().delete(currentUserEmail);
 
 
         return "finishexampage";

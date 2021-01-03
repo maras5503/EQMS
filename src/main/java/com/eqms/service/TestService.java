@@ -45,50 +45,51 @@ public interface TestService {
 	Boolean checkGroupName(String groupName, Integer testId);
 
 	public void addReferenceStudentToGroupOfQuestions(Integer studentId, Integer groupId);
-	public int getGroupOfQuestionsIdbyStudentId(Integer studentId);
+	public	void deleteReferenceStudentToGroupOfQuestions(Integer studentId, Integer groupId);
 
+	public int getGroupOfQuestionsIdbyStudentId(Integer studentId);
 	public void addReferenceStudentToAnswers(Integer studentId, Integer groupId, Integer currentExamId);
 	public void deleteReferenceStudentToAnswers(Integer currentStudentId, Integer answerId, Integer currentExamId);
 	public List<Integer> getAnswersIdByStudentId(Integer studentId, Integer examId);
+
 	Boolean checkIfAnswerIsChoosedByStudent(Integer studentId, Integer answerId, Integer examId);
-	
 	public void addQuestion(Question question, Integer groupId);
 	public void updateQuestion(Question question);
 	public void deleteQuestion(Integer questionId);
 	Question getQuestionByQuestionId(Integer questionId);
+
 	Boolean checkContentOfQuestion(String contentOfQuestion, Integer testId);
-	
 	public void addAnswer(Answer answer, Integer questionId);
 	public void updateAnswer(Answer answer);
 	public void deleteAnswer(Integer answerId);
 	Answer getAnswerByAnswerId(Integer answerId);
+
 	Boolean checkContentOfAnswer(String contentOfAnswer, Integer questionId);
-	
 	public void addPicture(Picture picture);
 	public void updatePicture(Picture picture);
 	public void deletePicture(Integer pictureId);
 	Picture getPictureByPictureId(Integer pictureId);
+
 	Boolean checkPictureName(String pictureName);
-	
 	public void addSetOfRating(SetOfRating setOfRating);
 	public void updateSetOfRating(SetOfRating setOfRating);
 	public void deleteSetOfRating(Integer setOfRatingId);
+
 	SetOfRating getSetOfRatingBySetId(Integer setOfRatingId);
-	
 	List<Test> getAllTests(Order order, Integer maxResults);
 	List<GroupOfQuestions> getAllGroups(Order order, Integer maxResults);
 	List<Question> getAllQuestions(Order order, Integer maxResult);
 	List<Answer> getAllAnswers(Order order, Integer maxResults);
 	List<SetOfRating> getAllSetsOfRating(Order order, Integer maxResults);
+
 	List<Picture> getAllPictures(Order order, Integer maxResults);
-	
 	List<GroupOfQuestions> getAllGroupsByTestId(Integer testId);
 	List<Question> getAllQuestionsByGroupId(Integer groupId);
+
 	List<Answer> getAllAnswersByQuestionId(Integer questionId);
-	
 	GroupOfQuestions getGroupByQuestionId(Integer questionId);
 	Question getQuestionByAnswerId(Integer answerId);
-	String generatePassword();
 
+	String generatePassword();
 
 }

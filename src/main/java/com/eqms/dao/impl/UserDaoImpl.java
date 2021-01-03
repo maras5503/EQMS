@@ -88,7 +88,15 @@ public class UserDaoImpl implements UserDao {
 	public void add(User user) {
 		getSessionFactory().getCurrentSession().save(user);
 	}
-	
+
+	@Override
+	public void delete(String email) {
+		String queryString = "DELETE FROM USERS WHERE E_MAIL = ?";
+		SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
+		query.setParameter(0, email);
+		query.executeUpdate();
+	}
+
 	@Override
 	public String getVerificationTokenbyUser(User user) {	
 		String queryString = "SELECT TOKEN FROM VERIFICATION_TOKENS WHERE USER_ID = ?";

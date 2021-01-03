@@ -28,6 +28,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public void delete(String email) {userDao.delete(email);}
+
+	@Override
 	public boolean isEmailExists(String e_mail) {
 		return userDao.isEmailExists(e_mail);
 	}
