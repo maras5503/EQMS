@@ -145,6 +145,9 @@ public class TestServiceImpl implements TestService {
 	public void deleteReferenceStudentToAnswers(Integer currentStudentId, Integer answerId, Integer examId) {testDao.deleteReferenceStudentToAnswers(currentStudentId,answerId,examId);}
 
 	@Override
+	public void deleteReferenceStudentToGroupOfQuestionsByGroupId(Integer groupId) {testDao.deleteReferenceStudentToGroupOfQuestionsByGroupId(groupId);}
+
+	@Override
 	public List<Integer> getAnswersIdByStudentId(Integer studentId,Integer examId) {return testDao.getAnswersIdByStudentId(studentId,examId);}
 
 	@Override

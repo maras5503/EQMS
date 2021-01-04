@@ -1009,9 +1009,16 @@ public class TestController {
 		Test test = getTestService().getTestByTestId(testId);
 		test.setEnabled(false);
 
-		// Delete group from database (cascade deleting)
 		logger.debug("Start disabling the test");
 		getTestService().updateTest(test);
+
+		List<GroupOfQuestions> groupsOfQuestions=getTestService().getAllGroupsByTestId(testId);
+
+		//Deleting references for all groups of the test
+		for (GroupOfQuestions g : groupsOfQuestions){
+
+			getTestService().deleteReferenceStudentToGroupOfQuestionsByGroupId(g.getGroupId());
+		}
 
 		// Create JSON response
 		JsonResponse response = new JsonResponse();

@@ -108,6 +108,15 @@
 
 <script type="text/javascript">
 
+    $(window).on('beforeunload', function(){
+        var c=confirm("wiadomosc");
+        if(c){
+            return true;
+        }
+        else
+            return false;
+    });
+
     $("#btnNext").click(function(){
         $("#QuestionForm").attr("action", "<c:url value="/exam/nextQuestion"/>");
     });
@@ -220,6 +229,7 @@
         $('.countdown').html(minutes + ':' + seconds);
         timer2 = minutes + ':' + seconds;
     }, 1000);
+
 
 
 </script>

@@ -348,7 +348,15 @@ public class TestDaoImpl implements TestDao {
 		query.executeUpdate();
 	}
 
-	@Override
+    @Override
+    public void deleteReferenceStudentToGroupOfQuestionsByGroupId(Integer groupId) {
+        String queryString = "DELETE FROM STUDENTS_GROUPS_OF_QUESTIONS WHERE GROUP_ID = ?";
+        SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
+        query.setParameter(0, groupId);
+        query.executeUpdate();
+    }
+
+    @Override
 	public int getGroupOfQuestionsIdbyStudentId(Integer studentId){
 		String queryString = "SELECT GROUP_ID FROM STUDENTS_GROUPS_OF_QUESTIONS WHERE STUDENT_ID = (?)";
 		SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
