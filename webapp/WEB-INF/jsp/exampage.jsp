@@ -242,6 +242,8 @@
         //if the time has come ;-)
         if(diff<=0){
             clearInterval(t);
+            $("#QuestionForm").attr("action", "<c:url value="/exam/saveLastAnswer"/>");
+            $("#QuestionForm").submit();
             return false;
         }
         //if not
