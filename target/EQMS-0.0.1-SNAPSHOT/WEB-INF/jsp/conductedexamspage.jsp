@@ -100,6 +100,7 @@
             null,
             null,
             null,
+            null,
             { "orderable": false },
             { "orderable": false }
         ],
@@ -111,7 +112,7 @@
         }
     } );
 
-    var validatorDeleteGroup = $('#deleteConductedExamFormModal').validate({
+    var validatorDeleteConductedExam = $('#deleteConductedExamFormModal').validate({
         submitHandler: function(form) {
             console.log("********* submitHandler *********");
 

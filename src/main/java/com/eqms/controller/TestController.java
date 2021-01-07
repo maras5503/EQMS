@@ -2,9 +2,11 @@ package com.eqms.controller;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -69,7 +71,8 @@ public class TestController {
 	 */
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String getTestPage(ModelMap model) {
-		
+
+
 		/**
 		 * Getting email of current logged user
 		 */
@@ -1017,6 +1020,11 @@ public class TestController {
 		//Deleting references for all groups of the test
 		for (GroupOfQuestions g : groupsOfQuestions){
 
+		    List<Integer> studentIds=getTestService().getStudentIdsByReferences(g.getGroupId());
+		    for(Integer i :studentIds){
+
+		        getUserService().delete(getStudentService().getStudentByStudentId(i).getStudentEmail());
+            }
 			getTestService().deleteReferenceStudentToGroupOfQuestionsByGroupId(g.getGroupId());
 		}
 
@@ -1077,7 +1085,9 @@ public class TestController {
                 getUserService().add(registerUser);
 
 				Integer studentId=student.getStudentId();
-				getTestService().addReferenceStudentToGroupOfQuestions(studentId,groupId);
+                long millis=TimeUnit.MINUTES.toMillis(getTestService().getTestByTestId(testId).getTimeForTest());
+                Time time=new Time(millis-3600000);
+				getTestService().addReferenceStudentToGroupOfQuestions(studentId,groupId, time);
 
 
                 passwords.add(password);

@@ -75,6 +75,12 @@
 
                 </form>
 
+            <form id="saveTimeForm" method="POST" action="<c:url value="/exam/saveTime"/>">
+                <input type="hidden" name="groupReference" id="groupReference" value="${currentGroupModel.groupId}"/>
+                <input type="hidden" name="timeReference" id="timeReference"/>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            </form>
+
 
 
 
@@ -108,14 +114,16 @@
 
 <script type="text/javascript">
 
-    $(window).on('beforeunload', function(){
-        var c=confirm("wiadomosc");
-        if(c){
-            return true;
-        }
-        else
-            return false;
+    /* jQuery(window).bind('beforeunload', function(e) {
+        var message = "Why are you leaving?";
+        e.returnValue = message;
+        return message;
     });
+
+    window.onunload = function () {
+        $("#timeReference").attr("value", timer2);
+        $("#saveTimeForm").submit();
+    } */
 
     $("#btnNext").click(function(){
         $("#QuestionForm").attr("action", "<c:url value="/exam/nextQuestion"/>");
@@ -211,24 +219,55 @@
         }
     });
 
-    var timer2 = ${time}+":00";
+
+
+
+
+    var timer2 = "${time}";
     var interval = setInterval(function() {
 
 
         var timer = timer2.split(':');
-        var minutes = parseInt(timer[0], 10);
-        var seconds = parseInt(timer[1], 10);
+        var hours = parseInt(timer[0], 10);
+        var minutes = parseInt(timer[1], 10);
+        var seconds = parseInt(timer[2], 10);
         --seconds;
         minutes = (seconds < 0) ? --minutes : minutes;
-        if (minutes < 0){
+        hours = (minutes < 0) ? --hours : hours;
+        if (hours == 0 && minutes == 0 && seconds == 0){
             $("#finishExamForm").submit();
         };
+
+        if (seconds == 0 || seconds == 30) {
+            $("#timeReference").attr("value", timer2);
+            $("#saveTimeForm").submit();
+        }
+        minutes = (minutes < 0) ? 59 : minutes;
+        minutes = (minutes < 10) ? '0' + minutes : minutes;
         seconds = (seconds < 0) ? 59 : seconds;
         seconds = (seconds < 10) ? '0' + seconds : seconds;
         //minutes = (minutes < 10) ?  minutes : minutes;
-        $('.countdown').html(minutes + ':' + seconds);
-        timer2 = minutes + ':' + seconds;
+        $('.countdown').html(hours + ':' + minutes + ':' + seconds);
+        timer2 = hours + ':' + minutes + ':' + seconds;
     }, 1000);
+
+
+    $('#saveTimeForm').validate({
+        submitHandler: function(form) {
+            console.log("***** submitHandler *****");
+
+            $.ajax({
+                url: URLWithContextPath + "/exam/saveTime",
+                data: $(form).serialize(),
+                type: "POST",
+                success: function(data) {
+                    console.log("***** AJAX CALL *****");
+                    console.log("Status: " + data.status);
+                    console.log("Result: " + data.result);
+                }
+            });
+        }
+    });
 
 
 

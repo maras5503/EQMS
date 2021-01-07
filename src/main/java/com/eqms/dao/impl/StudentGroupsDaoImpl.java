@@ -54,6 +54,11 @@ public class StudentGroupsDaoImpl implements StudentGroupsDao {
             getStudentService().deleteStudent(student.getStudentId());
         }
 
+        String queryStringDeleteConductedExam = "DELETE FROM CONDUCTED_EXAMS WHERE STUDENTGROUP_ID = ?";
+        SQLQuery queryDeleteConductedExam = getSessionFactory().getCurrentSession().createSQLQuery(queryStringDeleteConductedExam);
+        queryDeleteConductedExam.setParameter(0, studentgroupId);
+        queryDeleteConductedExam.executeUpdate();
+
         // Finally removing studentgroup
         String queryStringDeleteSubject = "DELETE FROM GROUPS_OF_STUDENTS WHERE STUDENTGROUP_ID = ?";
         SQLQuery queryDeleteStudentGroup = getSessionFactory().getCurrentSession().createSQLQuery(queryStringDeleteSubject);

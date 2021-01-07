@@ -31,8 +31,24 @@ public class StudentDaoImpl implements StudentDao {
 
     @Override
     public void deleteStudent(Integer studentId) {
-        String queryStringDeleteSubject = "DELETE FROM STUDENTS WHERE STUDENT_ID = ?";
-        SQLQuery queryDeleteStudent = getSessionFactory().getCurrentSession().createSQLQuery(queryStringDeleteSubject);
+
+        String queryStringDeleteReferencesToAnswers = "DELETE FROM STUDENTS_ANSWERS WHERE STUDENT_ID=?";
+        SQLQuery queryDeleteReferencesToAnswers=getSessionFactory().getCurrentSession().createSQLQuery(queryStringDeleteReferencesToAnswers);
+        queryDeleteReferencesToAnswers.setParameter(0, studentId);
+        queryDeleteReferencesToAnswers.executeUpdate();
+
+        String queryStringDeleteReferencesToGroups = "DELETE FROM STUDENTS_GROUPS_OF_QUESTIONS WHERE STUDENT_ID=?";
+        SQLQuery queryDeleteReferencesToGroups=getSessionFactory().getCurrentSession().createSQLQuery(queryStringDeleteReferencesToGroups);
+        queryDeleteReferencesToGroups.setParameter(0, studentId);
+        queryDeleteReferencesToGroups.executeUpdate();
+
+        String queryStringDeleteExamResult = "DELETE FROM EXAM_RESULTS WHERE STUDENT_ID=?";
+        SQLQuery queryDeleteExamResult=getSessionFactory().getCurrentSession().createSQLQuery(queryStringDeleteExamResult);
+        queryDeleteExamResult.setParameter(0, studentId);
+        queryDeleteExamResult.executeUpdate();
+
+        String queryStringDeleteStudent = "DELETE FROM STUDENTS WHERE STUDENT_ID = ?";
+        SQLQuery queryDeleteStudent = getSessionFactory().getCurrentSession().createSQLQuery(queryStringDeleteStudent);
         queryDeleteStudent.setParameter(0, studentId);
 
         int numberDeletedUpdatedEntities = queryDeleteStudent.executeUpdate();

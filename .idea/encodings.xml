@@ -4,6 +4,15 @@
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/test/com/eqms/tests/automated/AddTestTest.java" charset="windows-1250" />
     <file url="file://$PROJECT_DIR$/src/main/test/com/eqms/tests/automated/ExportTestTest.java" charset="windows-1250" />
+    <file url="file://$PROJECT_DIR$/src/main/test/com/eqms/tests/automated/com/eqms/tests/automated/newtests/AddStudentGroupTestTest.java" charset="windows-1250" />
+    <file url="file://$PROJECT_DIR$/src/main/test/com/eqms/tests/automated/com/eqms/tests/automated/newtests/AddStudentTestTest.java" charset="windows-1250" />
+    <file url="file://$PROJECT_DIR$/src/main/test/com/eqms/tests/automated/com/eqms/tests/automated/newtests/DeleteStudentGroupTestTest.java" charset="windows-1250" />
+    <file url="file://$PROJECT_DIR$/src/main/test/com/eqms/tests/automated/com/eqms/tests/automated/newtests/DeleteStudentTestTest.java" charset="windows-1250" />
+    <file url="file://$PROJECT_DIR$/src/main/test/com/eqms/tests/automated/com/eqms/tests/automated/newtests/EditStudentGroupTestTest.java" charset="windows-1250" />
+    <file url="file://$PROJECT_DIR$/src/main/test/com/eqms/tests/automated/com/eqms/tests/automated/newtests/EditStudentTestTest.java" charset="windows-1250" />
+    <file url="file://$PROJECT_DIR$/src/main/test/com/eqms/tests/automated/com/eqms/tests/automated/newtests/ExamTestTest.java" charset="windows-1250" />
+    <file url="file://$PROJECT_DIR$/src/main/test/com/eqms/tests/automated/com/eqms/tests/automated/newtests/GeneratePasswordsTestTest.java" charset="windows-1250" />
+    <file url="file://$PROJECT_DIR$/src/main/test/com/eqms/tests/automated/com/eqms/tests/automated/newtests/HistoryTestTest.java" charset="windows-1250" />
     <file url="PROJECT" charset="windows-1250" />
   </component>
 </project>

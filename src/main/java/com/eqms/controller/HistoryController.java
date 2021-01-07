@@ -61,10 +61,10 @@ public class HistoryController {
         logger.debug("Received request with:");
         logger.debug("\tconductedExamId = " + conductedExamId);
 
-        // Delete group from database
-        getHistoryService().deleteConductedExam(conductedExamId);
-
+        // Delete conducted exam from database
         getHistoryService().deleteExamResult(conductedExamId);
+
+        getHistoryService().deleteConductedExam(conductedExamId);
 
         // Create JSON response
         JsonResponse response = new JsonResponse();

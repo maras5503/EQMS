@@ -9,6 +9,8 @@ import com.eqms.service.UserService;
 import com.eqms.web.JsonResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Time;
 import java.util.*;
 
 @Controller
@@ -74,10 +77,10 @@ public class ExamController {
         Test test = getTestService().getTestByTestId(testId);
         GroupOfQuestions group = getTestService().getGroupByGroupId(groupId);
         List <Question> questions = getTestService().getAllQuestionsByGroupId(groupId);
-        Collections.shuffle(questions);
+        //Collections.shuffle(questions);
         Question question=questions.get(0);
         List <Answer> answers = getTestService().getAllAnswersByQuestionId(question.getQuestionId());
-        Collections.shuffle(answers);
+        //Collections.shuffle(answers);
 
         String image=new String();
         if(question.getPictures() != null) {
@@ -91,6 +94,8 @@ public class ExamController {
             questionIDs.add(String.valueOf(q.getQuestionId()));
         }
 
+
+
         model.put("currentTestModel",test);
         model.put("currentGroupModel",group);
         model.put("question",question);
@@ -99,7 +104,7 @@ public class ExamController {
         model.put("URLwithContextPath",getURLWithContextPath(request));
         model.put("currentStudentModel", currentStudent);
         model.put("image", image);
-        model.put("time", test.getTimeForTest());
+        model.put("time", getTestService().getTimeByReference(currentStudentId,groupId));
 
 
         return "exampage";
@@ -377,6 +382,7 @@ public class ExamController {
 
         getTestService().deleteReferenceStudentToGroupOfQuestions(currentStudentId, groupId);
 
+
         User currentUser=getUserService().findByEmail(currentUserEmail);
         getUserService().delete(currentUserEmail);
 
@@ -384,6 +390,22 @@ public class ExamController {
         return "finishexampage";
     }
 
+    @RequestMapping(value = "/saveTime", method = {RequestMethod.POST})
+    public @ResponseBody JsonResponse saveTime(@RequestParam(value = "groupReference") Integer groupId,
+                                 @RequestParam(value = "timeReference") String time){
+
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String currentUserEmail = userDetails.getUsername();
+        Integer currentStudentId = getStudentService().getStudentByEmail(currentUserEmail).getStudentId();
+
+        Time sqlTime=Time.valueOf(time);
+        getTestService().saveEmergencyTimeLeftForStudent(currentStudentId, groupId, time);
+
+        JsonResponse response = new JsonResponse();
+        response.setStatus("SUCCESS");
+
+        return response;
+    }
 
 
     public StudentService getStudentService() {

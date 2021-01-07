@@ -1,5 +1,6 @@
 package com.eqms.dao.impl;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +20,6 @@ import com.eqms.model.SetOfRating;
 import com.eqms.model.Subject;
 import com.eqms.model.Test;
 import com.eqms.model.User;
-
-import javax.persistence.criteria.CriteriaBuilder;
 
 @Repository
 public class TestDaoImpl implements TestDao {
@@ -331,13 +330,24 @@ public class TestDaoImpl implements TestDao {
 	}
 
 	@Override
-	public void addReferenceStudentToGroupOfQuestions(Integer studentId, Integer groupId){
-		String queryString = "INSERT INTO STUDENTS_GROUPS_OF_QUESTIONS VALUES (?, ?)";
+	public void addReferenceStudentToGroupOfQuestions(Integer studentId, Integer groupId, Time time){
+		String queryString = "INSERT INTO STUDENTS_GROUPS_OF_QUESTIONS VALUES (?, ?, ?)";
 		SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
 		query.setParameter(0, studentId);
 		query.setParameter(1, groupId);
+		query.setParameter(2,time);
 		query.executeUpdate();
 	}
+
+	@Override
+	public void saveEmergencyTimeLeftForStudent(Integer studentId, Integer groupId, String time){
+        String queryString = "UPDATE `students_groups_of_questions` SET `EMERGENCY_TIME_LEFT` = (?) WHERE `students_groups_of_questions`.`STUDENT_ID` = (?) AND `students_groups_of_questions`.`GROUP_ID` = (?)";
+        SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
+        query.setParameter(0, time);
+        query.setParameter(1, studentId);
+        query.setParameter(2, groupId);
+        query.executeUpdate();
+    }
 
 	@Override
 	public void deleteReferenceStudentToGroupOfQuestions(Integer studentId, Integer groupId) {
@@ -386,7 +396,35 @@ public class TestDaoImpl implements TestDao {
 		query.executeUpdate();
 	}
 
-	@Override
+    @Override
+    public List<Integer> getStudentIdsByReferences(Integer groupId) {
+
+	    List<Integer> studentIds=new ArrayList<Integer>();
+        String queryString = "SELECT STUDENT_ID FROM STUDENTS_GROUPS_OF_QUESTIONS WHERE GROUP_ID = ?";
+        SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
+        query.setParameter(0, groupId);
+
+        studentIds = query.list();
+
+        return studentIds;
+    }
+
+    @Override
+    public Time getTimeByReference(Integer currentStudentId, Integer groupId) {
+        List<Time> timelist=new ArrayList<Time>();
+        String queryString = "SELECT EMERGENCY_TIME_LEFT FROM STUDENTS_GROUPS_OF_QUESTIONS WHERE STUDENT_ID =? AND GROUP_ID = ?";
+        SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
+        query.setParameter(0, currentStudentId);
+        query.setParameter(1, groupId);
+
+        timelist = query.list();
+        Time time=timelist.get(0);
+
+        return time;
+    }
+
+
+    @Override
 	public List<Integer> getAnswersIdByStudentId(Integer studentId, Integer examId) {
 		List<Integer> answers = new ArrayList<Integer>();
 

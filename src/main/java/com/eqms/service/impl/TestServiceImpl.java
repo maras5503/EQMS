@@ -1,5 +1,6 @@
 package com.eqms.service.impl;
 
+import java.sql.Time;
 import java.util.List;
 
 import org.hibernate.criterion.Order;
@@ -130,9 +131,12 @@ public class TestServiceImpl implements TestService {
 	}
 
 	@Override
-	public void addReferenceStudentToGroupOfQuestions(Integer studentId, Integer groupId){testDao.addReferenceStudentToGroupOfQuestions(studentId,groupId);}
+	public void addReferenceStudentToGroupOfQuestions(Integer studentId, Integer groupId, Time time){testDao.addReferenceStudentToGroupOfQuestions(studentId,groupId,time);}
 
-	@Override
+    @Override
+    public void saveEmergencyTimeLeftForStudent(Integer studentId, Integer groupId, String time) {testDao.saveEmergencyTimeLeftForStudent(studentId,groupId,time);}
+
+    @Override
 	public void deleteReferenceStudentToGroupOfQuestions(Integer studentId, Integer groupId) {testDao.deleteReferenceStudentToGroupOfQuestions(studentId,groupId);}
 
 	@Override
@@ -144,7 +148,13 @@ public class TestServiceImpl implements TestService {
 	@Override
 	public void deleteReferenceStudentToAnswers(Integer currentStudentId, Integer answerId, Integer examId) {testDao.deleteReferenceStudentToAnswers(currentStudentId,answerId,examId);}
 
-	@Override
+    @Override
+    public List<Integer> getStudentIdsByReferences(Integer groupId) {return testDao.getStudentIdsByReferences(groupId);}
+
+    @Override
+    public Time getTimeByReference(Integer currentStudentId, Integer groupId) {return testDao.getTimeByReference(currentStudentId,groupId);}
+
+    @Override
 	public void deleteReferenceStudentToGroupOfQuestionsByGroupId(Integer groupId) {testDao.deleteReferenceStudentToGroupOfQuestionsByGroupId(groupId);}
 
 	@Override
