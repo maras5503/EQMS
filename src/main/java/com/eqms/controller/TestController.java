@@ -1087,7 +1087,7 @@ public class TestController {
 				Integer studentId=student.getStudentId();
                 long millis=TimeUnit.MINUTES.toMillis(getTestService().getTestByTestId(testId).getTimeForTest());
                 Time time=new Time(millis-3600000);
-				getTestService().addReferenceStudentToGroupOfQuestions(studentId,groupId, time);
+				getTestService().addReferenceStudentToGroupOfQuestions(studentId,groupId, null);
 
 
                 passwords.add(password);

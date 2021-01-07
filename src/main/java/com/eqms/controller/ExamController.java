@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.*;
 
 @Controller
@@ -94,7 +95,13 @@ public class ExamController {
             questionIDs.add(String.valueOf(q.getQuestionId()));
         }
 
-
+        if(getTestService().getTimeByReference(currentStudentId,groupId)==null) {
+            Time currenttime = Time.valueOf(LocalTime.now());
+            LocalTime localtime = currenttime.toLocalTime();
+            localtime = localtime.plusMinutes(test.getTimeForTest());
+            String output = localtime.toString();
+            getTestService().saveEmergencyTimeLeftForStudent(currentStudentId, groupId, output);
+        }
 
         model.put("currentTestModel",test);
         model.put("currentGroupModel",group);
@@ -385,23 +392,6 @@ public class ExamController {
 
 
         return "finishexampage";
-    }
-
-    @RequestMapping(value = "/saveTime", method = {RequestMethod.POST})
-    public @ResponseBody JsonResponse saveTime(@RequestParam(value = "groupReference") Integer groupId,
-                                 @RequestParam(value = "timeReference") String time){
-
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String currentUserEmail = userDetails.getUsername();
-        Integer currentStudentId = getStudentService().getStudentByEmail(currentUserEmail).getStudentId();
-
-        Time sqlTime=Time.valueOf(time);
-        getTestService().saveEmergencyTimeLeftForStudent(currentStudentId, groupId, time);
-
-        JsonResponse response = new JsonResponse();
-        response.setStatus("SUCCESS");
-
-        return response;
     }
 
 

@@ -26,8 +26,7 @@
                 </li>
                 <li class="breadcrumb-item active"><c:out value='${currentTestModel.testName}' /></li>
                 <div class="pull-right">
-                    <b>Time left:&nbsp;&nbsp;</b>
-                    <div id="countdowntime" class="countdown pull-right"></div>
+                    <div id=time class="pull-right"></div>
                 </div>
             </ol>
 
@@ -131,9 +130,6 @@
     $("#btnPrevious").click(function(){
         $("#QuestionForm").attr("action", "<c:url value="/exam/previousQuestion"/>");
     });
-    $("#btnFinish").click(function(){
-        $("#QuestionForm").attr("action", "<c:url value="/exam/saveLastAnswer"/>");
-    });
     $("#confirmFinishExamBtnModal").click(function () {
         $("#QuestionForm").attr("action", "<c:url value="/exam/saveLastAnswer"/>");
         $("#QuestionForm").submit();
@@ -224,35 +220,57 @@
 
 
 
+    var time1="${time}";
+    var time2=time1.split(':');
+    var hours = parseInt(time2[0], 10);
+    var minutes = parseInt(time2[1], 10);
+    var seconds = parseInt(time2[2], 10);
 
+    var finishDate=new Date();
+    finishDate.setHours(hours);
+    finishDate.setMinutes(minutes);//January has index 0!!!
+    finishDate.setSeconds(seconds);
 
-    var timer2 = "${time}";
-    var interval = setInterval(function() {
+    var timeField =$("#time");
 
-
-        var timer = timer2.split(':');
-        var hours = parseInt(timer[0], 10);
-        var minutes = parseInt(timer[1], 10);
-        var seconds = parseInt(timer[2], 10);
-        --seconds;
-        minutes = (seconds < 0) ? --minutes : minutes;
-        hours = (minutes < 0) ? --hours : hours;
-        if (hours == 0 && minutes == 0 && seconds == 0){
-            $("#finishExamForm").submit();
-        };
-
-        if (seconds == 0 || seconds == 30) {
-            $("#timeReference").attr("value", timer2);
-            $("#saveTimeForm").submit();
+    var t=setInterval(loop,1000); //(handler,intervall in ms)
+    function loop(){
+        //get current Date (now)
+        var now=new Date();
+        //get difference
+        var diff=finishDate - now;
+        //if the time has come ;-)
+        if(diff<=0){
+            clearInterval(t);
+            return false;
         }
-        minutes = (minutes < 0) ? 59 : minutes;
-        minutes = (minutes < 10) ? '0' + minutes : minutes;
-        seconds = (seconds < 0) ? 59 : seconds;
-        seconds = (seconds < 10) ? '0' + seconds : seconds;
-        //minutes = (minutes < 10) ?  minutes : minutes;
-        $('.countdown').html(hours + ':' + minutes + ':' + seconds);
-        timer2 = hours + ':' + minutes + ':' + seconds;
-    }, 1000);
+        //if not
+        var str= "Time left: "+parseMs(diff);
+        timeField.text(str);
+    }
+
+    function parseMs(ms){
+        var hours = Math.floor(ms/(3600000))
+        ms = ms % 3600000;
+        var minutes = Math.floor(ms / 60000 );
+        ms = ms % 60000;
+        var seconds = Math.floor(ms / 1000);
+        ms = ms % 1000;
+
+        var hoursStr = checkForZero(hours);
+        var minutesStr = checkForZero(minutes);
+        var secondStr = checkForZero(seconds);
+
+        var timeString = hoursStr + ":" + minutesStr + ":" + secondStr;
+        return timeString;
+    }
+
+    function checkForZero(i){
+        //write "0" before ?
+        str=i+"";
+        if (parseInt(i,10) < 10) str = "0" + str;
+        return str;
+    }
 
 
     $('#saveTimeForm').validate({
