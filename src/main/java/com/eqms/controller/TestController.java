@@ -1023,6 +1023,55 @@ public class TestController {
 		    List<Integer> studentIds=getTestService().getStudentIdsByReferences(g.getGroupId());
 		    for(Integer i :studentIds){
 
+		        Integer examId=getUserService().findByEmail(getStudentService().getStudentByStudentId(i).getStudentEmail()).getConductedExamId();
+                List <Question> questions=getTestService().getAllQuestionsByGroupId(g.getGroupId());
+
+                double result=0;
+
+                for(Question q : questions){
+                    List<Answer> answers=getTestService().getAllAnswersByQuestionId(q.getQuestionId());
+                    result+=1;
+                    for(Answer a : answers){
+                        if (a.isWhetherCorrect() && getTestService().checkIfAnswerIsChoosedByStudent(i,a.getAnswerId(),examId)
+                                || !a.isWhetherCorrect() && !getTestService().checkIfAnswerIsChoosedByStudent(i,a.getAnswerId(),examId)){
+                            continue;
+                        }
+                        else {
+                            result-=1;
+                            break;
+                        }
+
+                    }
+
+
+                }
+
+                double mark=2;
+                double percentage=(result/g.getNumberOfQuestions())*100;
+                int percentageResult=(int)percentage;
+
+                SetOfRating setOfRating=getTestService().getSetOfRatingBySetId(test.getSetsOfRating().getSetId());
+
+                if(percentageResult>=setOfRating.getMark5()){
+                    mark=5;
+                }
+                else if(percentageResult < setOfRating.getMark5() && percentageResult >= setOfRating.getMark4_5()){
+                    mark=4.5;
+                }
+                else if(percentageResult < setOfRating.getMark4_5() && percentageResult >= setOfRating.getMark4()){
+                    mark=4;
+                }
+                else if(percentageResult <  setOfRating.getMark4() && percentageResult >= setOfRating.getMark3_5()){
+                    mark=3.5;
+                }
+                else if(percentageResult < setOfRating.getMark3_5() && percentageResult >=  setOfRating.getMark3()){
+                    mark=3;
+                }
+                else{
+                    mark=2;
+                }
+
+                getHistoryService().addExamResult(i, mark, (int)result, examId);
 		        getUserService().delete(getStudentService().getStudentByStudentId(i).getStudentEmail());
             }
 			getTestService().deleteReferenceStudentToGroupOfQuestionsByGroupId(g.getGroupId());

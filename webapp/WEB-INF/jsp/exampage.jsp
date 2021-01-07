@@ -273,22 +273,7 @@
     }
 
 
-    $('#saveTimeForm').validate({
-        submitHandler: function(form) {
-            console.log("***** submitHandler *****");
 
-            $.ajax({
-                url: URLWithContextPath + "/exam/saveTime",
-                data: $(form).serialize(),
-                type: "POST",
-                success: function(data) {
-                    console.log("***** AJAX CALL *****");
-                    console.log("Status: " + data.status);
-                    console.log("Result: " + data.result);
-                }
-            });
-        }
-    });
 
 
 
