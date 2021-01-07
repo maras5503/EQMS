@@ -131,6 +131,9 @@
     $("#btnPrevious").click(function(){
         $("#QuestionForm").attr("action", "<c:url value="/exam/previousQuestion"/>");
     });
+    $("#btnFinish").click(function(){
+        $("#QuestionForm").attr("action", "<c:url value="/exam/saveLastAnswer"/>");
+    });
     $("#confirmFinishExamBtnModal").click(function () {
         $("#QuestionForm").attr("action", "<c:url value="/exam/saveLastAnswer"/>");
         $("#QuestionForm").submit();
