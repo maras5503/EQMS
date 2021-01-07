@@ -102,7 +102,7 @@ public class EmailService {
 		// To activate your account, please open the following link
 		String htmlMessage = "HTML message received <br> <br> "
 				+ getMessage() + ": <br /> <br /> "
-				+ "<a href= \"http://localhost:8080/EQMS/auth/login\" >Link to login page</a>";
+				+ "<a href= \"http://localhost:8080/EQMS_war/auth/login\" >Link to login page</a>";
 
 		try {
 			messageBodyPart.setContent(htmlMessage, "text/html");

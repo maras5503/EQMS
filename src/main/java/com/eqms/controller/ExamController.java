@@ -77,10 +77,10 @@ public class ExamController {
         Test test = getTestService().getTestByTestId(testId);
         GroupOfQuestions group = getTestService().getGroupByGroupId(groupId);
         List <Question> questions = getTestService().getAllQuestionsByGroupId(groupId);
-        //Collections.shuffle(questions);
+        Collections.shuffle(questions);
         Question question=questions.get(0);
         List <Answer> answers = getTestService().getAllAnswersByQuestionId(question.getQuestionId());
-        //Collections.shuffle(answers);
+        Collections.shuffle(answers);
 
         String image=new String();
         if(question.getPictures() != null) {
@@ -274,6 +274,7 @@ public class ExamController {
     @RequestMapping(value = "/saveLastAnswer", method = RequestMethod.POST)
     public @ResponseBody JsonResponse saveLastAnswer(@RequestParam (value = "previousQuestionReference") Integer questionNumber,
                                                        @RequestParam (value = "groupReference") Integer groupId,
+                                                     @RequestParam (value="questionIDsReference") List <String> questions,
                                                        HttpServletRequest request) {
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -282,14 +283,10 @@ public class ExamController {
         Integer currentExamId = getUserService().findByEmail(currentUserEmail).getConductedExamId();
 
 
-
-
-
-
-        List <Question> questions=getTestService().getAllQuestionsByGroupId(groupId);
+        //List <Question> questions=getTestService().getAllQuestionsByGroupId(groupId);
         String [] choosedAnswers=request.getParameterValues("answer");
 
-        List <Answer> previousAnswers=getTestService().getAllAnswersByQuestionId(questions.get(questionNumber).getQuestionId());
+        List <Answer> previousAnswers=getTestService().getAllAnswersByQuestionId(Integer.parseInt(questions.get(questionNumber).replace("[","").replace("]","")));
 
         for(Answer a:previousAnswers){
             getTestService().deleteReferenceStudentToAnswers(currentStudentId,a.getAnswerId(), currentExamId);
