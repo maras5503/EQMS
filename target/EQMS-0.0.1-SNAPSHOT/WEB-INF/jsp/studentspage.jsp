@@ -24,13 +24,13 @@
             </form>
             <button type="button" class="btn btn-success" id="addStudentBtn" data-toggle="modal" data-target="#addStudentModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add new student</button>
         </div>
-        <div id="uploadFileDiv" hidden="hidden">
+        <div id="uploadFileDiv" hidden="hidden" align="left" style="padding-top: 20px">
         <form id="importStudentsForm" action="<c:url value="/students/importStudents"/>" method="POST" enctype="multipart/form-data">
-            <label for="file">File</label>
+            <label for="file">Import students from .csv file</label>
             <input id="file" type="file" name="file" />
             <input type="hidden" id="studentGroupReference" name="studentGroupReference"/>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            <p><button type="submit">Upload</button></p>
+            <p><button type="submit">Import</button></p>
         </form>
         </div>
 
