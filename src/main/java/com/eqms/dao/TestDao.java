@@ -47,7 +47,7 @@ public interface TestDao {
 	Boolean checkGroupName(String groupName, Integer testId);
 
 	public  void addReferenceStudentToGroupOfQuestions(Integer studentId, Integer groupId, Time time);
-	public void saveEmergencyTimeLeftForStudent(Integer studentId, Integer groupId, String time);
+	public void saveFinishExamTime(Integer studentId, Integer groupId, String time);
 	public void deleteReferenceStudentToGroupOfQuestions(Integer studentId, Integer groupId);
 	public void deleteReferenceStudentToGroupOfQuestionsByGroupId(Integer groupId);
 

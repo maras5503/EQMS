@@ -5,6 +5,10 @@ import com.eqms.model.Students;
 import com.eqms.service.StudentGroupsService;
 import com.eqms.service.StudentService;
 import com.eqms.web.JsonResponse;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
+import com.opencsv.exceptions.CsvException;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.*;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -273,6 +280,40 @@ public class StudentController {
 
 
         return response;
+    }
+
+    @RequestMapping(value="/importStudents", method=RequestMethod.POST)
+    public @ResponseBody JsonResponse importStudents(@RequestParam MultipartFile file,
+                              @RequestParam(value = "studentGroupReference") Integer studentgroupId) throws IOException {
+
+
+        Reader reader = new InputStreamReader(file.getInputStream());
+        CSVReader csvReader = new CSVReaderBuilder(reader).withSkipLines(0).build();
+
+
+        try {
+            String[] lineInArray;
+            while ((lineInArray = csvReader.readNext()) != null) {
+                Students student= new Students();
+                student.setStudentFirstname(lineInArray[2]);
+                student.setStudentLastname(lineInArray[1]);
+                student.setStudentEmail(lineInArray[3]);
+                GroupsOfStudents groupsOfStudents=getStudentGroupsService().getStudentGroupByStudentGroupId(studentgroupId);
+                student.setGroupsOfStudents(groupsOfStudents);
+                getStudentService().addStudent(student);
+            }
+        } catch (CsvException e) {
+            e.printStackTrace();
+        }
+
+        JsonResponse response = new JsonResponse();
+
+
+        response.setStatus("SUCCESS");
+        response.setResult(studentgroupId);
+
+        return response;
+
     }
 
 

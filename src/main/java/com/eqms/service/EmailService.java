@@ -17,8 +17,8 @@ import javax.mail.internet.MimeMultipart;
 
 public class EmailService {
 		
-	final String SMTP_USER = "marektomczak5503@gmail.com";
-	final String SMTP_USER_PASSWORD = "wroquczbjudmjwod";
+	final String SMTP_USER = "";
+	final String SMTP_USER_PASSWORD = "";
 	final String SMTP_HOST = "smtp.gmail.com";
 	final String SMTP_PORT = "587";
 	

@@ -100,7 +100,7 @@ public class ExamController {
             LocalTime localtime = currenttime.toLocalTime();
             localtime = localtime.plusMinutes(test.getTimeForTest());
             String output = localtime.toString();
-            getTestService().saveEmergencyTimeLeftForStudent(currentStudentId, groupId, output);
+            getTestService().saveFinishExamTime(currentStudentId, groupId, output);
         }
 
         model.put("currentTestModel",test);

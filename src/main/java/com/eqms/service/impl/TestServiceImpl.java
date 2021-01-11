@@ -134,7 +134,7 @@ public class TestServiceImpl implements TestService {
 	public void addReferenceStudentToGroupOfQuestions(Integer studentId, Integer groupId, Time time){testDao.addReferenceStudentToGroupOfQuestions(studentId,groupId,time);}
 
     @Override
-    public void saveEmergencyTimeLeftForStudent(Integer studentId, Integer groupId, String time) {testDao.saveEmergencyTimeLeftForStudent(studentId,groupId,time);}
+    public void saveFinishExamTime(Integer studentId, Integer groupId, String time) {testDao.saveFinishExamTime(studentId,groupId,time);}
 
     @Override
 	public void deleteReferenceStudentToGroupOfQuestions(Integer studentId, Integer groupId) {testDao.deleteReferenceStudentToGroupOfQuestions(studentId,groupId);}

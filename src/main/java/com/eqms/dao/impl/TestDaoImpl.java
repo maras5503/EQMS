@@ -340,8 +340,8 @@ public class TestDaoImpl implements TestDao {
 	}
 
 	@Override
-	public void saveEmergencyTimeLeftForStudent(Integer studentId, Integer groupId, String time){
-        String queryString = "UPDATE `students_groups_of_questions` SET `EMERGENCY_TIME_LEFT` = (?) WHERE `students_groups_of_questions`.`STUDENT_ID` = (?) AND `students_groups_of_questions`.`GROUP_ID` = (?)";
+	public void saveFinishExamTime(Integer studentId, Integer groupId, String time){
+        String queryString = "UPDATE `students_groups_of_questions` SET `FINISH_EXAM_TIME` = (?) WHERE `students_groups_of_questions`.`STUDENT_ID` = (?) AND `students_groups_of_questions`.`GROUP_ID` = (?)";
         SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
         query.setParameter(0, time);
         query.setParameter(1, studentId);
@@ -412,7 +412,7 @@ public class TestDaoImpl implements TestDao {
     @Override
     public Time getTimeByReference(Integer currentStudentId, Integer groupId) {
         List<Time> timelist=new ArrayList<Time>();
-        String queryString = "SELECT EMERGENCY_TIME_LEFT FROM STUDENTS_GROUPS_OF_QUESTIONS WHERE STUDENT_ID =? AND GROUP_ID = ?";
+        String queryString = "SELECT FINISH_EXAM_TIME FROM STUDENTS_GROUPS_OF_QUESTIONS WHERE STUDENT_ID =? AND GROUP_ID = ?";
         SQLQuery query = getSessionFactory().getCurrentSession().createSQLQuery(queryString);
         query.setParameter(0, currentStudentId);
         query.setParameter(1, groupId);

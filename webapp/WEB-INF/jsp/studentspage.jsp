@@ -24,6 +24,15 @@
             </form>
             <button type="button" class="btn btn-success" id="addStudentBtn" data-toggle="modal" data-target="#addStudentModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add new student</button>
         </div>
+        <div id="uploadFileDiv" hidden="hidden">
+        <form id="importStudentsForm" action="<c:url value="/students/importStudents"/>" method="POST" enctype="multipart/form-data">
+            <label for="file">File</label>
+            <input id="file" type="file" name="file" />
+            <input type="hidden" id="studentGroupReference" name="studentGroupReference"/>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <p><button type="submit">Upload</button></p>
+        </form>
+        </div>
 
         <div class="col-sm-12" id="studentsDiv" style="padding-right: 0px; padding-left: 0px;">
         </div>
@@ -148,7 +157,9 @@
         if($(this).val() != "") {
 
             $('#addStudentDiv').show();
+            $('#uploadFileDiv').show();
             $('#addStudentForm').find('#studentGroupReference').val($(this).val());
+            $('#importStudentsForm').find('#studentGroupReference').val($(this).val());
 
             $.ajax({
                 url: URLWithContextPath + "/students/getStudentsByStudentGroup",
@@ -191,6 +202,7 @@
             $('#studentsDiv').html('');
             $('#addStudentDiv').hide();
             $('#addStudentForm').find('#studentGroupReference').val("");
+            $('#importStudentsForm').find('#studentGroupReference').val("");
         }
     });
 
@@ -497,6 +509,39 @@
 
         $('#deleteStudentFormModal').submit();
     });
+
+    var submit=true;
+
+    $('#importStudentsForm').on('submit', function(event) {
+        if(submit === false) {
+            event.preventDefault(); // if you want to disable the action
+            return false;
+        } else {
+            return true;
+        }
+    });
+
+    var validatorImportStudents = $('#importStudentsForm').validate({
+
+        submitHandler: function(form) {
+            console.log("********* submitHandler *********");
+
+            $(form).ajaxSubmit({
+                url: URLWithContextPath + "/students/importStudents",
+                dataType: "json",
+                success: function(data) {
+                    console.log("********* AJAX CALL *********");
+                    console.log("Status: " + data.status);
+                    console.log("Result: " + data.result);
+                    $("#studentGroupsDropDown").val(data.result).trigger('change');
+
+                }
+            });
+        }
+    });
+
+
+
 </script>
 
 <%@ include file="partials/footer.jsp" %>
