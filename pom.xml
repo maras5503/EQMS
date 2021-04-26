@@ -26,7 +26,7 @@
 		<mail.version>1.4.7</mail.version>
 		<commons.codec.version>1.10</commons.codec.version>
 		<commons.fileupload.version>1.3.1</commons.fileupload.version>
-		<commons.io.version>2.4</commons.io.version>
+		<commons.io.version>2.7</commons.io.version>
 		<selenium.driver.version>2.48.2</selenium.driver.version>
 		<xml.apis.version>1.4.01</xml.apis.version>
 	</properties>
