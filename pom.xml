@@ -12,7 +12,7 @@
 		<!-- usage example ${spring.version} -->
 		<spring.version>4.1.7.RELEASE</spring.version>
 		<spring.security.version>4.0.1.RELEASE</spring.security.version>
-		<hibernate.version>4.3.10.Final</hibernate.version>
+		<hibernate.version>5.4.24.Final</hibernate.version>
 		<hibernate.validator.version>4.3.2.Final</hibernate.validator.version>
 		<hibernate.annotations.version>3.2.0.Final</hibernate.annotations.version>
 		<dbcp.version>1.4</dbcp.version>
