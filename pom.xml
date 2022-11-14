@@ -10,7 +10,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	
 		<!-- usage example ${spring.version} -->
-		<spring.version>4.1.7.RELEASE</spring.version>
+		<spring.version>4.2.7.RELEASE</spring.version>
 		<spring.security.version>4.0.1.RELEASE</spring.security.version>
 		<hibernate.version>4.3.10.Final</hibernate.version>
 		<hibernate.validator.version>4.3.2.Final</hibernate.validator.version>
